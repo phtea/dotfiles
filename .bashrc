@@ -9,6 +9,14 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
+# Wallpaper setter and colorscheme
+cat ~/.cache/wal/sequences
+wallset() {
+	wal -i "$1"
+	feh --bg-fill "$1"
+}
+
+# My aliases
 alias c='clear'
 alias brc='vim ~/.bashrc'
 alias sbrc='source ~/.bashrc'
