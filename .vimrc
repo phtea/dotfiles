@@ -1,0 +1,9 @@
+set relativenumber
+syntax on
+set tabstop=4
+set ignorecase
+set showcmd
+set showmode
+set hlsearch
+set clipboard=unnamedplus
+set mouse=a
