@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Directory where wallpapers are stored
+WALLPAPER_DIR=~/Wallpapers
+
+# Get list of wallpapers
+wallpapers=$(ls "$WALLPAPER_DIR")
+# Prepend "Random" as the first option
+wallpapers="Random\n$wallpapers"
+
+# Prompt user to select a wallpaper
+selected_wallpaper=$(echo -e "$wallpapers" | dmenu -p "Select a wallpaper:")
+
+# Check if a selection was made
+if [ -n "$selected_wallpaper" ]; then
+    # If "Random" is selected
+    if [ "$selected_wallpaper" == "Random" ]; then
+        # Select a random wallpaper
+        selected_wallpaper=$(ls "$WALLPAPER_DIR" | shuf -n 1)
+    fi
+    # Set the selected wallpaper
+    wal -i "$WALLPAPER_DIR/$selected_wallpaper" --backend colorz
+    feh --bg-fill "$WALLPAPER_DIR/$selected_wallpaper"
+    xdotool key alt+F5
+else
+    # Handle case where no selection was made
+    echo "No wallpaper selected."
+fi
+

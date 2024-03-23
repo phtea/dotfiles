@@ -1,7 +1,7 @@
 pulseaudio --start &
-
-xprop -root -set WM_NAME "tea" &
-wal -i ~/Wallpapers/Aenami_10.jpg &
-feh --bg-fill ~/Wallpapers/Aenami_10.jpg &
-exec dwmblocks &
+picom &
+exec sxhkd &
+wal -i ~/Wallpapers/anime_bg_31.jpg --backend colorthief &
+feh --bg-fill ~/Wallpapers/anime_bg_31.jpg &
+goblocks &!
 exec dwm
