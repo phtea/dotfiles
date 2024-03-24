@@ -7,6 +7,11 @@ These are the dotfiles used on my Arch Linux system.
 - `.bashrc`
 - `.inputrc`
 - `.xinitrc`
-- `suckless`
+- `.zprofile`
+- `.zshrc`
+suckless software:
+- `dwm`
+- `dmenu`
+- `Goblocks`
 
 Feel free to explore these dotfiles and adapt them to your own setup!
