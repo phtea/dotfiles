@@ -10,7 +10,7 @@ These are the dotfiles used on my Arch Linux system.
 - `.zprofile`
 - `.zshrc`
 
-suckless software:
+## Suckless software:
 - `dwm`
 - `dmenu`
 - `Goblocks`
