@@ -9,6 +9,7 @@ These are the dotfiles used on my Arch Linux system.
 - `.xinitrc`
 - `.zprofile`
 - `.zshrc`
+
 suckless software:
 - `dwm`
 - `dmenu`
