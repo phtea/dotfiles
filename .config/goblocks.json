@@ -3,24 +3,31 @@
 	"actions": 
 	[
 		{
+            "prefix": "Lang: ",
+            "updateSignal": "38",
+            "command": "xkb-switch | tr '[:lower:]' '[:upper:]'",
+            "suffix": "",
+            "timer": "0"
+        },
+		{
 			"prefix": "Mem: ",
-			"updateSignal": "37",
+			"updateSignal": "35",
 			"command": "#Memory",
 			"suffix": "%",
 			"format": "%.2f",		
-			"timer": "2s"
+			"timer": "5s"
 		},
 		{
 			"prefix": "CPU: ",
-			"updateSignal": "38",
+			"updateSignal": "36",
 			"command": "#Cpu",
 			"suffix": "%",
 			"format": "%.2f",		
-			"timer": "2s"
+			"timer": "5s"
 		},
 		{
 			"prefix": "",
-			"updateSignal": "35",
+			"updateSignal": "37",
 			"command": "#Date",		
 			"format": "Monday 02/01/2006 15:04:05",		
 			"timer": "1s"
