@@ -4,3 +4,5 @@ super + shift + s
 	scrot ~/Screenshots/screenshot.png -s -e 'xclip -selection clipboard -t image/png -i $f'
 super + w
 	change_wallpaper
+super + space
+	pkill -RTMIN+4 goblocks	

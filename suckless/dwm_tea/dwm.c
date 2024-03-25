@@ -41,6 +41,8 @@
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
+#include "cJSON.h"
+
 
 #include "drw.h"
 #include "util.h"
@@ -138,12 +140,6 @@ typedef struct {
 } Key;
 
 typedef struct {
-	unsigned int signum;
-	void (*func)(const Arg *);
-	const Arg arg;
-} Signal;
-
-typedef struct {
 	const char *symbol;
 	void (*arrange)(Monitor *);
 } Layout;
@@ -221,9 +217,7 @@ static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
 static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
-static int fake_signal(void);
 static void killclient(const Arg *arg);
-static void loadxrdb(void);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
@@ -258,6 +252,8 @@ static void spawn(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
+static void get_json(const Arg *arg);
+static void parse_json(void);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
@@ -286,7 +282,6 @@ static Client *wintosystrayicon(Window w);
 static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
-static void xrdb(const Arg *arg);
 static void zoom(const Arg *arg);
 
 /* variables */
@@ -614,8 +609,6 @@ clientmessage(XEvent *e)
 			updatesystrayicongeom(c, wa.width, wa.height);
 			XAddToSaveSet(dpy, c->win);
 			XSelectInput(dpy, c->win, StructureNotifyMask | PropertyChangeMask | ResizeRedirectMask);
-			XClassHint ch = {"dwmsystray", "dwmsystray"};
-			XSetClassHint(dpy, c->win, &ch);
 			XReparentWindow(dpy, c->win, systray->win, 0, 0);
 			/* use parents background color */
 			swa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
@@ -1157,47 +1150,6 @@ keypress(XEvent *e)
 			keys[i].func(&(keys[i].arg));
 }
 
-int
-fake_signal(void)
-{
-	char fsignal[256];
-	char indicator[9] = "fsignal:";
-	char str_signum[16];
-	int i, v, signum;
-	size_t len_fsignal, len_indicator = strlen(indicator);
-
-	// Get root name property
-	if (gettextprop(root, XA_WM_NAME, fsignal, sizeof(fsignal))) {
-		len_fsignal = strlen(fsignal);
-
-		// Check if this is indeed a fake signal
-		if (len_indicator > len_fsignal ? 0 : strncmp(indicator, fsignal, len_indicator) == 0) {
-			memcpy(str_signum, &fsignal[len_indicator], len_fsignal - len_indicator);
-			str_signum[len_fsignal - len_indicator] = '\0';
-
-			// Convert string value into managable integer
-			for (i = signum = 0; i < strlen(str_signum); i++) {
-				v = str_signum[i] - '0';
-				if (v >= 0 && v <= 9) {
-					signum = signum * 10 + v;
-				}
-			}
-
-			// Check if a signal was found, and if so handle it
-			if (signum)
-				for (i = 0; i < LENGTH(signals); i++)
-					if (signum == signals[i].signum && signals[i].func)
-						signals[i].func(&(signals[i].arg));
-
-			// A fake signal was sent
-			return 1;
-		}
-	}
-
-	// No fake signal was sent, so proceed with update
-	return 0;
-}
-
 void
 killclient(const Arg *arg)
 {
@@ -1213,37 +1165,6 @@ killclient(const Arg *arg)
 		XSetErrorHandler(xerror);
 		XUngrabServer(dpy);
 	}
-}
-
-void
-loadxrdb()
-{
-  Display *display;
-  char * resm;
-  XrmDatabase xrdb;
-  char *type;
-  XrmValue value;
-
-  display = XOpenDisplay(NULL);
-
-  if (display != NULL) {
-    resm = XResourceManagerString(display);
-
-    if (resm != NULL) {
-      xrdb = XrmGetStringDatabase(resm);
-
-      if (xrdb != NULL) {
-        XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
-        XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
-        XRDB_LOAD_COLOR("dwm.color6", normfgcolor);
-        XRDB_LOAD_COLOR("dwm.color8", selbordercolor);
-        XRDB_LOAD_COLOR("dwm.color14", selbgcolor);
-        XRDB_LOAD_COLOR("dwm.color0", selfgcolor);
-      }
-    }
-  }
-
-  XCloseDisplay(display);
 }
 
 void
@@ -1461,10 +1382,8 @@ propertynotify(XEvent *e)
 		updatesystray();
 	}
 
-	if ((ev->window == root) && (ev->atom == XA_WM_NAME)) {
-		if (!fake_signal())
-			updatestatus();
-    }
+	if ((ev->window == root) && (ev->atom == XA_WM_NAME))
+		updatestatus();
 	else if (ev->state == PropertyDelete)
 		return; /* ignore */
 	else if ((c = wintoclient(ev->window))) {
@@ -2588,15 +2507,99 @@ systraytomon(Monitor *m) {
 	return t;
 }
 
+char *read_file(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error opening file: %s\n", filename);
+        return NULL;
+    }
+
+    fseek(file, 0, SEEK_END);
+    long file_size = ftell(file);
+    rewind(file);
+
+    char *buffer = (char *)malloc(file_size + 1);
+    if (buffer == NULL) {
+        printf("Memory allocation error\n");
+        fclose(file);
+        return NULL;
+    }
+
+    fread(buffer, 1, file_size, file);
+    buffer[file_size] = '\0';
+
+    fclose(file);
+
+    return buffer;
+}
+
 void
-xrdb(const Arg *arg)
+parse_json() {
+    const char *filename = "/home/tea/.cache/wal/colors.json";
+    const cJSON *colors = NULL;
+    cJSON *normbg = NULL;
+    cJSON *normfg = NULL;
+    cJSON *selfg = NULL;
+    cJSON *selbg = NULL;
+    cJSON *selborder = NULL;
+    cJSON *normborder = NULL;
+	
+
+    // Read JSON content from file
+    char *json_string = read_file(filename);
+    if (json_string == NULL) {
+        return;
+    }
+	cJSON *wal_json = cJSON_Parse(json_string);
+	if (wal_json == NULL) {
+        printf("Error parsing JSON: %s\n", cJSON_GetErrorPtr());
+        free(json_string);
+        return;
+    }
+
+
+	colors = cJSON_GetObjectItemCaseSensitive(wal_json, "colors");
+
+	normbg = cJSON_GetObjectItemCaseSensitive(colors, "color0");
+	normfg = cJSON_GetObjectItemCaseSensitive(colors, "color2");
+	selfg = cJSON_GetObjectItemCaseSensitive(colors, "color0");
+	selbg = cJSON_GetObjectItemCaseSensitive(colors, "color6");
+	selborder = cJSON_GetObjectItemCaseSensitive(colors, "color5");
+	normborder = cJSON_GetObjectItemCaseSensitive(colors, "color6");
+	    
+	if (cJSON_IsString(normbg) && (normbg->valuestring != NULL)) strcpy(normbgcolor, normbg->valuestring);
+	if (cJSON_IsString(normfg) && (normfg->valuestring != NULL)) strcpy(normfgcolor, normfg->valuestring);
+	if (cJSON_IsString(selfg) && (selfg->valuestring != NULL)) strcpy(selfgcolor, selfg->valuestring);
+	if (cJSON_IsString(selbg) && (selbg->valuestring != NULL)) strcpy(selbgcolor, selbg->valuestring);
+	if (cJSON_IsString(selborder) && (selborder->valuestring != NULL)) strcpy(selbordercolor, selborder->valuestring);
+	if (cJSON_IsString(normborder) && (normborder->valuestring != NULL)) strcpy(selbordercolor, normborder->valuestring);
+
+	char *new_colors[][3] = {
+		/*               fg           bg           border   */
+		[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+		[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+	};
+
+	Clr **new_scheme = ecalloc(LENGTH(new_colors), sizeof(Clr *));
+	Clr **old_scheme = scheme;
+	for (int i = 0; i < LENGTH(new_colors); i++)
+		new_scheme[i] = drw_scm_create(drw, new_colors[i], 3);
+	scheme = new_scheme;
+
+    // Free resources
+	free(old_scheme);
+    cJSON_Delete(wal_json);
+    free(json_string);
+
+    return;
+}
+
+
+
+void
+get_json(const Arg *arg)
 {
-  loadxrdb();
-  int i;
-  for (i = 0; i < LENGTH(colors); i++)
-                scheme[i] = drw_scm_create(drw, colors[i], 3);
-  focus(NULL);
-  arrange(NULL);
+	parse_json();
 }
 
 void
@@ -2623,8 +2626,9 @@ main(int argc, char *argv[])
 	if (!(dpy = XOpenDisplay(NULL)))
 		die("dwm: cannot open display");
 	checkotherwm();
-    XrmInitialize();
-	setup();
+    setup();
+	parse_json();
+
 #ifdef __OpenBSD__
 	if (pledge("stdio rpath proc exec", NULL) == -1)
 		die("pledge");
