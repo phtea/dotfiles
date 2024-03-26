@@ -10,15 +10,14 @@ These are the dotfiles used on my Arch Linux system.
 - `.zprofile`
 - `.zshrc`
 
-## Configs List for:
+## Configs List
 - `alacritty`
 - `picom`
 - `sxhkd`
 - `Goblocks`
 
-## Suckless Software:
+## Suckless Software
 - `dwm`
 - `dmenu`
-- `Goblocks`
 
 Feel free to explore these dotfiles and adapt them to your own setup!
