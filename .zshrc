@@ -23,12 +23,14 @@ alias deact='deactivate'
 alias py='python'
 alias v='sudo vim'
 alias ins='sudo pacman -S'
+alias unins='sudo pacman -Rns'
 alias binds='v .config/sxhkd/sxhkdrc'
 alias locate='sudo find / -name'
 alias smci='sudo make clean install'
 alias smcu='sudo make clean uninstall'
 alias smi='sudo make install'
 alias smu='sudo make uninstall'
+alias dirsizes='du -a -h --max-depth=1 | sort -hr'
 
 # My exports
 export EDITOR=/usr/bin/vim
