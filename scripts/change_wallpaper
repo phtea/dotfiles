@@ -19,7 +19,7 @@ if [ -n "$selected_wallpaper" ]; then
         selected_wallpaper=$(ls "$WALLPAPER_DIR" | shuf -n 1)
     fi
     # Set the selected wallpaper
-    wal -i "$WALLPAPER_DIR/$selected_wallpaper" --backend colorz
+    wal -i "$WALLPAPER_DIR/$selected_wallpaper"
     feh --bg-fill "$WALLPAPER_DIR/$selected_wallpaper"
     xsetroot -name "fsignal:1"
 else
