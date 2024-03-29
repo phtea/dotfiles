@@ -6,3 +6,4 @@ bindkey '^[[3;5~' kill-word     # Ctrl+Delete - delete word after cursor
 bindkey '^H' backward-delete-word # Ctrl+Backspace - delete word before cursor
 bindkey '^[[H' beginning-of-line # Home - move cursor to start of line
 bindkey '^[[F' end-of-line       # End - move cursor to end of line
+bindkey "^[[3~" delete-char
