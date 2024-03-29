@@ -7,3 +7,4 @@ set showmode
 set hlsearch
 set clipboard=unnamedplus
 set mouse=a
+set incsearch
