@@ -3,27 +3,48 @@
 # Directory where wallpapers are stored
 WALLPAPER_DIR=~/Wallpapers
 
-# Get list of wallpapers
-wallpapers=$(ls "$WALLPAPER_DIR")
-# Prepend "Random" as the first option
-wallpapers="Random\n$wallpapers"
+# Function to set wallpaper
+set_wallpaper() {
+    wallpaper_path="$1"
+    wal -i "$wallpaper_path"
+    feh --bg-fill "$wallpaper_path"
+    xsetroot -name "fsignal:1"
+}
 
-# Prompt user to select a wallpaper
-selected_wallpaper=$(echo -e "$wallpapers" | dmenu -p "Select a wallpaper:")
-
-# Check if a selection was made
-if [ -n "$selected_wallpaper" ]; then
-    # If "Random" is selected
+# Check if an argument is provided
+if [ $# -gt 0 ]; then
+    # Use the provided argument as the wallpaper
+    selected_wallpaper="$1"
     if [ "$selected_wallpaper" == "Random" ]; then
         # Select a random wallpaper
         selected_wallpaper=$(ls "$WALLPAPER_DIR" | shuf -n 1)
     fi
-    # Set the selected wallpaper
-    wal -i "$WALLPAPER_DIR/$selected_wallpaper"
-    feh --bg-fill "$WALLPAPER_DIR/$selected_wallpaper"
-    xsetroot -name "fsignal:1"
+    if [ -f "$WALLPAPER_DIR/$selected_wallpaper" ]; then
+        set_wallpaper "$WALLPAPER_DIR/$selected_wallpaper"
+    else
+        echo "Error: Specified wallpaper not found."
+        exit 1
+    fi
 else
-    # Handle case where no selection was made
-    echo "No wallpaper selected."
-fi
+    # Get list of wallpapers
+    wallpapers=$(ls "$WALLPAPER_DIR")
+    # Prepend "Random" as the first option
+    wallpapers="Random\n$wallpapers"
 
+    # Prompt user to select a wallpaper
+    selected_wallpaper=$(echo -e "$wallpapers" | dmenu -p "Select a wallpaper:")
+
+    # Check if a selection was made
+    if [ -n "$selected_wallpaper" ]; then
+        # If "Random" is selected
+        if [ "$selected_wallpaper" == "Random" ]; then
+            # Select a random wallpaper
+            selected_wallpaper=$(ls "$WALLPAPER_DIR" | shuf -n 1)
+        fi
+        # Set the selected wallpaper
+        set_wallpaper "$WALLPAPER_DIR/$selected_wallpaper"
+    else
+        # Handle case where no selection was made
+        echo "No wallpaper selected."
+    fi
+fi
