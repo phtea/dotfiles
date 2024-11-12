@@ -18,7 +18,7 @@ set incsearch                      " Show matches as you type
 set hlsearch                       " Highlight search matches
 
 " Display settings
-set cursorline                     " Highlight the current line
+" set cursorline                     " Highlight the current line
 set showcmd                        " Display incomplete commands
 set wildmenu                       " Enhanced command line completion
 set scrolloff=8                    " Keep 8 lines visible above/below cursor when scrolling
@@ -29,13 +29,13 @@ set clipboard+=unnamedplus          " Use system clipboard for copy-paste
 
 " Better backspacing and undo options
 set backspace=indent,eol,start     " Make backspace more powerful
-set undofile                       " Save undo history to file
-set undodir=~/.vim/undodir         " Directory for undo history
+set undofile
+set undodir=~/.local/share/nvim/undo
 
 " Status line and color scheme
 set laststatus=2                   " Always show the status line
 set ruler                          " Show cursor position in the status line
-colorscheme slate                 " Set color scheme (you can choose another)
+colorscheme slate                  " Set color scheme (you can choose another)
 set background=dark                " Preferred background for better contrast
 
 " Split window preferences
