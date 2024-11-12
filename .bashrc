@@ -33,7 +33,7 @@ fi
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 # Editor configuration (set your preferred editor)
-export EDITOR=vim            # Set default editor to Vim
+export EDITOR=nvim            # Set default editor to Vim
 export VISUAL=$EDITOR
 
 # Enable auto-completion features if available
