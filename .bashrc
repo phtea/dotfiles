@@ -31,6 +31,8 @@ fi
 
 # Set PATH for common programming tools (modify as needed)
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH=$PATH:$HOME/go/bin
+export PATH="$PATH:$(npm config get prefix)/bin"
 
 # Editor configuration (set your preferred editor)
 export EDITOR=nvim            # Set default editor to Vim
