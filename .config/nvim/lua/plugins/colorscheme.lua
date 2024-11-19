@@ -1,2 +1,2 @@
--- ~/.config/nvim/lua/plugins/colorscheme.lua
-vim.cmd.colorscheme "catppuccin"
+-- colorscheme.lua
+vim.cmd.colorscheme("vscode")
