@@ -1,16 +1,16 @@
--- lua/plugins/treesitter.lua
-
-vim.cmd([[set foldmethod=syntax]])
-vim.cmd([[set foldlevel=99]])
+-- treesitter.lua
 
 return {
-  -- Add treesitter plugin
   "nvim-treesitter/nvim-treesitter",
-  run = ":TSUpdate",  -- Automatically install the parsers
+  run = ":TSUpdate",
   config = function()
     require'nvim-treesitter.configs'.setup {
-      -- Enable all available parsers
-      ensure_installed = {"lua", "python", "go"},  -- Or specify a list like {"lua", "python", "javascript"}
+      ensure_installed = { "lua", "python", "go" }, -- Specify the parsers you want
+      highlight = {
+        enable = true,                              -- Enable Treesitter-based highlighting
+        additional_vim_regex_highlighting = false,  -- Disable legacy syntax highlighting
+      },
     }
   end
 }
+

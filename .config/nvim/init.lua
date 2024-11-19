@@ -26,7 +26,7 @@ require('packer').startup(function(use)
     use 'numToStr/Comment.nvim' -- Comments
     use 'Mofiqul/vscode.nvim' -- Vscode theme
     use 'pteroctopus/faster.nvim' -- fast big files
-    use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-treesitter/nvim-treesitter' -- Treesitter (syntax highlighting)
     -- Add other plugins...
     if packer_bootstrap then
         require('packer').sync()
