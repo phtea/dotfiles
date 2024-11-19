@@ -1,3 +1,5 @@
+-- settings.lua
+
 -- General Neovim settings
 vim.o.number = true                   -- Enable line numbers
 vim.o.relativenumber = true           -- Relative line numbers
@@ -7,7 +9,10 @@ vim.o.expandtab = true                -- Convert tabs to spaces
 vim.o.smartindent = true              -- Auto-indent new lines
 vim.o.wrap = false                    -- Disable line wrapping
 vim.o.mouse = "a"                     -- Enable mouse in all modes
-vim.o.clipboard = "unnamedplus"       -- Use system clipboard
+vim.o.clipboard = ""                  -- Use default clipboard (disabled by default)
+vim.g.mapleader = " "                 -- Leader key is space
+
+vim.opt.termguicolors = true -- Set default filetypes for Tree-sitter highlighting
 
 -- Search behavior
 vim.o.ignorecase = true               -- Ignore case

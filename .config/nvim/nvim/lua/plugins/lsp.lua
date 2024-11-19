@@ -50,6 +50,15 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 end
 
+-- Automatically close Quickfix List after jumping to an item
+vim.cmd([[
+  augroup AutoCloseQuickfix
+    autocmd!
+    autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+  augroup END
+]])
+
+
 -- Configure LSP servers
 local servers = { "pyright", "gopls" } -- Add other servers as needed
 
