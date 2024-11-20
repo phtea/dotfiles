@@ -1,60 +1,57 @@
--- init.lua
-
--- Ensure packer is installed
 local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd([[packadd packer.nvim]])
-        return true
-    end
-    return false
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
 
 local packer_bootstrap = ensure_packer()
 
--- Add plugins here
-require('packer').startup(function(use)
+local packer = require('packer')
 
+-- Add plugins here
+packer.startup(function(use)
     -- Plugin manager
     use 'wbthomason/packer.nvim'
 
     -- LSP
-    use 'neovim/nvim-lspconfig' -- Lsp
-    use 'hrsh7th/cmp-nvim-lsp' -- Lsp dependency
-    use 'hrsh7th/nvim-cmp'  -- Lsp dependency 2
-    use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } -- LuaSnip (lsp -> snippets)
+    use 'neovim/nvim-lspconfig' -- LSP
+    use 'hrsh7th/cmp-nvim-lsp'  -- LSP dependency
+    use 'hrsh7th/nvim-cmp'      -- LSP dependency 2
+    use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } -- LuaSnip
 
     -- Comments
     use {
         'numToStr/Comment.nvim',
-        config = require("plugins.comment")
+        config = function() require("plugins.comment") end
     }
+
     -- VSCode theme
     use 'Mofiqul/vscode.nvim'
 
-    use 'pteroctopus/faster.nvim' -- fast big files
+    -- Performance improvement for big files
+    use 'pteroctopus/faster.nvim'
 
     -- Treesitter for syntax support
     use {
         'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        config = function()
-            require("plugins.treesitter")
-        end
+        config = function() require("plugins.treesitter") end
     }
 
+    -- Telescope
     use {
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('plugins.telescope')
-        end
+        config = function() require('plugins.telescope') end
     }
 
+    -- Sync Packer if we bootstrapped it
     if packer_bootstrap then
-        require('packer').sync()
+        packer.sync()
     end
 end)
 
@@ -64,5 +61,5 @@ require("settings")
 -- Load keymaps
 require("keymaps")
 
--- Load plugins
+-- Load plugin-specific settings
 require("plugins.lsp")
