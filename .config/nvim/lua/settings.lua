@@ -11,6 +11,7 @@ vim.o.wrap = false                    -- Disable line wrapping
 vim.o.mouse = "a"                     -- Enable mouse in all modes
 vim.o.clipboard = ""                  -- Use default clipboard (disabled by default)
 vim.g.mapleader = " "                 -- Leader key is space
+vim.cmd.colorscheme("vscode")
 
 vim.opt.termguicolors = true -- Set default filetypes for Tree-sitter highlighting
 

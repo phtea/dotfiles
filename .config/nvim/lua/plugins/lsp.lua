@@ -60,7 +60,7 @@ vim.cmd([[
 
 
 -- Configure LSP servers
-local servers = { "pyright", "gopls" } -- Add other servers as needed
+local servers = { "pyright", "gopls", } -- Add other servers as needed
 
 for _, server in ipairs(servers) do
     lspconfig[server].setup({

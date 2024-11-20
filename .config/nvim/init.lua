@@ -14,20 +14,45 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- Initialize packer if needed
+-- Add plugins here
 require('packer').startup(function(use)
-    -- Add plugins here
-    use 'wbthomason/packer.nvim'  -- Plugin manager
+
+    -- Plugin manager
+    use 'wbthomason/packer.nvim'
+
+    -- LSP
     use 'neovim/nvim-lspconfig' -- Lsp
-    use 'hrsh7th/cmp-nvim-lsp' -- Completion
-    use 'hrsh7th/nvim-cmp'  -- Completion 2?
-    use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } -- LuaSnip (dependency for completion)
-    use { "junegunn/fzf", run = "./install --bin" } -- Fuzzyfinder (file picker)
-    use 'numToStr/Comment.nvim' -- Comments
-    use 'Mofiqul/vscode.nvim' -- Vscode theme
+    use 'hrsh7th/cmp-nvim-lsp' -- Lsp dependency
+    use 'hrsh7th/nvim-cmp'  -- Lsp dependency 2
+    use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } -- LuaSnip (lsp -> snippets)
+
+    -- Comments
+    use {
+        'numToStr/Comment.nvim',
+        config = require("plugins.comment")
+    }
+    -- VSCode theme
+    use 'Mofiqul/vscode.nvim'
+
     use 'pteroctopus/faster.nvim' -- fast big files
-    use 'nvim-treesitter/nvim-treesitter' -- Treesitter (syntax highlighting)
-    -- Add other plugins...
+
+    -- Treesitter for syntax support
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        config = function()
+            require("plugins.treesitter")
+        end
+    }
+
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('plugins.telescope')
+        end
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end
@@ -40,7 +65,4 @@ require("settings")
 require("keymaps")
 
 -- Load plugins
-require("plugins.colorscheme")
 require("plugins.lsp")
-require("plugins.comment")
-require("plugins.treesitter")
