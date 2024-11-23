@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         local opts = { noremap = true, silent = true }
         vim.api.nvim_buf_set_keymap(0, "n", "<leader>d", ':w<CR>:!go run main.go<CR>', opts)
-        vim.api.nvim_buf_set_keymap(0, "n", "<leader>ee", 'oif err != nil {<CR>}<Esc>O<Esc>', opts)
+        vim.api.nvim_buf_set_keymap(0, "n", "<leader>er", 'oif err != nil {<CR>}<Esc>O<Esc>', opts)
         vim.api.nvim_buf_set_keymap(0, "n", "<leader>pr", 'yiwofmt.Printf("<Esc>pa: %v\\n", <Esc>pa)<Esc>', opts)
     end,
 })
