@@ -1,5 +1,12 @@
 -- lsp.lua
 
+-- Unmap keys for LSP actions in Lua
+vim.api.nvim_del_keymap('n', 'gri')
+vim.api.nvim_del_keymap('n', 'grr')
+vim.api.nvim_del_keymap('n', 'gra')
+vim.api.nvim_del_keymap('n', 'grn')
+
+
 -- Ensure required modules are loaded
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -31,7 +38,6 @@ cmp.setup({
 -- Define capabilities for LSP (used for autocompletion)
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
--- Reusable `on_attach` function for keybindings
 local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true }
 
@@ -46,16 +52,34 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
-    -- Show diagnostics in floating window
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    -- Autoformat on save
+    if client.server_capabilities.documentFormattingProvider then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+            buffer = bufnr,
+            callback = function()
+                
+                -- -- Organize imports (if supported by the LSP)
+                -- if client.server_capabilities.codeActionProvider then
+                --     vim.lsp.buf.code_action({
+                --         context = { only = { "source.organizeImports" } },
+                --         apply = true,
+                --     })
+                -- end
+
+                -- Format the document
+                vim.lsp.buf.format({ async = false })
+            end,
+        })
+    end
 end
 
 -- Automatically close Quickfix List after jumping to an item
 vim.cmd([[
-  augroup AutoCloseQuickfix
-    autocmd!
-    autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
-  augroup END
+augroup AutoCloseQuickfix
+autocmd!
+autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+augroup END
 ]])
 
 
@@ -68,7 +92,6 @@ for _, server in ipairs(servers) do
         on_attach = on_attach,
     })
 end
-
 -- Additional diagnostic settings (optional)
 vim.diagnostic.config({
     virtual_text = true,

@@ -1,5 +1,9 @@
 # History settings
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+export HISTCONTROL=ignoredups:erasedups  # Ignore duplicates and remove duplicates from history
+export HISTFILESIZE=10000               # Size of the history file
+export HISTSIZE=1000                    # Number of commands to store in memory
+shopt -s histappend                     # Append to history instead of overwriting
 
 # Completion settings
 bind "set completion-ignore-case on"
@@ -15,7 +19,7 @@ export PATH="$HOME/bin:/usr/local/bin:$HOME/go/bin:$(npm config get prefix)/bin:
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
-alias v=$EDITOR vi=$EDITOR
+alias v=$EDITOR vi=$EDITOR vim=$EDITOR
 
 # Git branch prompt
 parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }
