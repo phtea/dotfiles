@@ -1,14 +1,6 @@
--- Leader key is space
-vim.g.mapleader = " "
+vim.g.mapleader = " "       -- Leader key is space
 
--- Bootstrap Packer
-require('packer-bootstrap')
-
--- Load plugins configuration
-require('packer-plugins')
-
--- Load core settings
-require("settings")
-
--- Load keymaps
-require("keymaps")
+require("settings")         -- Load core settings
+require("keymaps")          -- Load keymaps
+require('packer-bootstrap') -- Bootstrap Packer
+require('packer-plugins')   -- Load plugins configuration

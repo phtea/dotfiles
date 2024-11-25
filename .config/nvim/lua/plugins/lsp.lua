@@ -1,11 +1,10 @@
--- plugins/lsp.lua
 local M = {}
 
 function M.setup(use)
     -- Add your LSP-related plugins here using `use`
-    use 'neovim/nvim-lspconfig'  -- LSP configurations
-    use 'hrsh7th/cmp-nvim-lsp'   -- LSP completion source for nvim-cmp
-    use 'hrsh7th/nvim-cmp'       -- Completion plugin
+    use 'neovim/nvim-lspconfig'                               -- LSP configurations
+    use 'hrsh7th/cmp-nvim-lsp'                                -- LSP completion source for nvim-cmp
+    use 'hrsh7th/nvim-cmp'                                    -- Completion plugin
     use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } -- Snippet plugin
 
     -- Ensure required modules are loaded
@@ -18,7 +17,7 @@ function M.setup(use)
     cmp.setup({
         snippet = {
             expand = function(args)
-                luasnip.lsp_expand(args.body)  -- Use LuaSnip for snippets
+                luasnip.lsp_expand(args.body) -- Use LuaSnip for snippets
             end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -32,7 +31,7 @@ function M.setup(use)
         }),
         sources = {
             { name = 'nvim_lsp' },
-            { name = 'luasnip' },  -- Optional, if you're using LuaSnip
+            { name = 'luasnip' }, -- Optional, if you're using LuaSnip
         },
     })
 
@@ -73,7 +72,7 @@ function M.setup(use)
     end
 
     -- Configure LSP servers
-    local servers = { "pyright", "gopls" } -- Add other servers as needed
+    local servers = { "pyright", "gopls", "lua_ls" } -- Add other servers as needed
     for _, server in ipairs(servers) do
         lspconfig[server].setup({
             capabilities = capabilities,
@@ -92,4 +91,3 @@ function M.setup(use)
 end
 
 return M
-
