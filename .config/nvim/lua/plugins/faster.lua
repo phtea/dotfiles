@@ -1,3 +1,3 @@
-return function(use)	
+return function(use)
     use 'pteroctopus/faster.nvim'
 end
