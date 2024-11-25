@@ -1,25 +1,19 @@
--- keymaps.lua
-
--- Leader key is space
-vim.g.mapleader = " "
-
 -- Options
 local opts = { noremap = true, silent = true }
 
+local map = function(keys, func, desc, mode)
+    mode = mode or 'n'
+    local opts = { noremap = true, silent = true, desc = desc }
+    vim.api.nvim_set_keymap(mode, keys, func, opts)
+end
+
 -- Clear search highlights
-vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
+map("<Esc>", ":nohlsearch<CR>", "Clear search highlights")
+map("<leader>ex", ":Ex<CR>", "Open [Ex]plorer")
+map("<leader>ac", ':%y+<CR>', "Copy all to system register")
 
--- Better window navigation
-vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", opts)
-vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", opts)
-vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", opts)
-vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", opts)
-
--- Map <leader>e to open explorer
-vim.api.nvim_set_keymap("n", "<leader>ex", ":Ex<CR>", opts)
-
--- Map <leader>ac to copy all to system register
-vim.api.nvim_set_keymap("n", "<leader>ac", ':%y+<CR>', opts)
+-- Map <C-c> to copy the selected text to the clipboard in visual mode
+vim.api.nvim_set_keymap("v", "<C-c>", '"+y', opts)
 
 -- Create an autocommand group for Go-specific settings
 vim.api.nvim_create_augroup("GoFileMappings", { clear = true })
@@ -36,22 +30,3 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Generic function for mark navigation and centering
-local function mark_and_center(mark_type)
-  return function()
-    return mark_type .. vim.fn.getcharstr() .. "zz"
-  end
-end
-
--- Map for exact position of marks (`` ` ``)
-vim.keymap.set('n', "`", mark_and_center("`"), { expr = true, desc = "Go to mark and center" })
-
--- Map for line of marks (`'`)
-vim.keymap.set('n', "'", mark_and_center("'"), { expr = true, desc = "Go to line of mark and center" })
-
--- Center the screen when <C-d> and <C-u>
-vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", opts)
-vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", opts)
-
--- Map <C-c> to copy the selected text to the clipboard in visual mode
-vim.api.nvim_set_keymap("v", "<C-c>", '"+y', opts)

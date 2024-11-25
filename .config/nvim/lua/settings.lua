@@ -1,5 +1,3 @@
--- settings.lua
-
 -- General Neovim settings
 vim.o.number = true                   -- Enable line numbers
 vim.o.relativenumber = true           -- Relative line numbers
@@ -10,7 +8,8 @@ vim.o.smartindent = true              -- Auto-indent new lines
 vim.o.wrap = false                    -- Disable line wrapping
 vim.o.mouse = "a"                     -- Enable mouse in all modes
 vim.o.clipboard = ""                  -- Use default clipboard (disabled by default)
-vim.opt.swapfile = false
+vim.opt.swapfile = false              -- Don't use swapfiles
+vim.o.so = 30                         -- Automatically center (see N lines below and above)
 
 -- Search behavior
 vim.o.ignorecase = true               -- Ignore case
