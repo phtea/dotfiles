@@ -39,18 +39,23 @@ cmp.setup({
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 local on_attach = function(client, bufnr)
-    local opts = { noremap = true, silent = true }
 
+    local map = function(keys, func, desc, mode)
+        mode = mode or 'n'
+        local opts = { noremap = true, silent = true, desc = 'LSP: ' .. desc }
+        vim.api.nvim_buf_set_keymap(bufnr, mode, keys, func, opts)
+    end
+    
     -- Key mappings
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    map("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Show Documentation")
+    map("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "[G]o [D]efinition")
+    -- map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+    map("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "[G]o [R]eferences")
+    map("<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", "[R]e[n]ame")
 
     -- Diagnostics navigation
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+    map("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Go To Previous [D]efinition")
+    map("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Go To Next [D]efinition")
 
     -- Autoformat on save
     if client.server_capabilities.documentFormattingProvider then

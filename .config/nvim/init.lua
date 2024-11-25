@@ -1,4 +1,4 @@
---sdsds
+-- init.lua
 
 local ensure_packer = function()
     local fn = vim.fn
@@ -33,7 +33,7 @@ packer.startup(function(use)
     -- Comments
     use {
         'numToStr/Comment.nvim',
-        config = function() require("plugins.comment") end
+        -- config = function() require("plugins.comment") end
     }
 
     -- VSCode theme
@@ -55,6 +55,7 @@ packer.startup(function(use)
 
     -- Telescope (file picker)
     use {
+        event = 'VimEnter',
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
         config = function() require('plugins.telescope') end

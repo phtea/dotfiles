@@ -15,10 +15,6 @@ vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", opts)
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", opts)
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", opts)
 
--- Automatically move to the first non-blank character
-vim.keymap.set('n', 'j', 'j^', { noremap = true, silent = true, desc = "Move down to first non-blank" })
-vim.keymap.set('n', 'k', 'k^', { noremap = true, silent = true, desc = "Move up to first non-blank" })
-
 -- Map <leader>e to open explorer
 vim.api.nvim_set_keymap("n", "<leader>ex", ":Ex<CR>", opts)
 

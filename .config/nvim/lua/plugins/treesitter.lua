@@ -1,4 +1,4 @@
--- plugins/treesitter.lua
+-- treesitter.lua
 
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
