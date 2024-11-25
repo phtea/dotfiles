@@ -71,13 +71,29 @@ function M.setup(use)
         end
     end
 
-    -- Configure LSP servers
-    local servers = { "pyright", "gopls", "lua_ls" } -- Add other servers as needed
-    for _, server in ipairs(servers) do
-        lspconfig[server].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+    -- Helper function to check if a command exists
+    local function executable(cmd)
+        return vim.fn.executable(cmd) == 1
+    end
+
+    -- Configure LSP servers with a check
+    local servers = {
+        lua_ls = "lua-language-server",
+        pyright = "pyright-langserver",
+        gopls = "gopls",
+    }
+
+    for server, cmd in pairs(servers) do
+        if executable(cmd) then
+            lspconfig[server].setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+        else
+            vim.schedule(function()
+                vim.notify("LSP server '" .. server .. "' is not installed. Skipping.", vim.log.levels.WARN)
+            end)
+        end
     end
 
     -- Additional diagnostic settings (optional)

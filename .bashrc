@@ -15,7 +15,7 @@ alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto' reload='source
 [ -x "$(command -v dircolors)" ] && eval "$(dircolors -b)" && alias ls='ls --color=auto'
 
 # PATH setup
-export PATH="$HOME/bin:/usr/local/bin:$HOME/go/bin:$(npm config get prefix)/bin:$HOME/.local/bin:$HOME/downloads/lua-language-server/bin"
+export PATH="$HOME/bin:/usr/local/bin:$HOME/go/bin:$(npm config get prefix)/bin:$HOME/.local/bin" #:$HOME/downloads/lua-language-server/bin"
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
