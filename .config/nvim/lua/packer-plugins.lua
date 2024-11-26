@@ -1,8 +1,23 @@
-local packer_bootstrap = require('packer-bootstrap') -- Require the bootstrap module
+-- bootstrap
+
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
+end
+
+local packer_bootstrap = ensure_packer() -- Check if Packer is installed
+
+-- bootstrap
+
 local packer = require('packer')
 
-local plugins = function(use)
-    -- Plugin manager
+return packer.startup(function(use) -- Plugin manager
     use 'wbthomason/packer.nvim'
 
     -- Plugins
@@ -18,6 +33,4 @@ local plugins = function(use)
     if packer_bootstrap then
         packer.sync()
     end
-end
-
-packer.startup(plugins)
+end)
