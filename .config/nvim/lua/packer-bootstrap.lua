@@ -9,10 +9,6 @@ local ensure_packer = function()
     return false
 end
 
-local packer_bootstrap = ensure_packer()
--- Sync Packer if first launch
-if packer_bootstrap then
-    packer.sync()
-end
+local packer_bootstrap = ensure_packer() -- Check if Packer is installed
 
-return ensure_packer
+return packer_bootstrap                  -- Return whether Packer was just installed
