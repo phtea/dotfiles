@@ -1,5 +1,5 @@
-local packer = require('packer')
 local packer_bootstrap = require('packer-bootstrap') -- Require the bootstrap module
+local packer = require('packer')
 
 local plugins = function(use)
     -- Plugin manager
@@ -16,7 +16,7 @@ local plugins = function(use)
 
     -- Automatically sync Packer if bootstrapped
     if packer_bootstrap then
-        require('packer').sync()
+        packer.sync()
     end
 end
 

@@ -109,6 +109,12 @@ function M.setup(use)
         update_in_insert = false,
         severity_sort = true,
     })
+
+    -- Unmap keys for LSP actions in Lua
+    vim.api.nvim_del_keymap('n', 'gri')
+    vim.api.nvim_del_keymap('n', 'grr')
+    vim.api.nvim_del_keymap('n', 'gra')
+    vim.api.nvim_del_keymap('n', 'grn')
 end
 
 return M
