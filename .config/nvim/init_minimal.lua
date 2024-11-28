@@ -1,66 +1,77 @@
--- phtea's minimal init.lua
+-- ===========================
+-- Plugin Setup with Packer
+-- ===========================
+
+-- Bootstrap packer if not installed
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if not vim.fn.isdirectory(install_path) then
+  vim.fn.system({
+    'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
+  vim.cmd('packadd packer.nvim')
+end
+
+-- Initialize packer
+require('packer').startup(function(use)
+  -- Plugin manager itself
+  use 'wbthomason/packer.nvim'
+
+  -- LSP configurations and dependencies
+  use 'neovim/nvim-lspconfig'                               	-- LSP Configurations
+  use 'hrsh7th/cmp-nvim-lsp'                                	-- LSP completion source for nvim-cmp
+  use 'hrsh7th/nvim-cmp'                                    	-- Completion plugin
+  use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } 	-- Snippet plugin
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 	-- Treesitter
+  use 'EdenEast/nightfox.nvim'
+end)
 
 -- ===========================
 -- General Settings & Options
 -- ===========================
 
--- Set line numbers and relative numbers
-vim.opt.relativenumber = true
-vim.opt.number = true
-
--- Enable undo history
+vim.g.mapleader = " "
 vim.opt.undofile = true
-
--- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
--- Scroll settings
-vim.opt.scrolloff = 10  -- Keep minimal number of screen lines above and below the cursor.
-vim.opt.signcolumn = 'yes'  -- Always show the sign column
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.opt.scrolloff = 10
+vim.opt.signcolumn = 'yes'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.hlsearch = false
+vim.opt.tabstop = 4
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.cmd("colorscheme nightfox")
+vim.cmd("highlight CursorLineNr guifg=#ff6347") -- Change the color code as you like
+vim.opt.cursorline = true
+-- Force netrw to open in a vertical split (left side)
+vim.g.netrw_browse_split = 4  -- Open netrw in a vertical split (on the left)
+vim.g.netrw_altv = 1          -- Force vertical split when opening netrw
+vim.g.netrw_winsize = 25      -- Optional: set the width of the netrw window
 
 -- ===========================
--- Leader Key & Key Mappings
+-- Key Mappings
 -- ===========================
 
--- Set leader key
-vim.g.mapleader = " "
-
--- Key mappings for window navigation
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- Clear search highlights when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = "Clear search highlights" })
+vim.keymap.set('n', '<leader>e', ':Lexplore<CR>', { desc = 'Open Netrw Explorer on the left' })
+vim.keymap.set('n', '<A-j>', ':cnext<CR>', { desc = 'Scroll to next quickfix item' })
+vim.keymap.set('n', '<A-k>', ':cprev<CR>', { desc = 'Scroll to previous quickfix item' })
+vim.keymap.set('n', '<A-q>', ':only<CR>', { desc = 'Close all other windows besides this one' })
 
 -- ===========================
 -- LSP Configuration
 -- ===========================
 
--- General LSP setup function
-local function setup_lsp(server_name, server_cmd, filetypes)
-    -- Autostart LSP for specified filetypes
-    vim.api.nvim_create_autocmd("FileType", {
-        pattern = filetypes,
-        callback = function()
-            vim.lsp.start({
-                name = server_name,
-                cmd = server_cmd,
-                root_dir = vim.fn.getcwd(),  -- Use the current directory as root
-            })
-        end,
-    })
-end
-
--- Example LSP setups
-setup_lsp("gopls", { "gopls" }, { "go" })  -- Go LSP
-setup_lsp("pyls", { "pyls" }, { "python" }) -- Python LSP
+local lspconfig = require('lspconfig')
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
+local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 -- Common LSP keybindings
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to Definition" })
@@ -68,74 +79,86 @@ vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = "Find References" })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Hover Documentation" })
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = "Rename Symbol" })
 
--- Trigger LSP completion on Ctrl-Space (same as Ctrl-X Ctrl-O)
-vim.keymap.set('i', '<C-Space>', '<C-x><C-o>', { desc = "Trigger LSP Completion" })
+-- Define capabilities for LSP (used for autocompletion)
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
--- ===========================
--- Completion Navigation & Selection
--- ===========================
-
--- Key mappings for navigating and selecting completions
-vim.keymap.set('i', '<Tab>', function()
-  if vim.fn.pumvisible() == 1 then
-    return '<C-n>'  -- Scroll down in the completion menu
-  else
-    return '<Tab>'  -- Default behavior if no menu is visible
-  end
-end, { expr = true, desc = "Scroll down in completion menu" })
-
-vim.keymap.set('i', '<S-Tab>', function()
-  if vim.fn.pumvisible() == 1 then
-    return '<C-p>'  -- Scroll up in the completion menu
-  else
-    return '<S-Tab>'  -- Default behavior if no menu is visible
-  end
-end, { expr = true, desc = "Scroll up in completion menu" })
-
--- Select completion with Enter (if menu is visible)
-vim.keymap.set('i', '<CR>', function()
-  if vim.fn.pumvisible() == 1 then
-    return '<C-y>'  -- Confirm completion selection
-  else
-    return '<CR>'  -- Default behavior if no menu is visible
-  end
-end, { expr = true, desc = "Confirm completion selection" })
-
--- ===========================
--- Diagnostics & UI Configuration
--- ===========================
-
--- Diagnostics configuration (showing virtual text, signs, and underlining)
-vim.diagnostic.config({
-    virtual_text = true,
-    signs = true,
-    underline = true,
+-- LSP setups
+lspconfig.gopls.setup({capabilities = capabilities,})
+lspconfig.pyright.setup({capabilities = capabilities,})
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'},
+      },
+    },
+  },
+  capabilities = capabilities,
 })
 
--- Set the colorscheme to 'slate'
-vim.cmd("colorscheme slate")
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+})
+
+-- ===========================
+-- Tree-sitter Configuration
+-- ===========================
+
+require'nvim-treesitter.configs'.setup {
+  -- Enable treesitter-based highlighting
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  -- Add additional parsers as needed
+  ensure_installed = { "go", "python", "lua" },
+}
 
 -- ===========================
 -- Clipboard Setup (for WSL)
 -- ===========================
 
 vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-        ['+'] = '/mnt/c/Windows/System32/clip.exe',
-        ['*'] = '/mnt/c/Windows/System32/clip.exe',
-    },
-    paste = {
-        ['+'] =
-        '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-        ['*'] =
-        '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
+  name = 'WslClipboard',
+  copy = {
+    ['+'] = '/mnt/c/Windows/System32/clip.exe',
+    ['*'] = '/mnt/c/Windows/System32/clip.exe',
+  },
+  paste = {
+    ['+'] =
+    '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    ['*'] =
+    '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  },
+  cache_enabled = 0,
 }
 
 -- ===========================
--- Autocommands
+-- Autocompletion Setup
+-- ===========================
+
+-- nvim-cmp setup
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)  -- For snippet support
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+		  ['<C-Space>'] = cmp.mapping.complete(),
+		  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+		  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' }, -- LSP source
+    { name = 'luasnip' }, -- Snippet source
+  },
+})
+
+-- ===========================
+-- Autocommands for completion & UI
 -- ===========================
 
 -- Highlight text when yanking (copying)

@@ -9,7 +9,7 @@ vim.o.wrap = false          -- Disable line wrapping
 vim.o.mouse = "a"           -- Enable mouse in all modes
 vim.o.clipboard = ""        -- Use default clipboard (disabled by default)
 vim.opt.swapfile = false    -- Don't use swapfiles
-vim.o.so = 30               -- Automatically center (see N lines below and above)
+vim.o.so = 10               -- Automatically center (see N lines below and above)
 vim.opt.cursorline = true   -- Show which line your cursor is on
 vim.opt.signcolumn = 'yes'  -- Keep signcolumn on by default
 
