@@ -1,29 +1,73 @@
--- ===========================
--- Plugin Setup with Packer
--- ===========================
+-- Packer install
 
--- Bootstrap packer if not installed
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if not vim.fn.isdirectory(install_path) then
-  vim.fn.system({
-    'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-    install_path
+local packer_bootstrap = false
+print("Install Path: " .. install_path)
+
+-- If Packer is not installed, install it
+if vim.fn.isdirectory(install_path) == 0 then  -- 0 means directory doesn't exist
+  print("Packer not found, installing...")
+  local result = vim.fn.system({
+    'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path
   })
-  vim.cmd('packadd packer.nvim')
+
+  if vim.v.shell_error == 0 then
+    print("Packer successfully installed!")
+    vim.cmd('packadd packer.nvim')
+    packer_bootstrap = true
+  else
+    print("Error installing Packer: " .. result)
+  end
 end
 
 -- Initialize packer
 require('packer').startup(function(use)
-  -- Plugin manager itself
-  use 'wbthomason/packer.nvim'
+		-- Plugin manager itself
+		use 'wbthomason/packer.nvim'
 
-  -- LSP configurations and dependencies
-  use 'neovim/nvim-lspconfig'                               	-- LSP Configurations
-  use 'hrsh7th/cmp-nvim-lsp'                                	-- LSP completion source for nvim-cmp
-  use 'hrsh7th/nvim-cmp'                                    	-- Completion plugin
-  use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" } 	-- Snippet plugin
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 	-- Treesitter
-  use 'EdenEast/nightfox.nvim'
+		-- LSP configurations and dependencies
+		use {
+				'neovim/nvim-lspconfig',
+				requires = { 'hrsh7th/cmp-nvim-lsp' },
+				config = function ()
+						local cmp_nvim_lsp = require('cmp_nvim_lsp')
+						local capabilities = cmp_nvim_lsp.default_capabilities()
+						-- LSP setups
+						local lspconfig = require('lspconfig')
+						lspconfig.gopls.setup({capabilities = capabilities,})
+						lspconfig.pyright.setup({capabilities = capabilities,})
+						lspconfig.lua_ls.setup({
+								settings = {
+										Lua = {
+												diagnostics = {
+														globals = {'vim'},
+												},
+										},
+								},
+								capabilities = capabilities,
+						})
+				end,
+		}
+		use 'hrsh7th/nvim-cmp'                                        -- Completion plugin
+		use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" }     -- Snippet plugin
+		use {
+				'nvim-treesitter/nvim-treesitter',
+				run = function()
+					local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+					ts_update()
+				end,
+		}
+		use {
+				'EdenEast/nightfox.nvim',
+				config = function()
+						vim.cmd('colorscheme nightfox')
+				end
+		}
+
+		-- Sync Packer if it's just been installed
+		if packer_bootstrap then
+				require('packer').sync()
+		end
 end)
 
 -- ===========================
@@ -42,7 +86,6 @@ vim.opt.hlsearch = false
 vim.opt.tabstop = 4
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.cmd("colorscheme nightfox")
 vim.cmd("highlight CursorLineNr guifg=#ff6347") -- Change the color code as you like
 vim.opt.cursorline = true
 -- Force netrw to open in a vertical split (left side)
@@ -68,8 +111,6 @@ vim.keymap.set('n', '<A-q>', ':only<CR>', { desc = 'Close all other windows besi
 -- LSP Configuration
 -- ===========================
 
-local lspconfig = require('lspconfig')
-local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -80,40 +121,25 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Hover Documentation" })
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = "Rename Symbol" })
 
 -- Define capabilities for LSP (used for autocompletion)
-local capabilities = cmp_nvim_lsp.default_capabilities()
-
--- LSP setups
-lspconfig.gopls.setup({capabilities = capabilities,})
-lspconfig.pyright.setup({capabilities = capabilities,})
-lspconfig.lua_ls.setup({
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = {'vim'},
-      },
-    },
-  },
-  capabilities = capabilities,
-})
 
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  underline = true,
+		virtual_text = true,
+		signs = true,
+		underline = true,
 })
 
 -- ===========================
--- Tree-sitter Configuration
+-- Treesitter Configuration
 -- ===========================
 
 require'nvim-treesitter.configs'.setup {
-  -- Enable treesitter-based highlighting
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  -- Add additional parsers as needed
-  ensure_installed = { "go", "python", "lua" },
+		-- Enable treesitter-based highlighting
+		highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+		},
+		-- Add additional parsers as needed
+		ensure_installed = { "go", "python", "lua" },
 }
 
 -- ===========================
@@ -121,18 +147,18 @@ require'nvim-treesitter.configs'.setup {
 -- ===========================
 
 vim.g.clipboard = {
-  name = 'WslClipboard',
-  copy = {
-    ['+'] = '/mnt/c/Windows/System32/clip.exe',
-    ['*'] = '/mnt/c/Windows/System32/clip.exe',
-  },
-  paste = {
-    ['+'] =
-    '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    ['*'] =
-    '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-  },
-  cache_enabled = 0,
+		name = 'WslClipboard',
+		copy = {
+				['+'] = '/mnt/c/Windows/System32/clip.exe',
+				['*'] = '/mnt/c/Windows/System32/clip.exe',
+		},
+		paste = {
+				['+'] =
+				'/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+				['*'] =
+				'/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		},
+		cache_enabled = 0,
 }
 
 -- ===========================
@@ -141,20 +167,20 @@ vim.g.clipboard = {
 
 -- nvim-cmp setup
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)  -- For snippet support
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-		  ['<C-Space>'] = cmp.mapping.complete(),
-		  ['<CR>'] = cmp.mapping.confirm({ select = true }),
-		  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = {
-    { name = 'nvim_lsp' }, -- LSP source
-    { name = 'luasnip' }, -- Snippet source
-  },
+		snippet = {
+				expand = function(args)
+						luasnip.lsp_expand(args.body)  -- For snippet support
+				end,
+		},
+		mapping = cmp.mapping.preset.insert({
+				['<C-Space>'] = cmp.mapping.complete(),
+				['<CR>'] = cmp.mapping.confirm({ select = true }),
+				['<Tab>'] = cmp.mapping.confirm({ select = true }),
+		}),
+		sources = {
+				{ name = 'nvim_lsp' }, -- LSP source
+				{ name = 'luasnip' }, -- Snippet source
+		},
 })
 
 -- ===========================
@@ -163,9 +189,9 @@ cmp.setup({
 
 -- Highlight text when yanking (copying)
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+		desc = 'Highlight when yanking (copying) text',
+		group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+		callback = function()
+				vim.highlight.on_yank()
+		end,
 })
