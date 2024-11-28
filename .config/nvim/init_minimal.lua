@@ -24,11 +24,12 @@ end
 require('packer').startup(function(use)
 		-- Plugin manager itself
 		use 'wbthomason/packer.nvim'
+		use 'hrsh7th/cmp-nvim-lsp'
 
 		-- LSP configurations and dependencies
 		use {
 				'neovim/nvim-lspconfig',
-				requires = { 'hrsh7th/cmp-nvim-lsp' },
+				after =	'cmp-nvim-lsp',
 				config = function ()
 						local cmp_nvim_lsp = require('cmp_nvim_lsp')
 						local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -48,19 +49,54 @@ require('packer').startup(function(use)
 						})
 				end,
 		}
-		use 'hrsh7th/nvim-cmp'                                        -- Completion plugin
-		use { 'L3MON4D3/LuaSnip', run = "make install_jsregexp" }     -- Snippet plugin
+		use {
+				'hrsh7th/nvim-cmp',
+				requires = {
+						{ 'L3MON4D3/LuaSnip', run = "make install_jsregexp" }
+				},
+				config = function()
+						local cmp = require('cmp')
+						local luasnip = require('luasnip')
+						cmp.setup({
+								snippet = {
+										expand = function(args)
+												luasnip.lsp_expand(args.body)  -- For snippet support
+										end,
+								},
+								mapping = cmp.mapping.preset.insert({
+										['<C-Space>'] = cmp.mapping.complete(),
+										['<CR>'] = cmp.mapping.confirm({ select = true }),
+										['<Tab>'] = cmp.mapping.confirm({ select = true }),
+								}),
+								sources = {
+										{ name = 'nvim_lsp' }, -- LSP source
+										{ name = 'luasnip' }, -- Snippet source
+								},
+						})
+				end,
+		}
 		use {
 				'nvim-treesitter/nvim-treesitter',
 				run = function()
 					local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
 					ts_update()
 				end,
+				config = function()
+						require'nvim-treesitter.configs'.setup {
+								-- Enable treesitter-based highlighting
+								highlight = {
+										enable = true,
+										additional_vim_regex_highlighting = false,
+								},
+								-- Add additional parsers as needed
+								ensure_installed = { "go", "python", "lua" },
+						}
+				end
 		}
 		use {
 				'EdenEast/nightfox.nvim',
 				config = function()
-						vim.cmd('colorscheme nightfox')
+						vim.cmd.colorscheme('nightfox')
 				end
 		}
 
@@ -111,8 +147,6 @@ vim.keymap.set('n', '<A-q>', ':only<CR>', { desc = 'Close all other windows besi
 -- LSP Configuration
 -- ===========================
 
-local cmp = require('cmp')
-local luasnip = require('luasnip')
 
 -- Common LSP keybindings
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to Definition" })
@@ -132,15 +166,6 @@ vim.diagnostic.config({
 -- Treesitter Configuration
 -- ===========================
 
-require'nvim-treesitter.configs'.setup {
-		-- Enable treesitter-based highlighting
-		highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-		},
-		-- Add additional parsers as needed
-		ensure_installed = { "go", "python", "lua" },
-}
 
 -- ===========================
 -- Clipboard Setup (for WSL)
@@ -165,23 +190,6 @@ vim.g.clipboard = {
 -- Autocompletion Setup
 -- ===========================
 
--- nvim-cmp setup
-cmp.setup({
-		snippet = {
-				expand = function(args)
-						luasnip.lsp_expand(args.body)  -- For snippet support
-				end,
-		},
-		mapping = cmp.mapping.preset.insert({
-				['<C-Space>'] = cmp.mapping.complete(),
-				['<CR>'] = cmp.mapping.confirm({ select = true }),
-				['<Tab>'] = cmp.mapping.confirm({ select = true }),
-		}),
-		sources = {
-				{ name = 'nvim_lsp' }, -- LSP source
-				{ name = 'luasnip' }, -- Snippet source
-		},
-})
 
 -- ===========================
 -- Autocommands for completion & UI
