@@ -95,7 +95,7 @@ _G.packer_plugins = {
     url = "https://github.com/pteroctopus/faster.nvim"
   },
   ["lualine.nvim"] = {
-    config = { "\27LJ\2\n功1\0\0\4\0\t\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\0016\0\6\0009\0\a\0+\1\1\0=\1\b\0K\0\1\0\rshowmode\bopt\bvim\foptions\1\0\0\1\0\3\ntheme\tauto\25component_separators\5\23section_separators\5\nsetup\flualine\frequire\0" },
+    config = { "\27LJ\2\n功1\0\0\4\0\t\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\0016\0\6\0009\0\a\0+\1\1\0=\1\b\0K\0\1\0\rshowmode\bopt\bvim\foptions\1\0\0\1\0\3\25component_separators\5\23section_separators\5\ntheme\tauto\nsetup\flualine\frequire\0" },
     loaded = true,
     path = "/root/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
@@ -153,7 +153,7 @@ try_loadstring("\27LJ\2\n:\0\0\3\0\4\0\0066\0\0\0009\0\1\0009\0\2\0'\2\3\0B\0\2\
 time([[Config for vscode.nvim]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
-try_loadstring("\27LJ\2\n功1\0\0\4\0\t\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\0016\0\6\0009\0\a\0+\1\1\0=\1\b\0K\0\1\0\rshowmode\bopt\bvim\foptions\1\0\0\1\0\3\ntheme\tauto\25component_separators\5\23section_separators\5\nsetup\flualine\frequire\0", "config", "lualine.nvim")
+try_loadstring("\27LJ\2\n功1\0\0\4\0\t\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\0016\0\6\0009\0\a\0+\1\1\0=\1\b\0K\0\1\0\rshowmode\bopt\bvim\foptions\1\0\0\1\0\3\25component_separators\5\23section_separators\5\ntheme\tauto\nsetup\flualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
