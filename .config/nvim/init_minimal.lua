@@ -60,7 +60,7 @@ end
 
 -- Example LSP setups
 setup_lsp("gopls", { "gopls" }, { "go" })  -- Go LSP
-setup_lsp("pyright", { "pyright-langserver", "--stdio" }, { "python" })  -- Python LSP
+setup_lsp("pyls", { "pyls" }, { "python" }) -- Python LSP
 
 -- Common LSP keybindings
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to Definition" })
