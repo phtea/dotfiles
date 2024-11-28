@@ -83,6 +83,8 @@ function M.setup(use)
         gopls = "gopls",
     }
 
+    local missing_servers = {}
+
     for server, cmd in pairs(servers) do
         if executable(cmd) then
             lspconfig[server].setup({
@@ -90,12 +92,15 @@ function M.setup(use)
                 on_attach = on_attach,
             })
         else
-            vim.schedule(function()
-                vim.notify("LSP server '" .. server .. "' is not installed. Skipping.", vim.log.levels.WARN)
-            end)
+            table.insert(missing_servers, server)
         end
     end
 
+    if #missing_servers > 0 then
+        vim.schedule(function()
+            vim.notify("Missing LSP servers: " .. table.concat(missing_servers, ", "), vim.log.levels.WARN)
+        end)
+    end
     -- Additional diagnostic settings (optional)
     vim.diagnostic.config({
         virtual_text = true,
@@ -104,6 +109,12 @@ function M.setup(use)
         update_in_insert = false,
         severity_sort = true,
     })
+
+    -- Unmap keys for LSP actions in Lua
+    vim.api.nvim_del_keymap('n', 'gri')
+    vim.api.nvim_del_keymap('n', 'grr')
+    vim.api.nvim_del_keymap('n', 'gra')
+    vim.api.nvim_del_keymap('n', 'grn')
 end
 
 return M

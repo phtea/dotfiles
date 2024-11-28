@@ -1,6 +1,6 @@
 # History settings
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
-export HISTCONTROL=ignoredups:erasedups  # Ignore duplicates and remove duplicates from history
+export HISTCONTROL=ignoredups:erasedups # Ignore duplicates and remove duplicates from history
 export HISTFILESIZE=10000               # Size of the history file
 export HISTSIZE=1000                    # Number of commands to store in memory
 shopt -s histappend                     # Append to history instead of overwriting
@@ -15,7 +15,8 @@ alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto' reload='source
 [ -x "$(command -v dircolors)" ] && eval "$(dircolors -b)" && alias ls='ls --color=auto'
 
 # PATH setup
-export PATH="$HOME/bin:/usr/local/bin:$HOME/go/bin:$(npm config get prefix)/bin:$HOME/.local/bin" #:$HOME/downloads/lua-language-server/bin"
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:"
+export PATH="$PATH:$HOME/go/bin" # Go
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
