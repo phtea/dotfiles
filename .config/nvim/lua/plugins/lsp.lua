@@ -26,10 +26,16 @@ return {
         underline = true,
       })
 
-      -- Key mappings for LSP actions
+      -- Unmap default LSP keybindings
+      local keymaps = { "grn", "grr", "gra", "gri" }
+      for _, keymap in ipairs(keymaps) do
+        vim.api.nvim_del_keymap("n", keymap)
+      end
+      vim.api.nvim_del_keymap("x", "gra") -- Unmap visual mode `gra`
+
+      -- Custom key mappings for LSP actions
       vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = 'Code actions' })
       vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true, desc = 'Rename symbol' })
     end,
   },
 }
-

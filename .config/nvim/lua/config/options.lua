@@ -15,11 +15,6 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cursorline = true
 
--- Netrw
-vim.g.netrw_browse_split = 4  -- Open netrw in a vertical split (on the left)
-vim.g.netrw_altv = 1          -- Force vertical split when opening netrw
-vim.g.netrw_winsize = 25      -- Optional: set the width of the netrw window
-
 -- Clipboard Setup (for WSL)
 vim.g.clipboard = {
 	name = "WslClipboard",
@@ -36,11 +31,4 @@ vim.g.clipboard = {
 	cache_enabled = 0,
 }
 
--- Autocommands
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
+
