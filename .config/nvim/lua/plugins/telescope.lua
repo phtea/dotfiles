@@ -8,8 +8,9 @@ return {
     { "<leader>sg", ":Telescope live_grep<CR>", desc = "Search in project (grep)" },
     { "<leader>sf", ":Telescope find_files<CR>", desc = "Find files in current directory" },
     { "<leader>ds", ":Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Find symbols across project" },
-	{ "<leader>sr", ":Telescope lsp_references<CR>", desc = "Find Go references" },  -- Added Go references
-	{ "<leader>sd", ":Telescope lsp_definitions<CR>", desc = "Find Go definitions" },  -- Find Go definitions
+    { "<leader>sk", ":Telescope keymaps<CR>", desc = "Search Keymaps" },
+	{ "gr", ":Telescope lsp_references<CR>", desc = "Find Go references" },
+	{ "gd", ":Telescope lsp_definitions<CR>", desc = "Find Go definitions" },
   },
   config = function()
     local telescope = require("telescope")
