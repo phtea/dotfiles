@@ -5,3 +5,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = "Clear search highlights" })
 vim.keymap.set('n', '<A-q>', ':only<CR>', { desc = 'Close all other windows besides this one' })
 vim.keymap.set('n', '<C-q>', ':only<CR>', { desc = 'Close all other windows besides this one' })
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = 'Delete selection and put new text' })
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = 'Yank to system clipboard' } )
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })

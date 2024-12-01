@@ -20,7 +20,7 @@ export PATH="$PATH:$HOME/go/bin" # Go
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
-alias v=$EDITOR vi=$EDITOR vim=$EDITOR
+alias nv=$EDITOR
 
 # Git branch prompt
 parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }

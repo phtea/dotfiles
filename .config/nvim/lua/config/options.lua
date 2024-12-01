@@ -1,5 +1,4 @@
 -- General Settings
-vim.g.mapleader = " "
 vim.opt.undofile = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
