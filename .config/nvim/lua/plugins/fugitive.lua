@@ -7,7 +7,7 @@ return {
       { "<leader>gl", "<cmd>Git pull<CR>", desc = "Git pull" },
       { "<leader>gs", "<cmd>Git status<CR>", desc = "Git status" },
       { "<leader>ga", "<cmd>Git add .<CR>", desc = "Git stage all changes" },  -- Stage all changes
-      { "<leader>gf", "<cmd>Git write<CR>", desc = "Git stage current file" },  -- Stage current file
+      { "<leader>gf", "<cmd>Git add %<CR>", desc = "Git stage current file" },  -- Stage current file
     },
   },
 }
