@@ -1,3 +1,7 @@
+-- Map leader always has to be first setting.
+vim.o.timeout = false
+vim.g.mapleader = " "
+
 -- General Settings
 vim.opt.undofile = true
 vim.opt.splitright = true

@@ -1,6 +1,3 @@
--- Map leader always has to be first setting.
-vim.g.mapleader = " "
-
 -- Lazy bootstrap
 vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim") then

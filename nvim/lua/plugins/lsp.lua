@@ -10,7 +10,7 @@ return {
 
 			-- Utility function to generate keymap options
 			local function set_opts(desc, bufnr)
-				return { desc = "LSP: " .. desc, buffer = bufnr, silent = true }
+				return { desc = "LSP: " .. desc, buffer = bufnr, silent = true, nowait = true }
 			end
 
 			local on_attach = function(_, bufnr)
