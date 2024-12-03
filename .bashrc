@@ -22,6 +22,11 @@ export PATH="$PATH:$HOME/go/bin" # Go
 export EDITOR=nvim VISUAL=$EDITOR
 alias nv=$EDITOR vim=$EDITOR
 
+# FZF keybindings
+if [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] ; then
+	source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
 # Git branch prompt
 parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }
 
