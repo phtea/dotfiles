@@ -1,3 +1,4 @@
 dotfiles, which include:
-- .bashrc
-- neovim config
+- bash
+- neovim 
+- tmux
