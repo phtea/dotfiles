@@ -20,7 +20,7 @@ export PATH="$PATH:$HOME/go/bin" # Go
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
-alias nv=$EDITOR vim=$EDITOR
+alias nv=$EDITOR
 
 # FZF keybindings
 if [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] ; then
