@@ -11,6 +11,9 @@ bind "set completion-ignore-case on"
 # Useful Aliases
 alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto' reload='source ~/.bashrc'
 
+# Git aliases
+alias gc="git commit" gp="git push" gl="git pull" gs="git status" ga="git add . && git status"
+
 # Enable color support for ls and grep if available
 [ -x "$(command -v dircolors)" ] && eval "$(dircolors -b)" && alias ls='ls --color=auto'
 
