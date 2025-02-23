@@ -1,19 +1,21 @@
--- General Settings
+-- Map leader always has to be first setting.
+vim.o.timeout = false
 vim.g.mapleader = " "
+
+-- General Settings
 vim.opt.undofile = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.scrolloff = 20
+vim.opt.scrolloff = 10
 vim.opt.signcolumn = "yes"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.tabstop = 4
 vim.opt.expandtab = false
 vim.opt.shiftwidth = 4
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.cursorline = true
 
 -- Clipboard Setup (for WSL)
 vim.g.clipboard = {

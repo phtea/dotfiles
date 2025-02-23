@@ -11,10 +11,9 @@ if not vim.loop.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim") then
 	})
 end
 
-require("config.autocmds")
-require("config.keymaps")
 require("config.options")
+require("config.keymaps")
+require("config.autocmds")
 
 -- Load plugins from the plugins folder
 require("lazy").setup("plugins")
-
