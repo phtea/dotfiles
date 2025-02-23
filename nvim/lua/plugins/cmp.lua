@@ -14,6 +14,10 @@ return {
 						luasnip.lsp_expand(args.body)
 					end,
 				},
+				-- preselect = cmp.PreselectMode.Item,
+				completion = {
+					completeopt = "menu,menuone,noinsert", -- Ensures the menu is visible, but doesn’t insert text until confirmed
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),

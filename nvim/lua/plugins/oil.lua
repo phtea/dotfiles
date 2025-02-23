@@ -4,9 +4,6 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" }, -- Optional for file icons
 	keys = {
         { "<leader>e", "<CMD>Oil<CR>", desc = "Open parent directory" },
-        { "<CR>", "actions.select", desc = "Open file or enter directory" },
-        { "<C-p>", "actions.preview", desc = "Preview file" },
-        { "q", "actions.close", desc = "Close Oil" },
     },
 	opts = {
 		-- Oil-specific options

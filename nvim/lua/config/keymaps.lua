@@ -10,3 +10,4 @@ vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = 'Yank to system clipbo
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 vim.keymap.set('n', '<leader>dd', "<cmd>w<CR><cmd>!go run main.go<CR>", { desc = 'Go run main.go' })
 vim.keymap.set('n', '<leader>ger', "oif err != nil {<CR>}<Esc>O<Esc>")
+vim.keymap.set("n", "<leader>fmt", vim.lsp.buf.format, { desc = "Format buffer" })

@@ -28,7 +28,7 @@ return {
 			end
 
 			-- Use a loop to conveniently call 'setup' on multiple servers and
-			local servers = {'gopls', 'pyright', }
+			local servers = {'gopls', 'pyright', 'clangd', }
 			for _, lsp in ipairs(servers) do
 				lspconfig[lsp].setup({
 					on_attach = on_attach,
