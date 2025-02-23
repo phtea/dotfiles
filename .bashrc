@@ -29,6 +29,26 @@ alias nv=$EDITOR
 # FZF keybindings
 [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
+# Convenient function to use entr with a file pattern and command
+ondo() {
+  if [ $# -ne 2 ]; then
+    echo "Usage: ondo <file-pattern> <command>"
+    return 1
+  fi
+
+  local file_pattern="$1"
+  local command="$2"
+
+  # Check if entr is installed
+  if ! command -v entr &> /dev/null; then
+    echo "entr is required, but it's not installed."
+    return 1
+  fi
+
+  # Use entr to watch for file changes and execute the command
+  find . -name "$file_pattern" | entr -r sh -c "$command"
+}
+
 # Git branch prompt
 parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }
 
