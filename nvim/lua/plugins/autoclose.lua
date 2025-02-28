@@ -1,6 +1,5 @@
 return {
 	'm4xshen/autoclose.nvim',
-	enabled = false,
 	config = {
 		keys = {
 			["("] = { escape = false, close = true, pair = "()" },
@@ -18,11 +17,11 @@ return {
 		},
 		options = {
 			disabled_filetypes = { "text" },
-			disable_when_touch = false,
-			touch_regex = "[%w(%[{]",
 			pair_spaces = false,
 			auto_indent = true,
+			touch_regex = "[%w(%[{]",
 			disable_command_mode = true,
+			disable_when_touch = true,
 		},
 	}
 }

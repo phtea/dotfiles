@@ -9,8 +9,8 @@ return {
                 indent = { enable = true },
                 ensure_installed = {
                     "bash", "c", "diff", "html", "javascript",
-                    "json", "markdown", "lua", "python", "go",
-					"vim", "vimdoc",
+                    "json", "markdown", "markdown_inline", "lua", "python", "go",
+					"vim", "vimdoc", "regex",
                 },
             })
         end,

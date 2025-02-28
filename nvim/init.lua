@@ -15,5 +15,11 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
+
 -- Load plugins from the plugins folder
 require("lazy").setup("plugins")
+
+vim.g.current_theme = "nightfox"  -- Change this to the desired theme
+vim.schedule(function()  -- Load theme after Lazy.nvim setup
+    vim.cmd("colorscheme " .. vim.g.current_theme)
+end)
