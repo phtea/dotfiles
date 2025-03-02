@@ -55,3 +55,4 @@ parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ 
 # PS1 prompt with colors
 GREEN='\[\033[01;32m\]' BLUE='\[\033[01;34m\]' RED='\[\033[31m\]' RESET='\[\033[00m\]'
 export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET} $ "
+. "$HOME/.cargo/env"

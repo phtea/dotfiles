@@ -19,8 +19,9 @@ return {
 				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", set_opts("References (Telescope)", bufnr))
 				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", set_opts("Go to implementation (Telescope)", bufnr))
 				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", set_opts("Go to type definition (Telescope)", bufnr))
-				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", set_opts("Go to type definition (Telescope)", bufnr))
-				vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", set_opts("Find symbols across project", bufnr))
+				vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<CR>", set_opts("Find symbols in current file", bufnr))
+				vim.keymap.set("n", "<leader>dws", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", set_opts("Find symbols across project", bufnr))
+				vim.keymap.set("n", "<leader>sd", vim.diagnostic.open_float, set_opts("Show diagnostic in floating window", bufnr))
 
 				-- Other LSP mappings
 				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, set_opts("Code actions", bufnr))
@@ -28,7 +29,7 @@ return {
 			end
 
 			-- Use a loop to conveniently call 'setup' on multiple servers and
-			local servers = {'gopls', 'pyright', 'clangd', }
+			local servers = {'gopls', 'pyright', 'clangd', 'rust_analyzer', }
 			for _, lsp in ipairs(servers) do
 				lspconfig[lsp].setup({
 					on_attach = on_attach,
@@ -42,6 +43,7 @@ return {
 				signs = true,
 				underline = true,
 			})
+
 		end,
 	},
 }
