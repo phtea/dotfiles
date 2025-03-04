@@ -24,6 +24,7 @@ return {
 				['@lsp.type.variable'] = { fg = '$yellow' },
 				['@lsp.type.property'] = { fg = '$red' },
 				['@lsp.type.generic'] = { fg = '$red' },
+				['CursorLineNr'] = { fg = '$blue', bold = true },
 			},
 		},
 	},
