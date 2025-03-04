@@ -10,6 +10,7 @@ return {
 		{ "<leader><leader>", "<cmd>Telescope find_files<CR>", desc = "Find files in current directory" },
 		{ "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Search Keymaps" },
 		{ "<leader>fn", "<cmd>Telescope find_files search_dirs={'~/.config/nvim'}<CR>", desc = "Find Neovim config files" },
+		{ "<leader>fc", "<cmd>Telescope colorscheme<CR>", desc = "Find colorschemes" },
 	},
 	config = function()
 		local telescope = require("telescope")
