@@ -1,11 +1,19 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "hrsh7th/cmp-nvim-lsp" },
+		dependencies = {
+			'saghen/blink.cmp',
+			{
+				"folke/lazydev.nvim",
+				opts = {
+					library = {
+						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+					},
+				},
+			},
+		},
 		config = function()
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-			local capabilities = cmp_nvim_lsp.default_capabilities()
-
+			local capabilities = require('blink.cmp').get_lsp_capabilities()
 			local lspconfig = require("lspconfig")
 
 			-- Utility function to generate keymap options
@@ -22,8 +30,6 @@ return {
 				vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<CR>", set_opts("Find symbols in current file", bufnr))
 				vim.keymap.set("n", "<leader>dws", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", set_opts("Find symbols across project", bufnr))
 				vim.keymap.set("n", "<leader>sd", vim.diagnostic.open_float, set_opts("Show diagnostic in floating window", bufnr))
-
-				-- Other LSP mappings
 				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, set_opts("Code actions", bufnr))
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, set_opts("Rename symbol", bufnr))
 			end
@@ -43,7 +49,6 @@ return {
 				signs = true,
 				underline = true,
 			})
-
 		end,
 	},
 }
