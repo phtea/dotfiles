@@ -1,58 +1,51 @@
 # History settings
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
-export HISTCONTROL=ignoredups:erasedups # Ignore duplicates and remove duplicates from history
-export HISTFILESIZE=10000               # Size of the history file
-export HISTSIZE=1000                    # Number of commands to store in memory
-shopt -s histappend                     # Append to history instead of overwriting
+export HISTCONTROL=ignoredups:erasedups
+export HISTFILESIZE=10000
+export HISTSIZE=1000
+shopt -s histappend
 export LESS='-R' LESSHISTFILE=-
 
 # Completion settings
-bind "set completion-ignore-case on"
-
-# Useful Aliases
-alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto' reload='source ~/.bashrc'
-
-# Git aliases
-alias gc="git commit" gp="git push" gl="git pull" gs="git status" ga="git add . && git status"
-
-# Enable color support for ls and grep if available
-[ -x "$(command -v dircolors)" ] && eval "$(dircolors -b)" && alias ls='ls --color=auto'
-
-# PATH setup
-export PATH="$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:"
-export PATH="$PATH:$HOME/go/bin" # Go
+command -v bind &>/dev/null && bind "set completion-ignore-case on"
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
 alias nv=$EDITOR
 
+# Useful Aliases
+alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto'
+alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc'
+
+# Git aliases
+command -v git &>/dev/null && {
+  alias gc="git commit" gp="git push" gl="git pull" gs="git status"
+  alias ga="git add . && git status"
+}
+
+# Enable color support for ls and grep
+command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto'
+
+# PATH setup
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin"
+[ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
+
 # FZF keybindings
 [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
-# Convenient function to use entr with a file pattern and command
+# File watcher function
 ondo() {
-  if [ $# -ne 2 ]; then
-    echo "Usage: ondo <file-pattern> <command>"
-    return 1
-  fi
-
-  local file_pattern="$1"
-  local command="$2"
-
-  # Check if entr is installed
-  if ! command -v entr &> /dev/null; then
-    echo "entr is required, but it's not installed."
-    return 1
-  fi
-
-  # Use entr to watch for file changes and execute the command
-  find . -name "$file_pattern" | entr -r sh -c "$command"
+  [ $# -ne 2 ] && echo "Usage: ondo <file-pattern> <command>" && return 1
+  command -v entr &>/dev/null || { echo "Warning: 'entr' is required but not installed."; return 1; }
+  find . -name "$1" | entr -r sh -c "$2"
 }
 
 # Git branch prompt
-parse_git_branch() { git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }
+parse_git_branch() { command -v git &>/dev/null && git branch 2>/dev/null | grep '^*' | colrm 1 2 | sed 's/^/ /'; }
 
 # PS1 prompt with colors
 GREEN='\[\033[01;32m\]' BLUE='\[\033[01;34m\]' RED='\[\033[31m\]' RESET='\[\033[00m\]'
 export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET} $ "
-. "$HOME/.cargo/env"
+
+# Load Cargo environment
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
