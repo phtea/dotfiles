@@ -10,7 +10,9 @@ return {
 		dependencies = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "pyright", "clangd", "rust_analyzer" }, -- Auto-install these
+				ensure_installed = {
+					-- "gopls", "pyright", "clangd", "rust_analyzer"
+				}, -- Better install manually what you really nead
 				automatic_installation = true,
 			})
 		end,
