@@ -18,6 +18,8 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cursorline = true
 
+vim.opt.swapfile = false
+
 -- Clipboard Setup (for WSL)
 vim.g.clipboard = {
 	name = "WslClipboard",
