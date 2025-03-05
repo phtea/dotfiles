@@ -13,5 +13,9 @@ return {
 			max_width = 100, -- Max width of the floating window
 			max_height = 20, -- Max height of the floating window
 		},
+		win_options = {
+			-- huge W this one
+			winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopePreviewBorder"
+		},
 	},
 }
