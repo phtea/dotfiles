@@ -1,15 +1,13 @@
 return {
 	"stevearc/oil.nvim",
-	lazy=false,
+	lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons" }, -- Optional for file icons
 	keys = {
-        { "<leader>e", "<CMD>Oil<CR>", desc = "Open parent directory" },
+        { "<leader>e", function() require("oil").toggle_float() end, desc = "Toggle Oil floating window" },
     },
 	opts = {
 		default_file_explorer = true,
-		view_options = {
-			show_hidden = true, -- Show hidden files
-		},
+		view_options = { show_hidden = true, }, -- Show hidden files
 		float = {
 			padding = 2, -- Add padding around floating window
 			max_width = 100, -- Max width of the floating window

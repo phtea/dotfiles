@@ -8,9 +8,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
-		opts = {
-			auto_install = true,
-		},
+		opts = { auto_install = true, },
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -19,9 +17,7 @@ return {
 			{
 				"folke/lazydev.nvim",
 				opts = {
-					library = {
-						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-					},
+					library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, },
 				},
 			},
 		},
@@ -57,13 +53,6 @@ return {
 						capabilities = capabilities,
 					})
 				end,
-			})
-
-			-- Configure diagnostics globally
-			vim.diagnostic.config({
-				virtual_text = true,
-				signs = true,
-				underline = true,
 			})
 		end,
 	},
