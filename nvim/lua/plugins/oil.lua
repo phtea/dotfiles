@@ -6,7 +6,6 @@ return {
         { "<leader>e", "<CMD>Oil<CR>", desc = "Open parent directory" },
     },
 	opts = {
-		-- Oil-specific options
 		default_file_explorer = true,
 		view_options = {
 			show_hidden = true, -- Show hidden files
