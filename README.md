@@ -4,4 +4,4 @@ dotfiles, which include:
 - tmux
 
 📖 Language Setup Docs
-- Ruby Setup → docs/setup-ruby.md
+- Ruby Setup → nvim/docs/setup-ruby.md
