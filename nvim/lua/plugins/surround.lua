@@ -1,6 +1,4 @@
 return {
-  {
-    "kylechui/nvim-surround",
+	"kylechui/nvim-surround",
 	opts = {}
-  },
 }
