@@ -16,10 +16,6 @@ return {
 		local telescope = require("telescope")
 		telescope.setup({
 			defaults = {
-				layout_config = {
-					horizontal = { preview_width = 0.55 },
-					vertical = { mirror = false },
-				},
 				sorting_strategy = "ascending",
 				mappings = {
 					i = {
@@ -28,7 +24,12 @@ return {
 					},
 				},
 			},
+			pickers = {
+				find_files = {
+					hidden = true,
+					theme = "ivy",
+				},
+			},
 		})
 	end,
 }
-

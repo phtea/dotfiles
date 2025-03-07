@@ -4,13 +4,9 @@ return {
 	build = ":TSUpdate",
 	config = function()
 		require("nvim-treesitter.configs").setup({
-			highlight = { enable = true, },
-			indent = { enable = true },
-			ensure_installed = {
-				"bash", "c", "diff", "html", "javascript",
-				"json", "markdown", "markdown_inline", "lua", "python", "go",
-				"vim", "vimdoc", "regex",
-			},
+			highlight = { enable = true, additional_vim_regex_highlighting = false },
+			indent = { enable = false }, -- Try disabling this if it's causing lag
+			auto_install = true,
 		})
 	end,
 }
