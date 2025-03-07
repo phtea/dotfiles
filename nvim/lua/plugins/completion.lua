@@ -34,7 +34,7 @@ return {
 		cmdline = { enabled = false, }, -- disable in command mode!!
 
 		completion = {
-			documentation = { auto_show = true, auto_show_delay_ms = 100, },
+			documentation = { auto_show = true, auto_show_delay_ms = 500, },
 		}
 	},
 }
