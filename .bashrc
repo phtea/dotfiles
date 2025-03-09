@@ -19,7 +19,7 @@ alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc'
 
 # Git aliases
 command -v git &>/dev/null && {
-  alias gc="git commit" gp="git push" gl="git pull" gs="git status"
+  alias gc="git commit" gp="git push" gpl="git pull" gl="git log" gs="git status"
   alias ga="git add . && git status"
 }
 
@@ -38,6 +38,19 @@ ondo() {
   [ $# -ne 2 ] && echo "Usage: ondo <file-pattern> <command>" && return 1
   command -v entr &>/dev/null || { echo "Warning: 'entr' is required but not installed."; return 1; }
   find . -name "$1" | entr -r sh -c "$2"
+}
+
+# Count lines of code inside of directory name function (and list extentions which to count)
+count_lines() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: count_lines <extension1> <extension2> ..."
+        return 1
+    fi
+
+    for ext in "$@"; do
+		echo "=== $ext files ==="
+        find . -name "*.$ext" | sed 's/.*/"&"/' | xargs wc -l
+    done
 }
 
 # Git branch prompt
