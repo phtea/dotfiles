@@ -37,7 +37,7 @@ return {
 				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", set_opts("Go to implementation", bufnr))
 				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", set_opts("Go to type definition", bufnr))
 				vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<CR>", set_opts("Find symbols in file", bufnr))
-				vim.keymap.set("n", "<leader>dws", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", set_opts("Find symbols in workspace", bufnr))
+				vim.keymap.set("n", "<leader>dw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", set_opts("Find symbols in workspace", bufnr))
 
 				vim.keymap.set("n", "<leader>sd", vim.diagnostic.open_float, set_opts("Show diagnostics", bufnr))
 				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, set_opts("Code actions", bufnr))

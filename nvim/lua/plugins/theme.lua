@@ -1,11 +1,11 @@
 return {
-	"tiagovla/tokyodark.nvim",
-	config = function()
+	'Mofiqul/vscode.nvim',
+	config = function ()
 		vim.cmd [[
-			colorscheme tokyodark
+			colorscheme vscode
 			highlight StatusLine guifg=Normal guibg=NONE gui=bold
 			highlight StatusLineNC guifg=Normal guibg=NONE
 			highlight ModeMsg guifg=NONE guibg=NONE
 		]]
-	end,
+	end
 }
