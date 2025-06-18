@@ -8,6 +8,13 @@ export LESS='-R' LESSHISTFILE=-
 
 # Completion settings
 command -v bind &>/dev/null && bind "set completion-ignore-case on"
+# Включить bash-completion
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# Включить цветную подсветку и поддержку клавиш
+bind 'set show-all-if-ambiguous on'
+bind 'set colored-completion-prefix on'
+bind 'set menu-complete-display-prefix on'
 
 # Editor configuration
 export EDITOR=nvim VISUAL=$EDITOR
@@ -15,7 +22,8 @@ alias nv=$EDITOR
 
 # Useful Aliases
 alias ll='ls -alF' la='ls -A' l='ls -CF' grep='grep --color=auto'
-alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc'
+alias reload='source ~/.bashrc' brc='vim ~/.bashrc'
+alias py='python3'
 
 # Git aliases
 command -v git &>/dev/null && {
@@ -29,9 +37,13 @@ command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --col
 # PATH setup
 export PATH="$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin"
 [ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:/etc/opt/nvim/bin"
 
 # FZF keybindings
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
 
 # File watcher function
 ondo() {
