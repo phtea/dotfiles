@@ -1,4 +1,4 @@
-colo wildcharm
+colo wildcharm " Awesome default colorscheme
 language en_US.UTF-8 " Make sure vim's lang is set to EN 
 
 " Finding files
@@ -42,3 +42,10 @@ nnoremap <leader>* :Ggrep <C-R><C-W><CR>
 " Quickfix navigation
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
+
+" Включаем persistent undo
+set undofile
+if !isdirectory(expand('~/.vim/undo'))
+	call mkdir(expand('~/.vim/undo'), 'p')
+endif
+set undodir=~/.vim/undo
