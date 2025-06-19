@@ -1,51 +1,40 @@
-colo wildcharm " Awesome default colorscheme
-language en_US.UTF-8 " Make sure vim's lang is set to EN 
+" Leader key
+let mapleader = ","
+
+" Options
+colo wildcharm " Amazing colorscheme
+language en_US.UTF-8 " Forced English language
+set number " Show line numbers
+set showcmd " Show command in bottom right
+set incsearch " Highlight as you type search
+set hlsearch " Highlight all matches
 
 " Finding files
 set path+=**
 set wildmenu
+nnoremap <leader>ff :find 
+nnoremap <leader>fg :Grep 
 
-set number                     " Show line numbers
-set showcmd                   " Show command in bottom right
-set incsearch                 " Highlight as you type search
-set hlsearch                  " Highlight all matches
-
-" Leader key
-let mapleader = ","
+" Grep with ripgrep (rg)
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+set grepformat=%f:%l:%c:%m
+command! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redraw! | cwindow " search in all files
+command! -nargs=+ Ggrep execute 'silent grep! <args> `git ls-files`' | redraw! | cwindow " search in tracked files
+" Search word under cursor with Ggrep (<leader>*)
+nnoremap <leader>* :Ggrep <C-R><C-W><CR>
 
 " Easier navigation between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Grep with ripgrep (rg)
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-set grepformat=%f:%l:%c:%m
-command! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redraw! | cwindow
-
-" Git-aware grep: search only in tracked files
-command! -nargs=+ Ggrep execute 'silent grep! <args> `git ls-files`' | redraw! | cwindow
-
-" Visual Mode: Space to copy to + register
+" Space: copy to + register (visual mode)
 vnoremap <Space> "+y
-
-" Normal Mode: Space+p to paste from + register
-nnoremap <Space> "+
-
+" Space+p: paste from + register (normal mode)
+nnoremap <Space>p "+p
 " Clear search highlight with <leader><Space>
 nnoremap <leader><Space> :nohlsearch<CR>
 
-" Search word under cursor with Ggrep (<leader>*)
-nnoremap <leader>* :Ggrep <C-R><C-W><CR>
-
-" Quickfix navigation
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprev<CR>
-
-" Включаем persistent undo
-set undofile
-if !isdirectory(expand('~/.vim/undo'))
-	call mkdir(expand('~/.vim/undo'), 'p')
-endif
-set undodir=~/.vim/undo
+" Enable persistent undo
+set undofile undodir=~/.vim/undo
+if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif

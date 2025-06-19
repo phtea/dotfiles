@@ -58,5 +58,5 @@ GREEN='\[\033[01;32m\]' BLUE='\[\033[01;34m\]' RED='\[\033[31m\]' RESET='\[\033[
 export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET} $ "
 
 # Add scripts here
-[ -f ~/.bash/custom_functions ] && source ~/.bash/custom_functions
+[ -f "$HOME/.bash/custom_functions" ] && source "$HOME/.bash/custom_functions"
 echo "Have fun coding!"
