@@ -12,6 +12,7 @@ set hlsearch " Highlight all matches
 " Finding files
 set path+=**
 set wildmenu
+set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz
 nnoremap <leader>ff :find 
 nnoremap <leader>fg :Grep 
 

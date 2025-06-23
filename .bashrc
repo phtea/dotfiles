@@ -10,11 +10,6 @@ shopt -s histappend
 command -v bind &>/dev/null && bind "set completion-ignore-case on"
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-# Good looking autocomplete
-bind 'set show-all-if-ambiguous on'
-bind 'set colored-completion-prefix on'
-bind 'set menu-complete-display-prefix on'
-
 # History-driven history (up/down arrows)
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
@@ -30,8 +25,8 @@ alias py='python3'
 
 # Git aliases
 command -v git &>/dev/null && {
-  alias gc="git commit" gp="git push" gpl="git pull" gl="git log" gs="git status"
-  alias ga="git add . && git status"
+  alias gc="git commit" gp="git push" gpl="git pull" gl="git log" gs="git status --short"
+  alias ga="git add"
 }
 
 # Enable color support for ls and grep
