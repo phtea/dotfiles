@@ -25,8 +25,8 @@ alias py='python3'
 
 # Git aliases
 command -v git &>/dev/null && {
-  alias gc="git commit" gp="git push" gpl="git pull" gl="git log" gs="git status --short"
-  alias ga="git add"
+  alias gc="git commit" gp="git push" gl="git log" gs="git status --short"
+  alias ga="git add" gu="git pull"
 }
 
 # Enable color support for ls and grep
