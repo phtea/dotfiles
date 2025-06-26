@@ -36,7 +36,7 @@ command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --col
 [ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
 [ -d "/usr/local/bin" ] && export PATH="$PATH:/usr/local/bin"
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
-[ -d "/etc/opt/nvim/bin" ] && export PATH="$PATH:/etc/opt/nvim/bin"
+[ -d "/opt/nvim-linux-x86_64/bin" ] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 [ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
 
 # Rust (Cargo) env setup
