@@ -2,7 +2,6 @@
 let mapleader = ","
 
 " Options
-colo wildcharm " Amazing colorscheme
 language en_US.UTF-8 " Forced English language
 set number " Show line numbers
 set showcmd " Show command in bottom right

@@ -25,8 +25,34 @@ alias py='python3'
 
 # Git aliases
 command -v git &>/dev/null && {
-  alias gc="git commit" gp="git push" gl="git log" gs="git status --short"
-  alias ga="git add" gu="git pull"
+	alias gc="git commit" gp="git push" gl="git log" gs="git status --short"
+	alias ga="git add" gu="git pull" gb="git branch" gwl="git worktree list"
+
+	gwa() {
+	  if [ -z "$1" ]; then
+	    echo "Usage: gwa <branch-name>"
+	    return 1
+	  fi
+
+	  branch="$1"
+	  repo_name=$(basename "$PWD")
+	  target_dir="../${repo_name}_${branch}"
+
+	  git worktree add "$target_dir" -b "$branch"
+	}
+
+	gwr() {
+	  if [ -z "$1" ]; then
+	    echo "Usage: gwr <branch-name>"
+	    return 1
+	  fi
+
+	  branch="$1"
+	  repo_name=$(basename "$PWD")
+	  target_dir="../${repo_name}_${branch}"
+
+	  git worktree remove "$target_dir"
+	}
 }
 
 # Enable color support for ls and grep
