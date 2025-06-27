@@ -1,7 +1,9 @@
 dotfiles, which include:
 - bash
-- neovim 
 - tmux
+- vim (vanilla)
 
-📖 Language Setup Docs
-- Ruby Setup → nvim/docs/setup-ruby.md
+if using nvim, install dependencies with:
+```bash
+install_nvim_deps.sh
+```
