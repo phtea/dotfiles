@@ -2,6 +2,7 @@ dotfiles, which include:
 - bash
 - tmux
 - vim (vanilla)
+- ghostty
 
 if using nvim, install dependencies with:
 ```bash
