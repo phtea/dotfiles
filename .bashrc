@@ -27,6 +27,7 @@ alias py='python3'
 command -v git &>/dev/null && {
 	alias gc="git commit" gp="git push" gl="git log" gs="git status --short"
 	alias ga="git add" gu="git pull" gb="git branch" gwl="git worktree list"
+	alias gd="git diff"
 
 	gwa() {
 	  if [ -z "$1" ]; then
