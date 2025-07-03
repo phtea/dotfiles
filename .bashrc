@@ -19,6 +19,7 @@ export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim) VISUAL=$EDI
 
 # Useful Aliases
 alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
+alias gc="git commit" gp="git push" gl="git log" gs="git status --short" ga="git add" gu="git pull"
 
 # Enable color support for ls and grep
 command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto'
