@@ -35,11 +35,11 @@ command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --col
 [ -e /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # Git branch prompt
-parse_git_branch() { git symbolic-ref --short HEAD 2>/dev/null; }
+parse_git_branch() { git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ /'; }
 
 # PS1 prompt with colors
 GREEN='\[\033[01;32m\]' BLUE='\[\033[01;34m\]' RED='\[\033[31m\]' RESET='\[\033[00m\]'
-export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED} \$(parse_git_branch)${RESET} $ "
+export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET} $ "
 
 # Add scripts here
 [ -f "$HOME/.bash/custom_functions" ] && source "$HOME/.bash/custom_functions"
