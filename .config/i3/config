@@ -155,6 +155,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# Keyboard layouts: US + RU, switch with Win+Space
+exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:win_space_toggle"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
