@@ -6,9 +6,33 @@ export HISTSIZE=1000
 export LESS='-R' LESSHISTFILE=-
 shopt -s histappend
 
-# Completion settings
+# ---------------------------------------------------
+# Bash completion (Arch + Ubuntu universal)
+# ---------------------------------------------------
 bind "set completion-ignore-case on"
-[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  source /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion
+fi
+
+# ---------------------------------------------------
+# FZF completion + keybindings (universal)
+# ---------------------------------------------------
+# Completion
+if [ -f /usr/share/fzf/completion.bash ]; then
+  source /usr/share/fzf/completion.bash
+elif [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
+  source /usr/share/doc/fzf/examples/completion.bash
+fi
+
+# Keybindings
+if [ -f /usr/share/fzf/key-bindings.bash ]; then
+  source /usr/share/fzf/key-bindings.bash
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
 
 # History-driven history (up/down arrows)
 bind '"\e[A": history-search-backward'
@@ -31,9 +55,6 @@ command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --col
 [ -d "/opt/nvim-linux-x86_64/bin" ] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 [ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-
-# FZF keybindings
-[ -e /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # Git branch prompt
 parse_git_branch() { git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ /'; }
