@@ -48,9 +48,6 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 # Show all custom Rofi scripts (t - tools)
 bindsym $mod+t exec --no-startup-id ~/scripts/rofi-scripts
 
-# Lock screen (l - lock)
-bindsym $mod+l exec --no-startup-id ~/scripts/lock
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -165,10 +162,10 @@ exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:win_space_toggle"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
