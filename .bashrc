@@ -53,6 +53,7 @@ command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --col
 [ -d "/usr/local/bin" ] && export PATH="$PATH:/usr/local/bin"
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
 [ -d "/opt/nvim-linux-x86_64/bin" ] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+[ -d "/opt/helix" ] && export PATH="$PATH:/opt/helix"
 [ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
 [ -d "$HOME/scripts" ] && export PATH="$PATH:$HOME/scripts"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

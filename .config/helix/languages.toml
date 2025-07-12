@@ -1,0 +1,8 @@
+[[language]]
+name = "ruby"
+auto-format = false
+language-servers = ["solargraph"]
+
+[language-server.solargraph]
+command = "/home/hdu/.rbenv/versions/3.3.0/bin/solargraph"
+args = ["stdio"]
