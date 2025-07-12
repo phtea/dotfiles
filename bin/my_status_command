@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+# Если запускаешь через dash — exec помогает с сигналами
+exec 2>/dev/null
+
+# Стартовый JSON блок для i3bar протокола
+echo '{ "version": 1 }'
+echo '['
+echo '[],'
+
+# 👉 Функция для батареи с цветами и статусом
+get_battery_info() {
+  if ! command -v acpi >/dev/null 2>&1; then
+    echo "{\"full_text\": \"Bat: n/a\", \"color\": \"#ffffff\"}"
+    return
+  fi
+
+  local acpi_out
+  acpi_out=$(acpi -b)
+
+  # Извлекаем процент и статус
+  local percent
+  percent=$(echo "$acpi_out" | grep -oP '\d+%' | tr -d '%')
+
+  local status
+  status=$(echo "$acpi_out" | awk '{print $3}' | tr -d ',')
+
+  local color="#00ff00"  # default green
+
+  if [ "$percent" -lt 15 ]; then
+    color="#ff0000" # dark red
+  elif [ "$percent" -lt 30 ]; then
+    color="#ff3333" # red
+  elif [ "$percent" -lt 50 ]; then
+    color="#ffff00" # yellow
+  elif [ "$percent" -lt 80 ]; then
+    color="#00ff00" # green
+  else
+    color="#00ff00" # green
+  fi
+
+  local charging=""
+  if [ "$status" = "Charging" ]; then
+    charging=" [Charging]"
+  fi
+
+  echo "{\"full_text\": \"Bat: ${percent}%${charging}\", \"color\": \"${color}\"}"
+}
+
+# 👉 Функция для громкости с [Muted]
+get_volume_info() {
+  local vol mute text
+
+  vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)
+  mute=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -oP 'yes|no')
+
+  if [ "$mute" = "yes" ]; then
+    text="Vol: $vol [Muted]"
+  else
+    text="Vol: $vol"
+  fi
+
+  echo "{\"full_text\": \"$text\", \"color\": \"#00afff\"}"
+}
+
+get_ram_info() {
+  local mem
+  mem=$(free -h | awk '/^Mem:/ {print $3 "/" $2}')
+  echo "{\"full_text\": \"RAM: $mem\", \"color\": \"#ff99cc\"}"
+}
+
+get_layout_info() {
+  local layout
+  layout=$(xkb-switch | tr '[:lower:]' '[:upper:]')
+  echo "{\"full_text\": \"${layout}\", \"color\": \"#ccff99\"}"
+}
+
+# Главный цикл
+while :; do
+  # 🔊 Громкость
+  VOL_JSON=$(get_volume_info)
+
+  # 💡 Яркость
+  BRIGHT=$(brightnessctl get)
+  MAXBRIGHT=$(brightnessctl m)
+  BRIGHTPERCENT=$(( BRIGHT * 100 / MAXBRIGHT ))
+
+  # 📶 Wi-Fi SSID
+  if command -v nmcli >/dev/null 2>&1; then
+    SSID=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+    [ -z "$SSID" ] && SSID="down"
+  else
+    SSID="n/a"
+  fi
+
+  # 🕒 Дата и время
+  DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+  # Вывод JSON
+  echo "["
+  echo "  $(get_layout_info),"
+  echo "  $VOL_JSON,"
+  echo "  {\"full_text\": \"Bright: ${BRIGHTPERCENT}%\", \"color\": \"#ffaa00\"},"
+  echo "  $(get_battery_info),"
+  echo "  {\"full_text\": \"WiFi: $SSID\", \"color\": \"#00ffff\"},"
+  echo "  $(get_ram_info),"
+  echo "  {\"full_text\": \"$DATE\", \"color\": \"#ffffff\"}"
+  echo "],"
+
+  sleep 1
+done
