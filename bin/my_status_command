@@ -75,6 +75,33 @@ get_layout_info() {
   echo "{\"full_text\": \"${layout}\", \"color\": \"#ccff99\"}"
 }
 
+get_bluetooth_info() {
+  # Проверим, есть ли bluetoothctl и запущен ли bluetooth
+  if ! command -v bluetoothctl >/dev/null 2>&1; then
+    echo "{\"full_text\": \"BT: Off\", \"color\": \"#00bfff\"}"
+    return
+  fi
+
+  # Проверим, включён ли адаптер
+  if ! bluetoothctl show | grep -q "Powered: yes"; then
+    echo "{\"full_text\": \"BT: Off\", \"color\": \"#00bfff\"}"
+    return
+  fi
+
+  # Попробуем найти активное подключение
+  local connected
+  connected=$(bluetoothctl info | grep "Connected: yes")
+
+  if [ -n "$connected" ]; then
+    # Если подключено — вытащим имя
+    local name
+    name=$(bluetoothctl info | grep "Name" | sed 's/.*Name: //')
+    echo "{\"full_text\": \"BT: $name\", \"color\": \"#00bfff\"}"
+  else
+    echo "{\"full_text\": \"BT: Off\", \"color\": \"#00bfff\"}"
+  fi
+}
+
 # Главный цикл
 while :; do
   # 🔊 Громкость
@@ -103,6 +130,7 @@ while :; do
   echo "  {\"full_text\": \"Bright: ${BRIGHTPERCENT}%\", \"color\": \"#ffaa00\"},"
   echo "  $(get_battery_info),"
   echo "  {\"full_text\": \"WiFi: $SSID\", \"color\": \"#00ffff\"},"
+  echo "  $(get_bluetooth_info),"
   echo "  $(get_ram_info),"
   echo "  {\"full_text\": \"$DATE\", \"color\": \"#ffffff\"}"
   echo "],"
