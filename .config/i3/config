@@ -32,6 +32,9 @@ exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper.png
 # Set resolution
 exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080
 
+# Notification daemon
+exec --no-startup-id dunst
+
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
