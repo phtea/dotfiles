@@ -45,6 +45,17 @@ export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim) VISUAL=$EDI
 alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
 alias gc="git commit" gp="git push" gl="git log" gs="git status --short" ga="git add" gu="git pull"
 
+# t. === tmux-here - create a tmux session based on directory name
+alias t.="tmux-here"
+tmux-here() {
+  local session_name="${PWD##*/}"
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+    tmux attach -t "$session_name"
+  else
+    tmux new-session -s "$session_name"
+  fi
+}
+
 # Enable color support for ls and grep
 command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto'
 
