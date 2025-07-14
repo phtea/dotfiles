@@ -62,7 +62,17 @@ return {
 	pcall(vim.keymap.del, "n", "gd")
 
 	-- Keymaps
-	vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Find files" })
+	vim.keymap.set("n", "<leader>f", function()
+	    require("telescope.builtin").find_files({
+		find_command = {
+		    "rg",
+		    "--files",
+		    "--hidden",
+		    "--glob", "!.git/",
+		    "--glob", "!node_modules/",
+		},
+	    })
+	end, { desc = "Find files (.config/ but skip .git/)" })
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end, { desc = "Find files (all)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
 	vim.keymap.set("n", "<leader>g", builtin.git_status, { desc = "Find git status (and see diffs)" })
