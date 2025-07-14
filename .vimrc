@@ -23,7 +23,8 @@ nnoremap - :Ex<CR>
 " Finding files
 set path+=**
 set wildmenu
-set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz
+set wildignorecase
+set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 nnoremap <leader>f :find 
 nnoremap <leader>/ :Grep 
 
