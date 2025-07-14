@@ -69,8 +69,9 @@ nnoremap ]c :cnext<CR>
 nnoremap [c :cprev<CR>
 
 " Copy/paste with system buffer (+clipboard needed)
+nnoremap Y y$
 nnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
+nnoremap <leader>Y "+y$
 vnoremap <leader> "+y
 
 " Hide highlight
