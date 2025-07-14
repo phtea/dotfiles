@@ -39,7 +39,8 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 # Editor configuration
-export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim) VISUAL=$EDITOR
+export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim)
+VISUAL=$EDITOR
 
 # Useful Aliases
 alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
