@@ -1,10 +1,16 @@
 dotfiles, which include:
 - bash
-- tmux
-- vim (vanilla)
+- tmux (with tmux-sessionazier helper script)
+- vim
+- nvim
 - ghostty
+- helix
+- i3
+- picom
+- misc scripts
+- ...and gonna be more!
 
 if using nvim, install dependencies with:
 ```bash
-install_nvim_deps.sh
+ubuntu_install_nvim_deps.sh
 ```
