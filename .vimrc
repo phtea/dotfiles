@@ -41,6 +41,7 @@ nnoremap N Nzzzv
 
 " Substitute current word in this file
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc \| update <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
 " Navigation half-page with centering
 nnoremap <C-d> <C-d>zz

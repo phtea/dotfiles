@@ -43,7 +43,7 @@ export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim) VISUAL=$EDI
 
 # Useful Aliases
 alias reload='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
-alias gc="git commit" gp="git push" gl="git log" gs="git status --short" ga="git add" gu="git pull"
+alias gc="git commit" gp="git push" gl="git log" gs="git status --short" ga="git add" gu="git pull" gd="git diff"
 
 # t === tmux-here - create a tmux session based on directory name
 alias t="tmux-here"
@@ -54,6 +54,29 @@ tmux-here() {
   else
     tmux new-session -s "$session_name"
   fi
+}
+
+# OP: Do a command on file update
+ondo() {
+  if [ $# -ne 2 ]; then
+    echo "Usage: ondo <file-pattern> <command>"
+    return 1
+  fi
+
+  local file_pattern="$1"
+  local command="$2"
+
+  if ! command -v entr &> /dev/null; then
+    echo "entr is required, but it's not installed."
+    return 1
+  fi
+
+  # Use entr to watch for file changes and execute the command
+  find . -name "$file_pattern" | entr -r sh -c '
+    clear
+    echo "[$(date +"%Y-%m-%d %H:%M:%S")] $ '"$command"'"
+    '"$command"'
+  '
 }
 
 # Enable color support for ls and grep
