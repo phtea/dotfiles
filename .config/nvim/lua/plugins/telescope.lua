@@ -32,6 +32,7 @@ return {
 		buffers = { initial_mode = "normal" },
 		grep_string = { initial_mode = "normal" },
 		diagnostics = { initial_mode = "normal" },
+		resume = { initial_mode = "normal" },
 	    },
 	})
 
