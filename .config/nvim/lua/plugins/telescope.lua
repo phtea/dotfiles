@@ -69,8 +69,8 @@ return {
 		    "rg",
 		    "--files",
 		    "--hidden",
-		    "--glob", "!.git/",
-		    "--glob", "!node_modules/",
+		    "--glob",
+		    '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/.yarn/*}',
 		},
 	    })
 	end, { desc = "Find files (.config/ but skip .git/)" })
