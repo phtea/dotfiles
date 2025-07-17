@@ -27,4 +27,3 @@ vim.opt.termguicolors = true
 vim.wo.relativenumber = true
 vim.o.scrolloff = 10
 vim.o.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
-
