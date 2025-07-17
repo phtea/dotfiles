@@ -81,7 +81,7 @@ ondo() {
 }
 
 # Enable color support for ls and grep
-command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto'
+command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto' && alias la='ls -la --color=auto'
 
 # Add to PATH only if directory exists
 [ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"

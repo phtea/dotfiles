@@ -76,7 +76,7 @@ return {
 	end, { desc = "Find files (.config/ but skip .git/)" })
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end, { desc = "Find files (all)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
-	vim.keymap.set("n", "<leader>g", builtin.git_status, { desc = "Find git status (and see diffs)" })
+	vim.keymap.set("n", "<leader>v", builtin.git_status, { desc = "Find git status (and see diffs)" })
 	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Open jumplist picker" })
 	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Open last picker" })
 	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep (all)" })
