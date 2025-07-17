@@ -3,8 +3,6 @@ let mapleader = " "
 
 syntax on
 colorscheme slate
-highlight Normal ctermbg=NONE guibg=NONE
-highlight NormalNC ctermbg=NONE guibg=NONE
 
 set ttimeoutlen=50
 set scrolloff=10

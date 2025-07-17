@@ -1,0 +1,40 @@
+[user]
+    name = Pushmenkov Sergey
+    email = cerejapushmenkov2@gmail.com
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[core]
+    preloadIndex = true
+    parallelCheckout = true
+    pager = less -FRX
+
+[alias]
+    st = status
+    lg = log --oneline --graph --decorate --all
+
+[include]
+    path = ~/.gitconfig_local
+
+[push]
+    default = simple
+
+[pull]
+    rebase = false
+
+[fetch]
+    prune = true
+
+[format]
+    pretty = format:%C(auto)%h%d %s %C(blue)%cr %C(black)%an
+
+[merge]
+    tool = vimdiff
+
+[diff]
+    tool = vimdiff
+
+[mergetool]
+    keepBackup = false
+    prompt = false
