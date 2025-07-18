@@ -52,7 +52,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    vim
+    xclip
+    ghostty
     neovim
     firefox
     git
