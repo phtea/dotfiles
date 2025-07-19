@@ -21,7 +21,7 @@ return {
 	vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon file 3" })
 	vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon file 4" })
 
-	vim.api.nvim_set_hl(0, "HarpoonWindow", { link = "NormalFloat" })
-	vim.api.nvim_set_hl(0, "HarpoonBorder", { link = "FloatBorder" })
+	-- vim.api.nvim_set_hl(0, "HarpoonWindow", { fg = "#cccccc", bg = "NONE" })
+	-- vim.api.nvim_set_hl(0, "HarpoonBorder", { link = "FloatBorder" })
     end,
 }

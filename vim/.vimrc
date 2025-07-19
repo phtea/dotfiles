@@ -77,6 +77,7 @@ nnoremap <Esc> :nohlsearch<CR>
 
 " Misc
 nnoremap Q <nop>
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Enable persistent undo
 set undofile undodir=~/.vim/undo

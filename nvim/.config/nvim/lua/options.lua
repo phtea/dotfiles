@@ -9,6 +9,10 @@ vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+vim.opt.termguicolors = true
+vim.wo.relativenumber = true
+vim.o.scrolloff = 10
+
 -- Size of and indent
 vim.opt.shiftwidth = 4
 
@@ -22,6 +26,10 @@ vim.opt.undofile = true
 -- Set undo directory
 local undodir = vim.fn.stdpath("data") .. "/undo"
 vim.opt.undodir = undodir
+
+-- Sign column always visible
+vim.opt.signcolumn = "yes"
+vim.o.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 
 -- Auto-create the undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
