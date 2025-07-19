@@ -65,7 +65,23 @@
     i3status
     dmenu
     stow
+    gcc
+    gnumake
+    vim_configurable
+    ripgrep
+    fastfetch
+    scrot
+    telegram-desktop
+    discord
+    picom
+    tree
+    feh
+    xss-lock
+    i3lock
     xorg.xinit
+    xorg.xset
+    xfce.thunar
+    mpv
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
