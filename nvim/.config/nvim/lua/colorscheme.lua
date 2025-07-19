@@ -6,7 +6,7 @@ local function hl(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 hl("Title", { fg = "#ffffff", bold = true })
 hl("ModeMsg", { fg = "#ffd700", bg = "NONE" })
 hl("VertSplit", { fg = "#808080", bg = "NONE" })
-hl("TelescopeSelection", { fg = "#ffffff", bg = "#6e4d2b" })
+hl("TelescopeSelection", { bg = "#45452B" })
 hl("NormalFloat", { fg = "#ffffff", bg = "NONE" })
 hl("Structure", { fg = "#c67bcc" })
 hl("MatchParen", { bg = "#477eb5", bold = true })
