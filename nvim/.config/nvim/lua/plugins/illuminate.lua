@@ -12,9 +12,6 @@ return {
 	    large_file_overrides = nil,
 	    filetypes_denylist = { "NvimTree", "TelescopePrompt", "harpoon", "oil",  },
 	})
-	vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#3e4452" })
-	vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = "#3e4452" })
-	vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#3e4452" })
 
 	-- Disable highlights in Insert mode
 	vim.api.nvim_create_autocmd({ "InsertEnter" }, {
