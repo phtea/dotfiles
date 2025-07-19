@@ -42,10 +42,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Brightness up
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +1%
 
 # Brightness down
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 1%-
 
 # Show all custom Rofi scripts (t - tools)
 bindsym $mod+t exec --no-startup-id ~/scripts/rofi-scripts
@@ -191,4 +191,4 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always --no-startup-id polybar --config=~/.config/polybar/config.ini
+exec_always --no-startup-id ~/.config/polybar/launch.sh
