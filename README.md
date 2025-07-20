@@ -19,3 +19,8 @@ if using nvim, install dependencies with:
 ```bash
 ubuntu_install_nvim_deps.sh
 ```
+Now added arch bootstrapper, yay!
+
+```bash
+arch_bootstrapper.sh
+```

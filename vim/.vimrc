@@ -1,6 +1,9 @@
 " Leader key
 let mapleader = " "
 
+" OP
+set hidden
+
 syntax on
 colorscheme slate
 
@@ -37,9 +40,13 @@ nnoremap J mzJ`z
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Substitute current word in this file
+" Substitute current word in this file (normal and visual modes)
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
-nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc \| update <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+vnoremap s "zy:%s/<C-r>z/<C-r>z/gI<Left><Left><Left>
+
+" Substitute current word whole project (normal and visual modes)
+nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>
+vnoremap S "zy:Grep -w <C-r>z<CR><C-w>k:cdo s/<C-r>z/<C-r>z/gc<Left><Left><Left>
 
 " Navigation half-page with centering
 nnoremap <C-d> <C-d>zz
