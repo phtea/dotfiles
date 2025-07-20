@@ -71,6 +71,7 @@ bindsym $mod+j focus left
 bindsym $mod+k focus right
 
 bindsym $mod+l exec --no-startup-id loginctl lock-session
+bindsym $mod+period exec --no-startup-id rofi -show emoji -modi emoji
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left

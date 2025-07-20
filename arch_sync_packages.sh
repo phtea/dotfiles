@@ -5,7 +5,7 @@ echo "=== Installing core packages ==="
 sudo pacman -S --needed \
   base-devel git \
   gvim neovim ripgrep fd \
-  stow fzf entr tmux ghostty polybar pamixer acpi picom rofi \
+  stow fzf entr tmux ghostty polybar pamixer acpi picom rofi rofi-emoji \
   ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common noto-fonts-emoji \
   pipewire pipewire-pulse wireplumber networkmanager bluez blueman \
   xorg-server xorg-xinit xterm xorg-xrandr xorg-xset xorg-xprop xorg-xinput xorg-xkbcomp xorg-xauth xorg-xmodmap xorg-xrdb \
