@@ -162,6 +162,15 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# Window borders
+for_window [class=".*"] border pixel 2
+
+# Border colors
+client.focused 		#4c7899 #285577 #ffffff #2e9ef4 #285577
+client.unfocused 	#333333 #222222 #888888 #2922d2e #222222
+client.focused_inactive #5f676a #222222 #ffffff #484e50 #222222
+client.urgent 		#2f343a #900000 #ffffff #900000 #900000
+
 # Keyboard layouts: US + RU, switch with Win+Space
 exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:win_space_toggle"
 
