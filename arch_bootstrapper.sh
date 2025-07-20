@@ -4,16 +4,8 @@ set -e
 echo "=== Syncing and updating system ==="
 sudo pacman -Syu --needed
 
-echo "=== Installing core packages ==="
-sudo pacman -S --needed \
-  base-devel git \
-  gvim neovim ripgrep fd \
-  stow fzf entr tmux ghostty polybar pamixer acpi picom rofi \
-  ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common noto-fonts-emoji \
-  pipewire pipewire-pulse wireplumber networkmanager bluez blueman \
-  xorg-server xorg-xinit xterm xorg-xrandr xorg-xset xorg-xprop xorg-xinput xorg-xkbcomp xorg-xauth xorg-xmodmap xorg-xrdb \
-  i3-wm i3lock xss-lock dunst dex feh scrot xclip brightnessctl \
-  libnotify thunar less fastfetch mpv \
+echo "=== Calling package installation script ==="
+bash arch_sync_packages.sh
 
 echo "=== Enabling necessary services ==="
 sudo systemctl enable --now NetworkManager bluetooth
