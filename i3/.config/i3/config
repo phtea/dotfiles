@@ -70,6 +70,8 @@ bindsym $mod+d exec rofi -show drun -matching fuzzy
 bindsym $mod+j focus left
 bindsym $mod+k focus right
 
+bindsym $mod+l exec --no-startup-id loginctl lock-session
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
