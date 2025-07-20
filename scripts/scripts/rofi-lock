@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/Pictures/Wallpapers/"
+mkdir -p "$DIR"
+
+# Выбор картинки через rofi или fzf
+image=$(find "$DIR" -type f \( -iname '*.png' \) \
+    | sort | rofi -dmenu -i -p "Choose lockscreen:")
+
+# Если выбран файл — сохранить путь
+if [[ -n "$image" ]]; then
+    echo "$image" > ~/.lockbg
+    notify-send "🔒 Lock screen background set!" "$(basename "$image")"
+fi

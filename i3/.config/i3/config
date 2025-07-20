@@ -20,7 +20,7 @@ exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/Pictures/Wallpapers/Lockscreens/lock.png
+exec --no-startup-id sh -c '[ -f ~/.lockbg ] && xss-lock --transfer-sleep-lock -- i3lock --nofork -i "$(cat ~/.lockbg)"'
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -32,8 +32,8 @@ exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080
 # Notification daemon
 exec --no-startup-id dunst
 
-# Wallpapers
-exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper.png
+# Use Wallpapers if exist
+exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg'
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%
