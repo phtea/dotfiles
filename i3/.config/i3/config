@@ -26,18 +26,18 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/Pict
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 # exec --no-startup-id nm-applet
 
-# Wallpapers
-exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper.png
-
 # Set resolution
 exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080
 
 # Notification daemon
 exec --no-startup-id dunst
 
+# Wallpapers
+exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper.png
+
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
