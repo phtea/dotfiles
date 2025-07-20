@@ -13,7 +13,7 @@ sudo pacman -S --needed \
   pipewire pipewire-pulse wireplumber networkmanager bluez blueman \
   xorg-server xorg-xinit xterm xorg-xrandr xorg-xset xorg-xprop xorg-xinput xorg-xkbcomp xorg-xauth xorg-xmodmap xorg-xrdb \
   i3-wm i3lock xss-lock dunst dex feh scrot xclip brightnessctl \
-  libnotify thunar less \
+  libnotify thunar less fastfetch \
 
 echo "=== Enabling necessary services ==="
 sudo systemctl enable --now NetworkManager bluetooth
