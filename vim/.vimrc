@@ -40,6 +40,10 @@ nnoremap J mzJ`z
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Navigate quickfix list
+nnoremap <A-j> :cnext<CR>
+nnoremap <A-k> :cprev<CR>
+
 " Substitute current word in this file (normal and visual modes)
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 vnoremap s "zy:%s/<C-r>z/<C-r>z/gI<Left><Left><Left>
