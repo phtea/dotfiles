@@ -18,7 +18,7 @@ systemctl --user enable --now pipewire.socket pipewire-pulse.socket
 
 echo "=== Stowing dotfiles ==="
 cd ~/dotfiles
-stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim
+stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim dunst
 # stow helix
 
 echo "=== Installation complete! ==="
