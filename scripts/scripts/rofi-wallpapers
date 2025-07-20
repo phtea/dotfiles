@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+
+# Найдём все изображения и красиво отсортируем (можешь убрать sort, если не нужно)
+wallpapers=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' -o -iname '*.webp' \) | sort)
+
+# Выбор изображения через rofi
+chosen=$(echo "$wallpapers" | rofi -dmenu -i -p "Set wallpaper:")
+
+# Если что-то выбрано — устанавливаем
+if [ -n "$chosen" ]; then
+    feh --bg-scale "$chosen"
+    notify-send "Wallpaper set" "$(basename "$chosen")"
+fi
