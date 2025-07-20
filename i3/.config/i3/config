@@ -93,7 +93,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym F11 fullscreen toggle
 
 bindsym $mod+e exec thunar
 
@@ -101,7 +101,7 @@ bindsym $mod+e exec thunar
 # bindsym $mod+s layout stacking
 
 # toggle tiling / floating
-bindsym $mod+w floating toggle
+bindsym $mod+f floating toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
