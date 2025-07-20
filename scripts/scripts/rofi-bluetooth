@@ -17,7 +17,7 @@ CHOICE=$(echo -e "$DEVICES" | rofi -dmenu -p "Bluetooth devices:")
 
 if [[ "$CHOICE" == "Off" ]]; then
   bluetoothctl power off
-  notify-send "Bluetooth" "Adapter powered off"
+  notify-send "󰂯 Bluetooth" "Adapter powered off"
   exit 0
 fi
 
@@ -36,7 +36,7 @@ if [[ "$CHOICE" == "Scan..." ]]; then
 
   if [[ "$CHOICE" == "Off" ]]; then
     bluetoothctl power off
-    notify-send "Bluetooth" "Adapter powered off"
+    notify-send "󰂯 Bluetooth" "Adapter powered off"
     exit 0
   fi
 fi
@@ -50,7 +50,7 @@ IS_CONNECTED=$(bluetoothctl info "$MAC" | grep "Connected: yes")
 if [[ -n "$IS_CONNECTED" ]]; then
   # Уже подключён — отключаем
   bluetoothctl disconnect "$MAC"
-  notify-send "Bluetooth" "Disconnected: $CHOICE"
+  notify-send "󰂯 Bluetooth" "Disconnected: $CHOICE"
 else
   # Иначе — подключаем с твоим блоком
   bluetoothctl << EOF
@@ -61,5 +61,5 @@ trust $MAC
 connect $MAC
 EOF
 
-  notify-send "Bluetooth" "Connected: $CHOICE"
+  notify-send "󰂯 Bluetooth" "Connected: $CHOICE"
 fi

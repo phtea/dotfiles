@@ -1,0 +1,31 @@
+[global]
+font = "JetBrainsMono Nerd Font 10"
+
+# fallback для emoji (если нет — добавить)
+fallback_icon_theme = "Papirus"
+
+# Расширенный вариант, если шрифт не emoji-aware:
+# font = "monospace 10"
+# emoji_font = "Noto Color Emoji"
+
+markup = full
+
+transparency = 10
+corner_radius = 6
+frame_width = 1
+separator_height = 2
+
+icon_position = left
+enable_markup = yes
+
+[urgency_low]
+background = "#222222"
+foreground = "#ffffff"
+
+[urgency_normal]
+background = "#333333"
+foreground = "#ffffff"
+
+[urgency_critical]
+background = "#900000"
+foreground = "#ffffff"
