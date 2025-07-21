@@ -29,6 +29,6 @@ hl("StatusLineNC", { bg = "NONE" })
 hl("StatusLine",   { bg = "NONE" })
 
 -- GitSigns colors
-vim.api.nvim_set_hl(0, 'GitSignsAdd',    { fg = '#00dd00' })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#0000dd' })
-vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#dd0000' })
+hl('Added',    { fg = '#00dd00' })
+hl('Changed', { fg = '#0000dd' })
+hl('Removed', { fg = '#dd0000' })
