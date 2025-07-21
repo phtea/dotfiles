@@ -1,95 +1,42 @@
-" Leader key
 let mapleader = " "
-
-" OP
-set hidden
-
 syntax on
-colorscheme slate
-
-set ttimeoutlen=50
-set scrolloff=10
-
-" Options
-language en_US.UTF-8
-set number
-set rnu
-set showcmd
-set incsearch
-set hlsearch
-
-" Open netrw in parent directory with '-'
-nnoremap - :Ex<CR>
-
-" Finding files
-set path+=**
-set wildmenu
-set wildignorecase
-set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-nnoremap <leader>f :find 
-nnoremap <leader>/ :Grep 
-
-" Move what's selected
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" When joining lines keep cursor on same place
-nnoremap J mzJ`z
-
-" Center searches
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" Navigate quickfix list
-nnoremap <A-j> :cnext<CR>
-nnoremap <A-k> :cprev<CR>
-
-" Substitute current word in this file (normal and visual modes)
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
-vnoremap s "zy:%s/<C-r>z/<C-r>z/gI<Left><Left><Left>
-
-" Substitute current word whole project (normal and visual modes)
-nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>
-vnoremap S "zy:Grep -w <C-r>z<CR><C-w>k:cdo s/<C-r>z/<C-r>z/gc<Left><Left><Left>
-
-" Navigation half-page with centering
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-
-" Grep with ripgrep (rg)
-let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
+colo habamax
+lan en_US.UTF-8
+set nu rnu sc is hls hid ttm=50 so=10
+set pa+=** wmnu wic wig+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set grepformat=%f:%l:%c:%m
 
-command! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redraw! | cwindow " search in all files
-command! -nargs=+ Ggrep execute 'silent grep! <args> `git ls-files`' | redraw! | cwindow " search in tracked files
+nn - :Ex<CR>
+nn <leader>f :find 
+nn <leader>/ :Grep 
+nn <leader>v :vimgrep //**<Left><Left><Left>
+nn <leader>V :vimgrep //** .**<Left><Left><Left><Left><Left><Left><Left>
+nn n nzzzv
+nn N Nzzzv
+nn <C-d> <C-d>zz
+nn <C-u> <C-u>zz
+nn <A-j> :cnext<CR>
+nn <A-k> :cprev<CR>
+nn <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+vn s "zy:%s/<C-r>z/<C-r>z/gI<Left><Left><Left>
+nn <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>
+vn S "zy:Grep -w <C-r>z<CR><C-w>k:cdo s/<C-r>z/<C-r>z/gc<Left><Left><Left>
+let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
+com! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redr! | cw " search in all files
+com! -nargs=+ Ggrep execute 'silent grep! <args> `git ls-files`' | redr! | cw " search in tracked files
+nn <leader>8 :Grep <C-R><C-W><CR>
+nn <leader>* :Ggrep <C-R><C-W><CR>
+nn <C-h> <C-w>h
+nn <C-j> <C-w>j
+nn <C-k> <C-w>k
+nn <C-l> <C-w>l
+nn Y y$
+nn <leader>y "+y
+nn <leader>Y "+y$
+vn <leader> "+y
+nn <Esc> :nohlsearch<CR>
+nn Q <nop>
+cno w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Search word under cursor with Ggrep (<leader>*)
-nnoremap <leader>8 :Grep <C-R><C-W><CR>
-nnoremap <leader>* :Ggrep <C-R><C-W><CR>
-
-" Easier navigation between splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Quickfix list navigation
-nnoremap ]c :cnext<CR>
-nnoremap [c :cprev<CR>
-
-" Copy/paste with system buffer (+clipboard needed)
-nnoremap Y y$
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+y$
-vnoremap <leader> "+y
-
-" Hide highlight
-nnoremap <Esc> :nohlsearch<CR>
-
-" Misc
-nnoremap Q <nop>
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-
-" Enable persistent undo
 set undofile undodir=~/.vim/undo
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
