@@ -36,14 +36,3 @@ vim.o.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 if vim.fn.isdirectory(undodir) == 0 then
     vim.fn.mkdir(undodir, "p")
 end
-
-local function autocmd(group, event, pattern, command)
-  vim.api.nvim_create_autocmd(event, {
-    group = vim.api.nvim_create_augroup(group, { clear = true }),
-    pattern = pattern,
-    command = command
-  })
-end
-
-autocmd("hlsearch_toggle", "CmdlineEnter", { "/", "?" }, "set hlsearch")
-autocmd("hlsearch_toggle", "CmdlineLeave", { "/", "?" }, "set nohlsearch")
