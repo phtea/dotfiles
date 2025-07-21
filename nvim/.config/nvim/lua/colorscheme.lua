@@ -3,7 +3,7 @@ vim.cmd.colorscheme("slate")
 
 local function hl(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 
-hl("Title", { fg = "#ffffff", bold = true })
+-- hl("Title", { fg = "#ffffff", bold = true })
 hl("ModeMsg", { fg = "#ffd700", bg = "NONE" })
 hl("VertSplit", { fg = "#808080", bg = "NONE" })
 hl("TelescopeSelection", { bg = "#45452B" })
