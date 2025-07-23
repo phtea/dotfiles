@@ -18,10 +18,6 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- When joining lines keep cursor on same place
 vim.keymap.set("n", "J", "mzJ`z")
 
--- Center searches
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
 -- Subsitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
