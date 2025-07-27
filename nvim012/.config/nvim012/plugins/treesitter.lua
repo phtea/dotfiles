@@ -13,9 +13,9 @@ require("nvim-treesitter.configs").setup {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection   = "<M-o>", -- Alt-O init
-			node_incremental = "<M-o>", -- Alt-O expand
-			node_decremental = "<M-i>", -- Alt-I shrink
+			init_selection   = "<M-o>",
+			node_incremental = "<M-o>",
+			node_decremental = "<M-i>",
 		},
 	},
 }
