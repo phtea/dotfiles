@@ -9,7 +9,7 @@ vim.pack.add({
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', },
 })
 
--- auto load plugins settings
+-- Auto load plugins settings
 local plugin_dir = vim.fn.stdpath("config") .. "/plugins"
 
 for _, file in ipairs(vim.fn.readdir(plugin_dir)) do

@@ -5,7 +5,6 @@ vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
-vim.opt.winbar = "single"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
 vim.opt.swapfile = false

@@ -4,4 +4,4 @@ package.path = vim.fn.stdpath("config") .. "/?.lua;" .. package.path -- Enable l
 require("core.mappings")
 require("core.options")
 require("core.lsp")
-require("core.plugins")
+require("core.pack-plugins")
