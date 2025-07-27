@@ -1,14 +1,6 @@
-[user]
-    name = Pushmenkov Sergey
-    email = cerejapushmenkov2@gmail.com
-
-[url "git@github.com:phtea/"]
-    insteadOf = https://github.com/phtea/
-
 [core]
     preloadIndex = true
     parallelCheckout = true
-    pager = less -FRX
 
 [alias]
     st = status
