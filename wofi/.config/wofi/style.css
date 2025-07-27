@@ -1,0 +1,19 @@
+* {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #1e1e2e;
+}
+
+window {
+  background-color: #1e1e2e;
+}
+
+#entry {
+  padding: 5px
+	background-color: #1e1e2e;
+}
+
+#scroll {
+  margin: 5px;
+}

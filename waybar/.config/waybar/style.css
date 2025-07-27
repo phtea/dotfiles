@@ -11,7 +11,7 @@
 @define-color color7		#bac2de;
 
 * {
-    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands";
+    font-family: Mononoki, "Font Awesome 6 Free", "Font Awesome 6 Brands";
     font-size: 14px;
     font-weight: bold;
 }
@@ -25,7 +25,6 @@ window#waybar {
 window#waybar.hidden {
     opacity: 0.2;
 }
-
 
 button {
     box-shadow: inset 0 -3px transparent;
