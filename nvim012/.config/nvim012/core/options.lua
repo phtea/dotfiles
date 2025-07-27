@@ -22,7 +22,8 @@ vim.opt.showcmd = true
 vim.opt.undofile = true
 
 -- Set undo directory
-local undodir = vim.fn.stdpath("config") .. "/undo"
+local config_name = "nvim012"
+local undodir = vim.fn.stdpath("data") .. "/" .. config_name .. "/undo"
 vim.opt.undodir = undodir
 
 -- Auto-create the undo directory if it doesn't exist
