@@ -27,5 +27,5 @@ vim.opt.undodir = undodir
 
 -- Auto-create the undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
-	vim.fn.mkdir(undodir, "p")
+    vim.fn.mkdir(undodir, "p")
 end

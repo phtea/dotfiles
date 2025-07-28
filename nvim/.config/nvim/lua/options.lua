@@ -14,8 +14,8 @@ vim.opt.termguicolors = true
 vim.wo.relativenumber = true
 vim.o.scrolloff = 10
 
--- Size of and indent
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 2
 
 -- Grep
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
@@ -34,5 +34,5 @@ vim.o.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 
 -- Auto-create the undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
-    vim.fn.mkdir(undodir, "p")
+  vim.fn.mkdir(undodir, "p")
 end

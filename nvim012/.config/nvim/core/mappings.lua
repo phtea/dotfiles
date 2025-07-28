@@ -20,11 +20,11 @@ vim.keymap.set("n", "<leader>t", function()
     local ok, output = pcall(vim.fn.system, script)
 
     if not ok then
-        vim.notify("Failed calling tmux-sessionizer: " .. output, vim.log.levels.ERROR)
-        return
+	vim.notify("Failed calling tmux-sessionizer: " .. output, vim.log.levels.ERROR)
+	return
     end
 
     if vim.v.shell_error ~= 0 then
-        vim.notify("tmux-sessionizer failed:\n" .. output, vim.log.levels.WARN)
+	vim.notify("tmux-sessionizer failed:\n" .. output, vim.log.levels.WARN)
     end
 end, { desc = "Launch tmux-sessionizer", silent = true })

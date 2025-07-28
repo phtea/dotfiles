@@ -4,6 +4,7 @@
   "git-worktree.nvim": { "branch": "main", "commit": "3ad8c17a3d178ac19be925284389c14114638ebb" },
   "gitsigns.nvim": { "branch": "main", "commit": "4666d040b60d1dc0e474ccd9a3fd3c4d67b4767c" },
   "harpoon": { "branch": "harpoon2", "commit": "ed1f853847ffd04b2b61c314865665e1dadf22c7" },
+  "kanagawa.nvim": { "branch": "master", "commit": "debe91547d7fb1eef34ce26a5106f277fbfdd109" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mason.nvim": { "branch": "main", "commit": "8024d64e1330b86044fed4c8494ef3dcd483a67c" },
   "nvim-lspconfig": { "branch": "master", "commit": "d005da998edad401524504d03c7a88a56d125224" },

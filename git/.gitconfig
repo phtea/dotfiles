@@ -33,3 +33,7 @@
 [mergetool]
     keepBackup = false
     prompt = false
+
+[user]
+	email = phtea@mail.com
+	name = phtea

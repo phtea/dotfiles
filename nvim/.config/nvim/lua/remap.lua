@@ -11,19 +11,8 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<A-j>", ":cnext<CR>")
 vim.keymap.set("n", "<A-k>", ":cprev<CR>")
 
--- Move what's selected
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
--- When joining lines keep cursor on same place
-vim.keymap.set("n", "J", "mzJ`z")
-
 -- Subsitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
--- Navigation
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })

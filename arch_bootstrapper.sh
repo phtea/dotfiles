@@ -18,6 +18,7 @@ systemctl --user enable --now pipewire.socket pipewire-pulse.socket
 
 echo "=== Stowing dotfiles ==="
 cd ~/dotfiles
+rm ~/.bashrc ~/.bash_profile
 stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim dunst
 # stow helix
 
