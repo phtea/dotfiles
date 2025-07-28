@@ -2,13 +2,13 @@
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
-# Найдём все изображения и красиво отсортируем (можешь убрать sort, если не нужно)
-wallpapers=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' -o -iname '*.webp' \) | sort)
+image_files=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' -o -iname '*.webp' \))
+symlinks=$(find "$WALLPAPER_DIR" -type l)
 
-# Выбор изображения через rofi
+wallpapers=$(echo -e "$image_files\n$symlinks" | sort)
+
 chosen=$(echo "$wallpapers" | rofi -dmenu -i -p "Set wallpaper:")
 
-# Если что-то выбрано — устанавливаем
 if [ -n "$chosen" ]; then
     feh --bg-scale "$chosen"
     notify-send " Wallpaper set" "$(basename "$chosen")"
