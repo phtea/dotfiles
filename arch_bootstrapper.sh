@@ -8,7 +8,7 @@ echo "=== Calling package installation script ==="
 bash arch_sync_packages.sh
 
 echo "=== Enabling necessary services ==="
-sudo systemctl enable --now NetworkManager bluetooth
+sudo systemctl enable --now NetworkManager bluetooth bluetooth.service
 
 echo "=== Enabling user-level services ==="
 
