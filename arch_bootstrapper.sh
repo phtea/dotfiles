@@ -20,7 +20,7 @@ echo "=== Stowing dotfiles ==="
 cd ~/dotfiles
 rm ~/.bashrc ~/.bash_profile
 stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim dunst wallpapers
-
+sudo ln -s ~/dotfiles/custom_symlinks/99-touchpad.conf /etc/X11/xorg.conf.d/99-touchpad.conf || echo "[WARNING] Failed to create symlink for touch pad"
 
 echo "=== Setting default background image ==="
 feh --bg-scale ~/Pictures/Wallpapers/arch_linux.png
