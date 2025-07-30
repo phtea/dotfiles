@@ -26,5 +26,10 @@ return {
 		vim.cmd("IlluminateResumeBuf")
 	  end,
 	})
+
+	-- Subtle but visible highlight, no underline
+	vim.api.nvim_set_hl(0, "IlluminatedWordText",  { bg = "#3a3a3a", underline = false })
+	vim.api.nvim_set_hl(0, "IlluminatedWordRead",  { bg = "#3a3a3a", underline = false })
+	vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#3a3a3a", underline = false })
   end,
 }
