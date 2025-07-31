@@ -12,17 +12,11 @@ return {
 	telescope.setup({
 	  defaults = {
 		vimgrep_arguments = {
-		  'rg',
-		  '--color=never',
-		  '--no-heading',
-		  '--with-filename',
-		  '--line-number',
-		  '--column',
-		  '--smart-case',
-		  '--hidden',
-		  '--glob',
+		  'rg', '--color=never', '--no-heading', '--with-filename', '--line-number',
+		  '--column', '--smart-case', '--hidden', '--glob',
 		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}',
 		},
+		prompt_prefix = '',
 	  },
 	  pickers = {
 		lsp_references = { initial_mode = "normal" },
@@ -54,6 +48,16 @@ return {
 	  vim.cmd(config.update_on_change_command)
 	end)
 
+	-- Remove default LSP keymaps if present
+	pcall(vim.keymap.del, "n", "gri")
+	pcall(vim.keymap.del, "n", "grr")
+	pcall(vim.keymap.del, "x", "gra")
+	pcall(vim.keymap.del, "n", "gra")
+	pcall(vim.keymap.del, "n", "grn")
+	pcall(vim.keymap.del, "n", "grc")
+	pcall(vim.keymap.del, "n", "grt")
+	pcall(vim.keymap.del, "n", "gd")
+
 	-- Keymaps
 	vim.keymap.set("n", "<leader>f", function()
 	  require("telescope.builtin").find_files({
@@ -83,8 +87,8 @@ return {
 	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
 	  { desc = "Switch worktree" })
 
-	vim.keymap.set("n", "grr", builtin.lsp_references, { desc = "Find references" })
-	vim.keymap.set("n", "grd", builtin.lsp_definitions, { desc = "Find definitions" })
-	vim.keymap.set("n", "grt", builtin.lsp_type_definitions, { desc = "Find type definitions" })
+	vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "Find references" })
+	vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Find definitions" })
+	vim.keymap.set("n", "gt", builtin.lsp_type_definitions, { desc = "Find type definitions" })
   end,
 }
