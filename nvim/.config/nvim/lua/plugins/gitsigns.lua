@@ -20,6 +20,7 @@ return {
 		vim.keymap.set('n', ']g', gs.next_hunk, opts)
 		vim.keymap.set('n', '[g', gs.prev_hunk, opts)
 		vim.keymap.set('n', '<leader>gr', gs.reset_hunk, opts)
+		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, opts)
 		vim.keymap.set('n', '<leader>gh', gs.preview_hunk, opts)
 		vim.keymap.set('n', '<leader>gs', gs.stage_hunk, opts)
 		vim.keymap.set('n', '<leader>gS', function()
