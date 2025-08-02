@@ -16,7 +16,7 @@
     default = simple
 
 [pull]
-    rebase = false
+	rebase = false
 
 [fetch]
     prune = true
