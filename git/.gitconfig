@@ -16,7 +16,7 @@
     default = simple
 
 [pull]
-	rebase = false
+	rebase = true
 
 [fetch]
     prune = true
@@ -37,5 +37,6 @@
 [user]
 	email = phtea@mail.com
 	name = phtea
+
 [rerere]
 	enabled = true
