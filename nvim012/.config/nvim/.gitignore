@@ -1,8 +1,0 @@
-*.swp
-*.swo
-*.bak
-*.tmp
-/undo/
-node_modules/
-package*.json
-list-*.tgz
