@@ -9,7 +9,6 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.o.winborder = 'single'
 
 vim.opt.termguicolors = true
 vim.wo.relativenumber = true
