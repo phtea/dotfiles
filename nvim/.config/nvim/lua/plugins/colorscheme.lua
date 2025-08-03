@@ -34,6 +34,7 @@ return {
 		  NormalFloat                = { bg = "none" },
 		  FloatBorder                = { bg = "none" },
 		  FloatTitle                 = { bg = "none" },
+
 		  NormalDark                 = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
 		  LazyNormal                 = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
 		  MasonNormal                = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
@@ -53,5 +54,24 @@ return {
 
 	vim.cmd("colorscheme kanagawa")
 	vim.o.winborder = 'none'
+
+	local function persistent_hl()
+	  -- Vim illuminate
+	  vim.api.nvim_set_hl(0, "IlluminatedWordText",  { bg = "#3a3a3a", underline = false })
+	  vim.api.nvim_set_hl(0, "IlluminatedWordRead",  { bg = "#3a3a3a", underline = false })
+	  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#3a3a3a", underline = false })
+	end
+	persistent_hl()
+
+	-- Function to toggle transparency
+	function _G.toggle_transparency()
+	  is_transparent = not is_transparent  -- Toggle the transparency state
+	  require('kanagawa').setup({ transparent = is_transparent })  -- Update the theme
+	  vim.cmd("colorscheme kanagawa")  -- Reload the colorscheme
+	  persistent_hl()
+	end
+
+	-- Map a key to toggle transparency (e.g., <leader>t)
+	vim.api.nvim_set_keymap('n', '<leader>t', ':lua toggle_transparency()<CR>', { noremap = true, silent = true })
   end,
 }
