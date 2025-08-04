@@ -1,6 +1,6 @@
 vim.opt.swapfile = false
 vim.opt.lazyredraw = true
-vim.opt.winborder = 'rounded'
+vim.opt.winborder = 'single'
 vim.opt.path:append("**")
 vim.opt.number = true
 vim.opt.showcmd = true
