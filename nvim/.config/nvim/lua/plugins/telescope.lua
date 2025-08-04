@@ -17,7 +17,7 @@ return {
 		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}',
 		},
 		-- Default: { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 		selection_caret = ' ',
 		entry_prefix = ' ',
 		prompt_prefix = ' ',
