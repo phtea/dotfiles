@@ -11,7 +11,6 @@ return {
 	vim.api.nvim_create_autocmd('LspAttach', {
 	  group = vim.api.nvim_create_augroup('my.lsp', {}),
 	  callback = function()
-		vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0 })
 		vim.diagnostic.config({ virtual_text = { current_line = true } })
 	  end,
 	})
