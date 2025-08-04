@@ -3,9 +3,10 @@ return {
   config = function()
 	local function persistent_hl()
 	  -- Vim illuminate
-	  vim.api.nvim_set_hl(0, "IlluminatedWordText",  { bg = "#2a2a2a", underline = false })
-	  vim.api.nvim_set_hl(0, "IlluminatedWordRead",  { bg = "#2a2a2a", underline = false })
-	  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#2a2a2a", underline = false })
+	  vim.api.nvim_set_hl(0, "IlluminatedWordText",  { bg = "#1F1F1F", underline = false })
+	  vim.api.nvim_set_hl(0, "IlluminatedWordRead",  { bg = "#1F1F1F", underline = false })
+	  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#1F1F1F", underline = false })
+	  -- Statusline
 	  vim.api.nvim_set_hl(0, "StatusLine", { bg = NONE })
 	end
 

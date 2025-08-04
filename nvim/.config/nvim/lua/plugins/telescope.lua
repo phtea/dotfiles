@@ -16,7 +16,11 @@ return {
 		  '--column', '--smart-case', '--hidden', '--glob',
 		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}',
 		},
-		prompt_prefix = '',
+		-- Default: { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+		selection_caret = ' ',
+		entry_prefix = ' ',
+		prompt_prefix = ' ',
 	  },
 	  pickers = {
 		lsp_references = { initial_mode = "normal" },
