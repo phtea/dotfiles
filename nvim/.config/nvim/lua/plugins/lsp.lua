@@ -3,9 +3,9 @@ return {
   config = function()
 	local lspconfig = require('lspconfig')
 	lspconfig.pyright.setup {}
-	lspconfig.solargraph.setup {} -- ruby_lsp
+	lspconfig.solargraph.setup {} -- or ruby_lsp
 	lspconfig.clangd.setup {}
-	lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { "vim" }, } } } }
+	lspconfig.lua_ls.setup {}
 	lspconfig.gopls.setup {}
 
 	vim.api.nvim_create_autocmd('LspAttach', {
