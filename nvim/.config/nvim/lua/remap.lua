@@ -13,6 +13,7 @@ vim.keymap.set("n", "<A-k>", ":cprev<CR>")
 
 -- Subsitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]])
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
@@ -28,3 +29,11 @@ vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true,
 
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
+
+-- Lsp
+vim.keymap.set("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>")
+vim.keymap.set("n", "<leader>ld", function()
+  local current_state = not vim.diagnostic.is_enabled()
+  vim.diagnostic.enable(current_state)
+  print("Diagnostics " .. (current_state and "enabled" or "disabled"))
+end)

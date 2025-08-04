@@ -1,8 +1,6 @@
 return {
   "vague2k/vague.nvim",
   config = function()
-
-	-- Add all persistent highlighs here
 	local function persistent_hl()
 	  -- Vim illuminate
 	  vim.api.nvim_set_hl(0, "IlluminatedWordText",  { bg = "#3a3a3a", underline = false })
@@ -11,7 +9,11 @@ return {
 	  vim.api.nvim_set_hl(0, "StatusLine", { bg = NONE })
 	end
 
-	require("vague").setup({transparent = true})
+	require("vague").setup({
+	  transparent = true,
+	  italic = false,
+	})
+
 	vim.cmd("colorscheme vague")
 	persistent_hl()
   end

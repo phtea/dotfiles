@@ -1,7 +1,6 @@
-vim.o.swapfile = false
-vim.o.lazyredraw = true
-
--- Search and interface
+vim.opt.swapfile = false
+vim.opt.lazyredraw = true
+vim.opt.winborder = 'rounded'
 vim.opt.path:append("**")
 vim.opt.number = true
 vim.opt.showcmd = true
@@ -9,21 +8,17 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 vim.opt.termguicolors = true
-vim.wo.relativenumber = true
-vim.o.scrolloff = 10
-
+vim.opt.scrolloff = 10
+vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
+vim.opt.signcolumn = "yes"
+vim.opt.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 
 -- Grep
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m"
-
--- Sign column always visible
-vim.opt.signcolumn = "yes"
-vim.o.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 
 -- Enable persistent undo
 vim.opt.undofile = true

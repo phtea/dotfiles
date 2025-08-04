@@ -86,6 +86,12 @@ return {
 	vim.keymap.set("n", "<leader>w",
 	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
 	  { desc = "Switch worktree" })
+	vim.keymap.set("n", "<leader>n", function()
+	  require('telescope.builtin').find_files({
+		prompt_title = "Neovim Config",
+		cwd = vim.fn.stdpath("config"),
+	  })
+	end, { desc = "Search Neovim config files" })
 
 	vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "Find references" })
 	vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Find definitions" })
