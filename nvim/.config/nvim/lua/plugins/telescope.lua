@@ -70,7 +70,7 @@ return {
 		  "--files",
 		  "--hidden",
 		  "--glob",
-		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/.yarn/*}',
+		  '!{**/.git/*,**/node_modules/*,**/yarn.lock,**/*.png,**/*.o,**/*.jpeg,**/*.jpg,**/*.gif,**/*.pdf,**/*.zip,**/*.tar.gz,**/*.so,**/*.dll,**/*.exe}',
 		},
 	  })
 	end, { desc = "Find files (.config/ but skip .git/)" })
