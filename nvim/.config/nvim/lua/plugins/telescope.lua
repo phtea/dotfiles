@@ -77,14 +77,12 @@ return {
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end,
 	  { desc = "Find files (all)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
-	vim.keymap.set("n", "<leader>v", builtin.git_status, { desc = "Find git status (and see diffs)" })
-	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Open jumplist picker" })
+	vim.keymap.set("n", "<leader>v", builtin.git_status, { desc = "Find changed files (version control)" })
+	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Find jumplist" })
 	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Open last picker" })
 	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep (all)" })
 	vim.keymap.set("n", "<leader>*", function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
-	  { desc = "Grep word under cursor" })
-	vim.keymap.set("n", "<leader>8", function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
-	  { desc = "Grep word under cursor" })
+	  { desc = "Live grep (word)" })
 	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
 	vim.keymap.set("n", "<leader>gw",
@@ -92,7 +90,7 @@ return {
 	  { desc = "Switch worktree" })
 	vim.keymap.set("n", "<leader>n", function()
 	  require('telescope.builtin').find_files({
-		prompt_title = "Neovim Config",
+		prompt_title = "Edit Neovim Config",
 		cwd = vim.fn.stdpath("config"),
 	  })
 	end, { desc = "Search Neovim config files" })
