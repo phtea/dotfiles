@@ -13,7 +13,6 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
-vim.opt.statusline = "%{v:lua.require'git_branch'.get_branch()}%f %h%m%r%=%y %p%%"
 
 -- Grep
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
@@ -28,3 +27,9 @@ vim.opt.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p")
 end
+
+vim.opt.statusline = table.concat({
+  "%{v:lua.require'git_branch'.get_branch()}",
+  "%f %h%m%r%=",
+  "%{v:lua.require'lsp_statusline'.get_lsp()}",
+})
