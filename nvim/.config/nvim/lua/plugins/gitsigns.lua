@@ -15,11 +15,13 @@ return {
 		local gs = package.loaded.gitsigns
 		local opts = { buffer = bufnr, noremap = true, silent = true }
 
-		vim.keymap.set('n', ']g', gs.next_hunk, opts)
-		vim.keymap.set('n', '[g', gs.prev_hunk, opts)
+		vim.keymap.set('n', ']h', gs.next_hunk, opts)
+		vim.keymap.set('n', '[h', gs.prev_hunk, opts)
 		vim.keymap.set('n', '<leader>gr', gs.reset_hunk, opts)
 		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, opts)
 		vim.keymap.set('n', '<leader>gt', gs.toggle_current_line_blame, opts)
+		vim.keymap.set('n', '<leader>gh', gs.preview_hunk, opts)
+		vim.keymap.set('n', '<C-w>h', gs.preview_hunk, opts)
 	  end
 	}
   end

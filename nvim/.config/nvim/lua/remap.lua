@@ -31,11 +31,12 @@ vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true,
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Lsp
-vim.keymap.set("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>")
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>ld", function()
   local current_state = not vim.diagnostic.is_enabled()
   vim.diagnostic.enable(current_state)
   print("Diagnostics " .. (current_state and "enabled" or "disabled"))
 end)
-vim.keymap.set("n", "<leader>la", ":lua vim.lsp.buf.code_action()<CR>")
+vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0 })
