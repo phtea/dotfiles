@@ -8,7 +8,7 @@ return {
 	  delay = 0,
 	  spec = {
 		{ "<leader>l", group = "LSP" },
-		{ "<leader>h", group = "Harpoon" },
+		{ "<leader>m", group = "Harpoon (marks)" },
 		{ "<leader>g", group = "Git" },
 	  }
 	}

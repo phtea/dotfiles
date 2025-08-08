@@ -87,7 +87,7 @@ return {
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
 	vim.keymap.set("n", "<leader>gw",
 	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
-	  { desc = "Switch worktree" })
+	  { desc = "Git: Switch worktree" })
 	vim.keymap.set("n", "<leader>n", function()
 	  require('telescope.builtin').find_files({
 		prompt_title = "Edit Neovim Config",
