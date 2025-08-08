@@ -27,6 +27,8 @@ vim.keymap.set("v", "<leader>", [["+y]])
 -- Hide highlight
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
+vim.keymap.set("n", "<leader>w", "<C-w>", { noremap = true, silent = true, })
+
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
 

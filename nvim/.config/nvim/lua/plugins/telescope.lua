@@ -87,7 +87,7 @@ return {
 	  { desc = "Grep word under cursor" })
 	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
-	vim.keymap.set("n", "<leader>w",
+	vim.keymap.set("n", "<leader>gw",
 	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
 	  { desc = "Switch worktree" })
 	vim.keymap.set("n", "<leader>n", function()
