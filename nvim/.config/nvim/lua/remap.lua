@@ -28,7 +28,7 @@ vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true,
 
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<leader>w", "<c-w>")
+vim.keymap.set("n", "<leader>w", "<C-w>")
 
 -- Lsp
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format buffer" })

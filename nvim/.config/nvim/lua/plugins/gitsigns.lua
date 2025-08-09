@@ -15,8 +15,8 @@ return {
 		local gs = package.loaded.gitsigns
 		local opts = { buffer = bufnr, noremap = true, silent = true }
 
-		vim.keymap.set('n', ']h', gs.next_hunk, vim.tbl_extend("force", opts, { desc = "Git: Next Hunk" }))
-		vim.keymap.set('n', '[h', gs.prev_hunk, vim.tbl_extend("force", opts, { desc = "Git: Previous Hunk" }))
+		vim.keymap.set('n', ']g', gs.next_hunk, vim.tbl_extend("force", opts, { desc = "Git: Next Hunk" }))
+		vim.keymap.set('n', '[g', gs.prev_hunk, vim.tbl_extend("force", opts, { desc = "Git: Previous Hunk" }))
 		vim.keymap.set('n', '<leader>gr', gs.reset_hunk, vim.tbl_extend("force", opts, { desc = "Git: Reset Hunk" }))
 		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, vim.tbl_extend("force", opts, { desc = "Git: Reset Buffer" }))
 		vim.keymap.set('n', '<leader>gt', gs.toggle_current_line_blame, vim.tbl_extend("force", opts, { desc = "Git: Toggle Line Blame" }))
