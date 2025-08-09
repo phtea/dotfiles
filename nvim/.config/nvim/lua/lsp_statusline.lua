@@ -14,7 +14,7 @@ function M.get_lsp()
 
   -- Add a nice icon before the names
   local icon = " " -- nf-fa-cog
-  return icon .. table.concat(names, ",")
+  return " " .. icon .. table.concat(names, ",")
 end
 
 return M
