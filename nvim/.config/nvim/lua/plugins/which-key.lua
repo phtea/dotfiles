@@ -5,11 +5,12 @@ return {
 	wk.setup {
 	  ---@type false | "classic" | "modern" | "helix"
 	  preset = "helix",
-	  delay = 0,
+	  delay = 100,
 	  spec = {
 		{ "<leader>l", group = "LSP" },
 		{ "<leader>m", group = "Harpoon (marks)" },
 		{ "<leader>g", group = "Git" },
+		{ "<leader>w", proxy = "<c-w>", group = "Windows" }, -- proxy to window mappings
 	  }
 	}
   end

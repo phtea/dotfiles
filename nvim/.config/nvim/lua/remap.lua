@@ -25,7 +25,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("v", "<leader>", [["+y]])
 
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>w", "<C-w>", { noremap = true, silent = true, desc = "Windows" })
 
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
