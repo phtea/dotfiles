@@ -13,13 +13,16 @@ return {
 	})
 
 	-- Keymaps
-	vim.keymap.set("n", "<leader>ma", function() harpoon:list():add() end, { desc = "Harpoon add" })
+	vim.keymap.set("n", "<leader>ma", function() harpoon:list():add() end, { desc = "Marks: Add mark" })
 	vim.keymap.set("n", "<leader>mm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-	  { desc = "Harpoon menu" })
+	  { desc = "Marks: Marks menu" })
 
-	vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Harpoon 1" })
-	vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon 2" })
-	vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon 3" })
-	vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon 4" })
+	local wk = require("which-key")
+	wk.add({
+	  { "<leader>1", function() harpoon:list():select(1) end, desc = "Mark 1", icon = "" },
+	  { "<leader>2", function() harpoon:list():select(2) end, desc = "Mark 2", icon = "" },
+	  { "<leader>3", function() harpoon:list():select(3) end, desc = "Mark 3", icon = "" },
+	  { "<leader>4", function() harpoon:list():select(4) end, desc = "Mark 4", icon = "" },
+	})
   end,
 }

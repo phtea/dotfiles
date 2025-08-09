@@ -73,16 +73,16 @@ return {
 		  '!{**/.git/*,**/node_modules/*,**/yarn.lock,**/*.png,**/*.o,**/*.jpeg,**/*.jpg,**/*.gif,**/*.pdf,**/*.zip,**/*.tar.gz,**/*.so,**/*.dll,**/*.exe}',
 		},
 	  })
-	end, { desc = "Find files (.config/ but skip .git/)" })
+	end, { desc = "Find files" })
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end,
-	  { desc = "Find files (all)" })
+	  { desc = "Find files (+hidden)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
 	vim.keymap.set("n", "<leader>v", builtin.git_status, { desc = "Find changed files (version control)" })
 	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Find jumplist" })
 	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Open last picker" })
-	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep (all)" })
+	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Global grep search" })
 	vim.keymap.set("n", "<leader>*", function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
-	  { desc = "Live grep (word)" })
+	  { desc = "Global grep search (current word)" })
 	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
 	vim.keymap.set("n", "<leader>gw",
