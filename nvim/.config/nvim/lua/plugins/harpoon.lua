@@ -17,12 +17,9 @@ return {
 	vim.keymap.set("n", "<leader>mm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
 	  { desc = "Marks: Marks menu" })
 
-	local wk = require("which-key")
-	wk.add({
-	  { "<leader>1", function() harpoon:list():select(1) end, desc = "Mark 1", icon = "" },
-	  { "<leader>2", function() harpoon:list():select(2) end, desc = "Mark 2", icon = "" },
-	  { "<leader>3", function() harpoon:list():select(3) end, desc = "Mark 3", icon = "" },
-	  { "<leader>4", function() harpoon:list():select(4) end, desc = "Mark 4", icon = "" },
-	})
+	vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Harpoon 1" })
+	vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon 2" })
+	vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon 3" })
+	vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon 4" })
   end,
 }
