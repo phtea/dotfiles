@@ -7,7 +7,7 @@ return {
 	  vim.api.nvim_set_hl(0, "IlluminatedWordRead",  { bg = "#1F1F1F", underline = false })
 	  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#1F1F1F", underline = false })
 	  -- Statusline
-	  vim.api.nvim_set_hl(0, "StatusLine", { bg = NONE })
+	  vim.api.nvim_set_hl(0, "StatusLine", { bg = "" })
 	end
 
 	require("vague").setup({
