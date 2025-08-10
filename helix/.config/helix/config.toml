@@ -9,10 +9,8 @@ left = ["version-control", "mode", "spinner", "file-name", "read-only-indicator"
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]
 separator = "│"
 
-[editor.cursor-shape]
-insert = "underline"
-normal = "block"
-select = "underline"
-
 [editor.file-picker]
 hidden = false
+
+[keys.normal]
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]

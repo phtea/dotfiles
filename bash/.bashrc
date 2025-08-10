@@ -42,6 +42,9 @@ bind '"\e[B": history-search-forward'
 export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim)
 VISUAL=$EDITOR
 
+# Truecolor support in terminal
+export COLORTERM=truecolor
+
 # Useful Aliases
 alias r='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
 alias gc="git commit" gp="git push" gl="git log --oneline --graph" gs="git status --short" ga="git add" gu="git pull" gd="git diff"
