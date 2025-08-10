@@ -11,3 +11,6 @@ separator = "│"
 
 [editor.file-picker]
 hidden = false
+
+[keys.normal]
+"A-r" = ":reload-all"
