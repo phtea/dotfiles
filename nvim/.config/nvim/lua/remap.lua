@@ -6,10 +6,11 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<leader>w", "<C-w>")
 
 -- Quickfix list navigation
-vim.keymap.set("n", "<A-j>", ":cnext<CR>")
-vim.keymap.set("n", "<A-k>", ":cprev<CR>")
+vim.keymap.set("n", "<A-j>", ":cnext<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 
 -- Subsitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word under cursor" })
@@ -24,11 +25,9 @@ vim.keymap.set("n", "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("v", "<leader>", [["+y]])
 
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
-
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<leader>w", "<C-w>")
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
 -- Lsp
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format buffer" })

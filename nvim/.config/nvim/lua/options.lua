@@ -29,6 +29,7 @@ if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p")
 end
 
+-- Statusline
 vim.opt.statusline = table.concat({
   "%{v:lua.require'git_branch'.get_branch()}",
   "%f %h%m%r%=",
