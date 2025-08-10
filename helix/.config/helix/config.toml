@@ -4,6 +4,11 @@ theme = "dark_plus"
 line-number = "relative"
 cursorline = true
 
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
 [editor.statusline]
 left = ["version-control", "mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]
@@ -14,3 +19,4 @@ hidden = false
 
 [keys.normal]
 "A-r" = ":reload-all"
+"C-r" = ":config-reload"
