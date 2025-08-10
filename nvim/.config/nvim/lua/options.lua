@@ -13,7 +13,6 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
-vim.opt.winborder = "single"
 
 -- Grep
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"

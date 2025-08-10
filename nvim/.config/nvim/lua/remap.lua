@@ -1,4 +1,4 @@
--- Set leader key and make it wait for 5 seconds
+-- Leader key
 vim.g.mapleader = " "
 
 -- Windows
@@ -8,18 +8,27 @@ vim.keymap.set("n", "<leader>w", "<C-w>", { remap = true })
 vim.keymap.set("n", "<A-j>", ":cnext<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 
+-- Comment
+vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
+vim.keymap.set("v", "<leader>c", "gcgv", { remap = true, desc = "Comment selected lines" })
+
 -- Subsitute current word in this file
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word under cursor" })
-vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]], { desc = "Replace word under cursor (project)" })
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Replace word under cursor" })
+vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
+	{ desc = "Replace word under cursor (project)" })
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
 vim.api.nvim_create_user_command("Ggrep", "silent grep! <args> `git ls-files` | redraw! | cwindow", { nargs = "+" })
 
--- Copy/paste with system buffer
-vim.keymap.set("n", "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set("v", "<leader>", [["+y]])
+-- Yank
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank to system clipboard to EOL" })
+
+-- Paste
+vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]], { desc = "Paste after from system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from system clipboard" })
 
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
@@ -28,10 +37,10 @@ vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true,
 -- Lsp
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format buffer" })
 vim.keymap.set("n", "<leader>ld", function()
-  local current_state = not vim.diagnostic.is_enabled()
-  vim.diagnostic.enable(current_state)
-  print("Diagnostics " .. (current_state and "enabled" or "disabled"))
-end, { desc = "LSP: Toggle diagnostic"})
-vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP: Code action"})
-vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP: Rename symbol"})
+	local current_state = not vim.diagnostic.is_enabled()
+	vim.diagnostic.enable(current_state)
+	print("Diagnostics " .. (current_state and "enabled" or "disabled"))
+end, { desc = "LSP: Toggle diagnostic" })
+vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
