@@ -15,5 +15,9 @@ return {
 	'dgagn/diagflow.nvim',
 	-- event = 'LspAttach', This is what recommended for Lazy plugin manager
 	opts = {}
+  },
+  {
+	"mason-org/mason.nvim",
+	opts = {}
   }
 }
