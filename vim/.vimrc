@@ -36,6 +36,7 @@ nn <leader>Y "+y$
 vn <leader> "+y
 nn <Esc> :nohlsearch<CR>
 nn Q <nop>
+nn <leader>w <C-w>
 cno w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 set undofile undodir=~/.vim/undo
