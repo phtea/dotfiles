@@ -26,18 +26,14 @@ com! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redr! | cw " s
 com! -nargs=+ Ggrep execute 'silent grep! <args> `git ls-files`' | redr! | cw " search in tracked files
 nn <leader>8 :Grep <C-R><C-W><CR>
 nn <leader>* :Ggrep <C-R><C-W><CR>
-nn <C-h> <C-w>h
-nn <C-j> <C-w>j
-nn <C-k> <C-w>k
-nn <C-l> <C-w>l
 nn Y y$
 nn <leader>y "+y
 nn <leader>Y "+y$
 vn <leader> "+y
 nn <Esc> :nohlsearch<CR>
 nn Q <nop>
-nn <leader>w <C-w>
-cno w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+nm <leader>w <C-w>
+cno W execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 set undofile undodir=~/.vim/undo
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
