@@ -13,6 +13,6 @@ return {
 		{ "<leader>w", proxy = "<c-w>", group = "Windows" },
 	  },
 	}
-	vim.cmd [[ set timeoutlen=0 ]]
+	-- vim.cmd [[ set timeoutlen=0 ]] -- fix for now
   end,
 }
