@@ -1,25 +1,17 @@
 return {
-  "ThePrimeagen/harpoon",
-  branch = "harpoon2", -- important for v2
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-	local harpoon = require("harpoon")
+  "cbochs/grapple.nvim",
+  opts = {
+	scope = "git", -- also try out "git_branch"
+	icons = false, -- setting to "true" requires "nvim-web-devicons"
+	status = false,
+  },
+  keys = {
+	{ "<leader>ma", "<cmd>Grapple toggle<cr>", desc = "Tag a file" },
+	{ "<leader>mm", "<cmd>Grapple toggle_tags<cr>", desc = "Toggle tags menu" },
 
-	harpoon:setup({
-	  settings = {
-		save_on_toggle = true,
-		sync_on_ui_close = true,
-	  },
-	})
-
-	-- Keymaps
-	vim.keymap.set("n", "<leader>ma", function() harpoon:list():add() end, { desc = "Marks: Add mark" })
-	vim.keymap.set("n", "<leader>mm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-	  { desc = "Marks: Marks menu" })
-
-	vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Harpoon 1" })
-	vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon 2" })
-	vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon 3" })
-	vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon 4" })
-  end,
+	{ "<leader>1", "<cmd>Grapple select index=1<cr>", desc = "Select first tag" },
+	{ "<leader>2", "<cmd>Grapple select index=2<cr>", desc = "Select second tag" },
+	{ "<leader>3", "<cmd>Grapple select index=3<cr>", desc = "Select third tag" },
+	{ "<leader>4", "<cmd>Grapple select index=4<cr>", desc = "Select fourth tag" },
+  },
 }
