@@ -16,12 +16,11 @@ hidden = false
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
+"-" = "file_explorer_in_current_buffer_directory"
 C-g = [
   ":write-all",
   ":new",
-  ":insert-output lazygit",
-  ":set mouse false",
-  ":set mouse true",
+  ":run-shell-command tmux new-window -n lazygit -c \"$(pwd)\" \"cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window\"",
   ":buffer-close!",
   ":redraw",
   ":reload-all"
