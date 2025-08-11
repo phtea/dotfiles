@@ -85,6 +85,7 @@ return {
 	  { desc = "Global grep search (current word)" })
 	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
+	vim.keymap.set("n", "<leader>?", builtin.keymaps, { desc = "Find keymaps" })
 	vim.keymap.set("n", "<leader>gw",
 	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
 	  { desc = "Git: Switch worktree" })
