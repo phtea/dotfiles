@@ -34,6 +34,9 @@ vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from s
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
+-- Open lazygit with <leader>gs
+vim.keymap.set("n", "<leader>gs", ":!tmux new-window -n lazygit -c %:p:h 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>", { noremap = true, silent = true })
+
 -- Lsp
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format buffer" })
 vim.keymap.set("n", "<leader>ld", function()
