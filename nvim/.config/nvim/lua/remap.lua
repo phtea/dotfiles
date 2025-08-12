@@ -34,16 +34,10 @@ vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from s
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
--- Open lazygit with <leader>gs
-vim.keymap.set("n", "<leader>gs", ":!tmux new-window -n lazygit -c %:p:h 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>", { noremap = true, silent = true, desc = "Git: Open Lazygit" })
+-- Open lazygit
+vim.keymap.set("n", "<leader>l", ":!tmux new-window -n lazygit -c %:p:h 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>", { noremap = true, silent = true, desc = "Git: Open Lazygit" })
 
 -- Lsp
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format buffer" })
-vim.keymap.set("n", "<leader>ld", function()
-	local current_state = not vim.diagnostic.is_enabled()
-	vim.diagnostic.enable(current_state)
-	print("Diagnostics " .. (current_state and "enabled" or "disabled"))
-end, { desc = "LSP: Toggle diagnostic" })
-vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
-vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
