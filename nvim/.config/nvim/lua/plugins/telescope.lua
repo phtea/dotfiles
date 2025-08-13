@@ -58,7 +58,7 @@ return {
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end,
 	  { desc = "Find files (+hidden)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
-	vim.keymap.set("n", "<leader>v", builtin.git_status, { desc = "Find changed files (version control)" })
+	vim.keymap.set("n", "<leader>gg", builtin.git_status, { desc = "Find changed files (git)" })
 	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Find jumplist" })
 	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Open last picker" })
 	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Global grep search" })
