@@ -2,7 +2,6 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
 	"nvim-lua/plenary.nvim",
-	"polarmutex/git-worktree.nvim",
   },
   config = function()
 	local telescope = require("telescope")
@@ -33,24 +32,6 @@ return {
 		resume = { initial_mode = "normal" },
 	  },
 	})
-
-	telescope.load_extension("git_worktree")
-
-	-- Hooks for git-worktree
-	local Hooks = require("git-worktree.hooks")
-	local config = require('git-worktree.config')
-	local update_on_switch = Hooks.builtins.update_current_buffer_on_switch
-
-	-- Update buffers when switching
-	Hooks.register(Hooks.type.SWITCH, function(path, prev_path)
-	  vim.notify("Moved from " .. prev_path .. " to " .. path)
-	  update_on_switch(path, prev_path)
-	end)
-
-	-- Handle worktree deletion
-	Hooks.register(Hooks.type.DELETE, function()
-	  vim.cmd(config.update_on_change_command)
-	end)
 
 	-- Remove default LSP keymaps if present
 	pcall(vim.keymap.del, "n", "gri")
@@ -86,16 +67,6 @@ return {
 	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
 	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
 	vim.keymap.set("n", "<leader>?", builtin.keymaps, { desc = "Find keymaps" })
-	vim.keymap.set("n", "<leader>gw",
-	  function() telescope.extensions.git_worktree.git_worktree(themes.get_dropdown({ initial_mode = "normal" })) end,
-	  { desc = "Git: Switch worktree" })
-	vim.keymap.set("n", "<leader>n", function()
-	  require('telescope.builtin').find_files({
-		prompt_title = "Edit Neovim Config",
-		cwd = vim.fn.stdpath("config"),
-	  })
-	end, { desc = "Search Neovim config files" })
-
 	vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "Find references" })
 	vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Find definitions" })
 	vim.keymap.set("n", "gt", builtin.lsp_type_definitions, { desc = "Find type definitions" })
