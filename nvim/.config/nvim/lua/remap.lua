@@ -35,7 +35,7 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
 -- Open lazygit
-vim.keymap.set("n", "<leader>l", ":!tmux new-window -n lazygit -c %:p:h 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>", { noremap = true, silent = true, desc = "Git: Open Lazygit" })
+vim.keymap.set("n", "<leader>l", ":!tmux new-window -n lazygit -c $(pwd) 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>", { noremap = true, silent = true, desc = "Git: Open Lazygit" })
 
 -- Lsp
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
