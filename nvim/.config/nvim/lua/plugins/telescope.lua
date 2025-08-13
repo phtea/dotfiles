@@ -9,14 +9,15 @@ return {
 	local themes = require("telescope.themes")
 
 	telescope.setup({
-	  defaults = {
+	  defaults = themes.get_ivy {
 		vimgrep_arguments = {
 		  'rg', '--color=never', '--no-heading', '--with-filename', '--line-number',
 		  '--column', '--smart-case', '--hidden', '--glob',
 		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}',
 		},
 		-- Default: { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+		-- Squared: { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
 		selection_caret = ' ',
 		entry_prefix = ' ',
 		prompt_prefix = ' ',
@@ -45,30 +46,27 @@ return {
 
 	-- Keymaps
 	vim.keymap.set("n", "<leader>f", function()
-	  require("telescope.builtin").find_files({
+	  builtin.find_files({
 		find_command = {
-		  "rg",
-		  "--files",
-		  "--hidden",
-		  "--glob",
+		  "rg", "--files", "--hidden", "--glob",
 		  '!{**/.git/*,**/node_modules/*,**/yarn.lock,**/*.png,**/*.o,**/*.jpeg,**/*.jpg,**/*.gif,**/*.pdf,**/*.zip,**/*.tar.gz,**/*.so,**/*.dll,**/*.exe}',
 		},
 	  })
-	end, { desc = "Find files" })
+	end, { desc = "Telescope: Find files" })
 	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end,
-	  { desc = "Find files (+hidden)" })
-	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Find diagnostics" })
-	vim.keymap.set("n", "<leader>gg", builtin.git_status, { desc = "Find changed files (git)" })
-	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Find jumplist" })
-	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Open last picker" })
-	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Global grep search" })
+	  { desc = "Telescope: Find files (+hidden)" })
+	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Telescope: Find diagnostics" })
+	vim.keymap.set("n", "<leader>gg", builtin.git_status, { desc = "Telescope: Find changed files (git)" })
+	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Telescope: Find jumplist" })
+	vim.keymap.set("n", "<leader>'", builtin.resume, { desc = "Telescope: Open last picker" })
+	vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Telescope: Global grep search" })
 	vim.keymap.set("n", "<leader>*", function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
-	  { desc = "Global grep search (current word)" })
-	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find buffers" })
-	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Find help" })
-	vim.keymap.set("n", "<leader>?", builtin.keymaps, { desc = "Find keymaps" })
-	vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "Find references" })
-	vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Find definitions" })
-	vim.keymap.set("n", "gt", builtin.lsp_type_definitions, { desc = "Find type definitions" })
+	  { desc = "Telescope: Global grep search (current word)" })
+	vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Telescope: Find buffers" })
+	vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Telescope: Find help" })
+	vim.keymap.set("n", "<leader>?", builtin.keymaps, { desc = "Telescope: Find keymaps" })
+	vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "Telescope: Find references" })
+	vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Telescope: Find definitions" })
+	vim.keymap.set("n", "gt", builtin.lsp_type_definitions, { desc = "Telescope: Find type definitions" })
   end,
 }
