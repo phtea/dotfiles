@@ -6,10 +6,9 @@ return {
   config = function()
 	local telescope = require("telescope")
 	local builtin = require("telescope.builtin")
-	local themes = require("telescope.themes")
 
 	telescope.setup({
-	  defaults = themes.get_ivy {
+	  defaults = {
 		vimgrep_arguments = {
 		  'rg', '--color=never', '--no-heading', '--with-filename', '--line-number',
 		  '--column', '--smart-case', '--hidden', '--glob',
@@ -18,9 +17,9 @@ return {
 		-- Default: { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 		-- Squared: { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
-		selection_caret = ' ',
-		entry_prefix = ' ',
-		prompt_prefix = ' ',
+		selection_caret = '',
+		entry_prefix = '',
+		prompt_prefix = '',
 	  },
 	  pickers = {
 		lsp_references = { initial_mode = "normal" },
