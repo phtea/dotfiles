@@ -48,7 +48,7 @@ export COLORTERM=truecolor
 # Useful Aliases
 alias r='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
 alias gc="git commit" gp="git push" gl="git log --oneline --graph" gs="git status --short" ga="git add" gu="git pull" gd="git diff"
-alias ..="cd .."
+alias ..="cd .." n="nvim"
 
 # t === tmux-here - create a tmux session based on directory name
 alias t="tmux-here"
