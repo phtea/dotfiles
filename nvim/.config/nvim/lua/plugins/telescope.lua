@@ -1,35 +1,31 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = {
-	"nvim-lua/plenary.nvim",
-  },
+  dependencies = { "nvim-lua/plenary.nvim", },
   config = function()
 	local telescope = require("telescope")
 	local builtin = require("telescope.builtin")
 
 	telescope.setup({
 	  defaults = {
+		mappings = {
+		  i = {
+			["<Tab>"] = 'move_selection_next',
+			["<S-Tab>"] = 'move_selection_previous',
+		  },
+		  n = {
+			["q"] = 'close',
+			["f"] = 'to_fuzzy_refine',
+		  }
+		},
 		vimgrep_arguments = {
 		  'rg', '--color=never', '--no-heading', '--with-filename', '--line-number',
 		  '--column', '--smart-case', '--hidden', '--glob',
 		  '!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}',
 		},
-		-- Default: { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-		-- Squared: { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+		borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 		selection_caret = '',
 		entry_prefix = '',
 		prompt_prefix = '',
-	  },
-	  pickers = {
-		lsp_references = { initial_mode = "normal" },
-		lsp_definitions = { initial_mode = "normal" },
-		lsp_type_definitions = { initial_mode = "normal" },
-		git_status = { initial_mode = "normal" },
-		buffers = { initial_mode = "normal" },
-		grep_string = { initial_mode = "normal" },
-		diagnostics = { initial_mode = "normal" },
-		resume = { initial_mode = "normal" },
 	  },
 	})
 
@@ -52,8 +48,7 @@ return {
 		},
 	  })
 	end, { desc = "Telescope: Find files" })
-	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end,
-	  { desc = "Telescope: Find files (+hidden)" })
+	vim.keymap.set("n", "<leader>F", function() builtin.find_files({ hidden = true }) end, { desc = "Telescope: Find files (+hidden)" })
 	vim.keymap.set("n", "<leader>d", builtin.diagnostics, { desc = "Telescope: Find diagnostics" })
 	vim.keymap.set("n", "<leader>gg", builtin.git_status, { desc = "Telescope: Find changed files (git)" })
 	vim.keymap.set("n", "<leader>j", builtin.jumplist, { desc = "Telescope: Find jumplist" })
