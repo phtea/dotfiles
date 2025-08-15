@@ -20,6 +20,7 @@ return {
 		vim.keymap.set('n', '<leader>gr', gs.reset_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Reset Hunk" }))
 		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, vim.tbl_extend("force", opts, { desc = "Gitsigns: Reset Buffer" }))
 		vim.keymap.set('n', '<leader>gt', gs.toggle_current_line_blame, vim.tbl_extend("force", opts, { desc = "Gitsigns: Toggle Line Blame" }))
+		vim.keymap.set('n', '<leader>gb', gs.blame, vim.tbl_extend("force", opts, { desc = "Gitsigns: Blame" }))
 		vim.keymap.set('n', '<leader>gh', gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Preview Hunk" }))
 		vim.keymap.set('n', '<C-w>g', gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Preview Hunk" }))
 	  end
