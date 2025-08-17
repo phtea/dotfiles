@@ -11,6 +11,8 @@ return {
 		  keys = {
 			["<Tab>"] = { "list_down", mode = { "i", "n" } },
 			["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
+			["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+			["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
 		  }
 		}
 	  }
@@ -25,7 +27,7 @@ return {
 	{ "<leader>n",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 	{ "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Live grep" },
 	{ "<leader>b",       function() Snacks.picker.buffers() end,                                 desc = "Find buffers" },
-	{ "<leader>gg",      function() Snacks.picker.git_status() end,                              desc = "Git status" },
+	{ "<leader>gg",      function() Snacks.picker.git_status({ ignored = false }) end,           desc = "Git status" },
 	{ "<leader>'",       function() Snacks.picker.resume() end,                                  desc = "Resume last picker" },
 	{ "<leader>j",       function() Snacks.picker.jumps() end,                                   desc = "Resume last picker" },
 	{ "<leader>?",       function() Snacks.picker.keymaps() end,                                 desc = "Keymaps" },
