@@ -87,14 +87,14 @@ ondo() {
 # Enable color support for ls and grep
 command -v dircolors &>/dev/null && eval "$(dircolors -b)" && alias ls='ls --color=auto' && alias la='ls -la --color=auto'
 
-# Add to PATH only if directory exists
-[ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
-[ -d "/usr/local/bin" ] && export PATH="$PATH:/usr/local/bin"
-[ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
-[ -d "/opt/nvim-linux-x86_64/bin" ] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-[ -d "/opt/helix" ] && export PATH="$PATH:/opt/helix"
-[ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
-[ -d "$HOME/scripts" ] && export PATH="$PATH:$HOME/scripts"
+# Add PATH directories
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$PATH:/opt/helix"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/scripts"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Git branch prompt
