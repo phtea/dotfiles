@@ -1,15 +1,19 @@
-theme = "dark_plus"
+theme = "kanagawa"
 
 [editor]
 line-number = "relative"
-cursorline = true
 
 [editor.cursor-shape]
 insert = "bar"
+normal = "block"
+select = "underline"
 
 [editor.statusline]
-left = ["version-control", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+left = ["mode", "version-control", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [editor.file-picker]
 hidden = false
