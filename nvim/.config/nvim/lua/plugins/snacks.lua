@@ -6,7 +6,9 @@ return {
 	picker = {
 	  hidden = true,
 	  ignored = true,
+	  icons = { files = { enabled = false, } },
 	  win = {
+		border = "single",
 		input = {
 		  keys = {
 			["<Tab>"] = { "list_down", mode = { "i", "n" } },
@@ -17,6 +19,23 @@ return {
 			["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
 		  }
 		}
+	  },
+	  layout = {
+		layout = {
+		  backdrop = false,
+		  box = "horizontal",
+		  width = 0.8,
+		  min_width = 120,
+		  height = 0.8,
+		  {
+			box = "vertical",
+			border = "single",
+			title = "{title} {live} {flags}",
+			{ win = "input", height = 1, border = "bottom" },
+			{ win = "list", border = "none" },
+		  },
+		  { win = "preview", title = "{preview}", border = "single", width = 0.5 },
+		},
 	  }
 	},
 	bigfile = { enabled = true },
