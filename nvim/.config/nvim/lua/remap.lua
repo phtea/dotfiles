@@ -42,3 +42,12 @@ vim.keymap.set("n", "<leader>l", ":!tmux new-window -n lazygit -c $(pwd) 'cd $(g
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
+
+-- Remove default LSP keymaps if present
+pcall(vim.keymap.del, "n", "gri")
+pcall(vim.keymap.del, "n", "grr")
+pcall(vim.keymap.del, "x", "gra")
+pcall(vim.keymap.del, "n", "gra")
+pcall(vim.keymap.del, "n", "grn")
+pcall(vim.keymap.del, "n", "grc")
+pcall(vim.keymap.del, "n", "grt")

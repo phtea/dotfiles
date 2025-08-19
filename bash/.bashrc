@@ -42,8 +42,9 @@ bind '"\e[B": history-search-forward'
 export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim)
 VISUAL=$EDITOR
 
-# Truecolor support in terminal
+# Terminal schenanigans
 export COLORTERM=truecolor
+export ESCDELAY="1"
 
 # Useful Aliases
 alias r='source ~/.bashrc' brc='$EDITOR ~/.bashrc' grep='grep --color=auto'
