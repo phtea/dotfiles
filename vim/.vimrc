@@ -4,7 +4,7 @@ colo habamax
 lan en_US.UTF-8
 set nu rnu sc is hls hid ttm=50 so=10
 set pa+=** wmnu wic wig+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set grepformat=%f:%l:%c:%m
+set grepformat=%f:%l:%c:%m mouse=
 
 nn - :Ex<CR>
 nn <leader>f :find 
