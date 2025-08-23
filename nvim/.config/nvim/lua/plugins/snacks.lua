@@ -4,7 +4,7 @@ return {
 	lazy = false,
 	opts = {
 		picker = {
-			prompt = "",
+			prompt = " ",
 			hidden = true,
 			ignored = true,
 			icons = { files = { enabled = false, } },
@@ -25,9 +25,9 @@ return {
 				layout = {
 					backdrop = false,
 					box = "horizontal",
-					width = 0.8,
+					width = 0.9,
 					min_width = 120,
-					height = 0.8,
+					height = 0.85,
 					{
 						box = "vertical",
 						border = "single",
