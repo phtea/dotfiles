@@ -29,6 +29,7 @@ return {
 		  NormalFloat = { link = "Normal" },
 		  FloatBorder = { fg = "muted", bg = "none" },
 		  FloatTitle = { bg = "base" },
+		  StatusLine = { bg = "base" },
 		},
 	  })
 	  vim.cmd("colorscheme rose-pine")
