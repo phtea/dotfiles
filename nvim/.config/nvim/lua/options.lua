@@ -10,7 +10,7 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 10
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "single"
@@ -28,13 +28,13 @@ vim.opt.undodir = undodir
 
 -- Auto-create the undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
-  vim.fn.mkdir(undodir, "p")
+	vim.fn.mkdir(undodir, "p")
 end
 
 -- Statusline
 vim.opt.statusline = table.concat({
-  "%{v:lua.require'git_branch'.get_branch()}",
-  "%f %h%m%r%=",
-  "l: %l/%L",
-  "%{v:lua.require'lsp_statusline'.get_lsp()}",
+	"%{v:lua.require'git_branch'.get_branch()}",
+	"%f %h%m%r%=",
+	"l: %l/%L",
+	"%{v:lua.require'lsp_statusline'.get_lsp()}",
 })
