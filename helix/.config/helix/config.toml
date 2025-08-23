@@ -2,8 +2,6 @@ theme = "rose_pine"
 
 [editor]
 line-number = "relative"
-cursorline = true
-mouse = false
 
 [editor.cursor-shape]
 insert = "bar"

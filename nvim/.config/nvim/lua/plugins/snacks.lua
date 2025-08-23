@@ -11,6 +11,7 @@ return {
 		border = "single",
 		input = {
 		  keys = {
+			-- ["<Esc>"] = { "close", mode = { "i", "n" } },
 			["<Tab>"] = { "list_down", mode = { "i", "n" } },
 			["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 			["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
