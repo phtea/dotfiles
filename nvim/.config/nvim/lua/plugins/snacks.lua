@@ -4,6 +4,7 @@ return {
 	lazy = false,
 	opts = {
 		picker = {
+			prompt = "",
 			hidden = true,
 			ignored = true,
 			icons = { files = { enabled = false, } },
