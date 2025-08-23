@@ -30,6 +30,7 @@ return {
 					FloatBorder = { fg = "muted", bg = "none" },
 					FloatTitle = { bg = "base" },
 					StatusLine = { bg = "base" },
+					DiagnosticVirtualTextInfo = { bg = "none" },
 				},
 			})
 			vim.cmd [[colorscheme rose-pine]]
