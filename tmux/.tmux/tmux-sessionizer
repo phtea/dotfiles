@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Получаем список активных сессий
-selected=$(tmux list-sessions -F "#{session_name}" | fzf)
+selected=$(tmux list-sessions -F "#{session_name}" | \
+	fzf --height=50% --info=hidden --margin=10% --no-color)
 
 # Если ничего не выбрано — выходим
 if [[ -z $selected ]]; then
