@@ -35,15 +35,12 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
--- Open lazygit (deprecated, snacks handles it already!)
--- vim.keymap.set("n", "<leader>l",
--- 	":!tmux new-window -n lazygit -c $(pwd) 'cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && lazygit; tmux kill-window'<CR><CR>",
--- 	{ noremap = true, silent = true, desc = "Git: Open Lazygit" })
-
 -- Lsp
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
+
+-- Git
 vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 vim.api.nvim_create_user_command("StageDiffChange", "Gitsigns stage_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 
