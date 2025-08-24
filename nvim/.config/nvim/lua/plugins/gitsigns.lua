@@ -18,6 +18,7 @@ return {
 				vim.keymap.set('n', ']g', gs.next_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Next Hunk" }))
 				vim.keymap.set('n', '[g', gs.prev_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Previous Hunk" }))
 				vim.keymap.set('n', '<C-w>g', gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Preview Hunk" }))
+				vim.keymap.set('n', 'gh', gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Preview Hunk" }))
 			end
 		}
 	end,
