@@ -74,7 +74,7 @@ return {
 		},
 		{ "<leader>l", function() Snacks.lazygit() end,                     desc = "Open lazygit" },
 		{ "<leader>'", function() Snacks.picker.resume() end,               desc = "Resume last picker" },
-		{ "<leader>j", function() Snacks.picker.jumps() end,                desc = "Resume last picker" },
+		{ "<leader>j", function() Snacks.picker.jumps() end,                desc = "Jumps picker" },
 		{ "<leader>?", function() Snacks.picker.keymaps() end,              desc = "Keymaps" },
 		{ "<leader>h", function() Snacks.picker.help() end,                 desc = "Help Pages" },
 		{ "<leader>*", function() Snacks.picker.grep_word() end,            desc = "Visual selection or word", mode = { "n", "x" } },
