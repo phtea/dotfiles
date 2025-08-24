@@ -10,7 +10,7 @@ vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 
 -- Comment
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
-vim.keymap.set("v", "<leader>c", "gcgv", { remap = true, desc = "Comment selected lines" })
+vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
 -- Subsitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
