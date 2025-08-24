@@ -6,7 +6,7 @@ function M.get_branch()
 	local result = handle:read("*a")
 	handle:close()
 	result = result:gsub("%s+", "")
-	return result ~= "" and " " .. result .. " | " or ""
+	return result ~= "" and result .. "" or ""
 end
 
 return M

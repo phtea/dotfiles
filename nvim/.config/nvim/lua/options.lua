@@ -34,7 +34,7 @@ end
 -- Statusline
 vim.opt.statusline = table.concat({
 	"%{v:lua.require'git_branch'.get_branch()}",
-	"%f %h%m%r%=",
-	"l: %l/%L",
+	"  %f %h%m%r%=",
 	"%{v:lua.require'lsp_statusline'.get_lsp()}",
+	" %l:%v ",
 })

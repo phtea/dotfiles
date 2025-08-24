@@ -12,9 +12,8 @@ function M.get_lsp()
 		table.insert(names, client.name)
 	end
 
-	-- Add a nice icon before the names
-	local icon = " " -- nf-fa-cog
-	return " " .. icon .. table.concat(names, ",")
+	local prefix = ""
+	return " " .. prefix .. table.concat(names, ",")
 end
 
 return M
