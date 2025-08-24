@@ -5,6 +5,16 @@ return {
 		keymap = { preset = 'default' },
 		appearance = { nerd_font_variant = 'mono', },
 		signature = { enabled = true },
-		cmdline = { enabled = false }, -- Set cmdline source to an empty table to disable it
+		cmdline = {
+			enabled = true,
+			keymap = {
+				['<Tab>'] = { 'accept' },
+			},
+			completion = {
+				menu = {
+					auto_show = true,
+				},
+			},
+		},
 	},
 }
