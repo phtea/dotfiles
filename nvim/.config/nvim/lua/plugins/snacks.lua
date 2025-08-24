@@ -3,6 +3,13 @@ return {
 	priority = 1000,
 	lazy = false,
 	opts = {
+		lazygit = {
+			win = {
+				style = "lazygit",
+				height = 0,
+				width = 0,
+			},
+		},
 		picker = {
 			prompt = " ",
 			hidden = true,
