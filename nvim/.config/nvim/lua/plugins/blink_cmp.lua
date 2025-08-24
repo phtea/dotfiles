@@ -7,14 +7,11 @@ return {
 		signature = { enabled = true },
 		cmdline = {
 			enabled = true,
-			keymap = {
-				['<Tab>'] = { 'accept' },
-			},
-			completion = {
-				menu = {
-					auto_show = true,
-				},
-			},
+			-- completion = {
+			-- 	menu = {
+			-- 		auto_show = true,
+			-- 	},
+			-- },
 		},
 	},
 }
