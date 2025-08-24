@@ -5,8 +5,9 @@ return {
 	opts = {
 		lazygit = {
 			win = {
+				backdrop = false,
 				style = "lazygit",
-				height = 0,
+				height = 0.99,
 				width = 0,
 			},
 		},

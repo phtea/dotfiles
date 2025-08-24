@@ -43,6 +43,7 @@ vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { n
 -- Git
 vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 vim.api.nvim_create_user_command("StageDiffChange", "Gitsigns stage_hunk", { nargs = 0, desc = "Git: Reset hunk" })
+vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
 -- Remove default LSP keymaps if present
 pcall(vim.keymap.del, "n", "gri")
