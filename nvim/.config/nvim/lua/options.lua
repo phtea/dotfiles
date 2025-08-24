@@ -14,7 +14,6 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "single"
-vim.opt.showmode = false
 -- No intro message
 vim.opt.shortmess:append("I")
 
