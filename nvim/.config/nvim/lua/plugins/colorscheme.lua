@@ -33,7 +33,8 @@ return {
 					StatusLineNC = { bg = "#1f1d2e" },
 					DiagnosticVirtualTextInfo = { bg = "none" },
 					Pmenu = { bg = "none", },
-					GitSignsChange = { fg = "#524f67" }
+					GitSignsAdd = { fg = "#88D8AA" },
+					GitSignsChange = { fg = "#524f67" },
 				},
 			})
 			vim.cmd [[colorscheme rose-pine]]
