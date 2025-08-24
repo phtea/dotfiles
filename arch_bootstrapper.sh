@@ -19,7 +19,7 @@ systemctl --user enable --now pipewire.socket pipewire-pulse.socket
 echo "=== Stowing dotfiles ==="
 cd ~/dotfiles
 rm ~/.bashrc ~/.bash_profile
-stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim dunst wallpapers
+stow bash ghostty git i3 nvim picom polybar rofi scripts tmux vim dunst wallpapers lazygit
 sudo cp ~/dotfiles/custom_symlinks/99-touchpad.conf /etc/X11/xorg.conf.d/99-touchpad.conf || echo "[WARNING] Failed to copy config for touch pad"
 
 echo "=== Setting default background image ==="
