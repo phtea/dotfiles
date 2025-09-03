@@ -43,6 +43,7 @@ export EDITOR=$(command -v nvim >/dev/null && echo nvim || echo vim)
 VISUAL=$EDITOR
 
 # Terminal schenanigans
+export TERM=xterm-256color
 export COLORTERM=truecolor
 export ESCDELAY="1"
 
