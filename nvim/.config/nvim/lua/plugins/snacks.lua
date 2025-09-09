@@ -47,7 +47,7 @@ return {
 				},
 			}
 		},
-		bigfile = { enabled = true },
+		bigfile = { enabled = true, notify = false, },
 		statuscolumn = { enabled = true },
 	},
 	keys = {
