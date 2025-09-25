@@ -52,7 +52,19 @@ return {
 	},
 	keys = {
 		{ "<leader><space>", function() Snacks.picker.smart() end,                                   desc = "Smart Find Files" },
-		{ "<leader>f",       function() Snacks.picker.files({ hidden = true, }) end,                 desc = "Find files" },
+		{
+			"<leader>f",
+			function()
+				Snacks.picker.files({
+					hidden = true,
+					exclude = {
+						"**/*.gz", "**/*.zip", "**/*.tar", "**/*.tgz", "**/*.xz",
+						"**/*.bz2", "**/*.7z", "**/*.rar", "**/*.zst", "**/*.jar", "**/*.war",
+					},
+				})
+			end,
+			desc = "Find files"
+		},
 		{ "<leader>F",       function() Snacks.picker.files({ hidden = true, ignored = true, }) end, desc = "Find files (no ignores)" },
 		{ "<leader>n",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 		{ "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Live grep" },
