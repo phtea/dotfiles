@@ -70,7 +70,7 @@ return {
 		{ "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Live grep" },
 		{ "<leader>b",       function() Snacks.picker.buffers() end,                                 desc = "Find buffers" },
 		{
-			"<leader>g",
+			"<leader>gg",
 			function()
 				Snacks.picker.git_status({
 					ignored = false,
