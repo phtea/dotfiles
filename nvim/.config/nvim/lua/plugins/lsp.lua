@@ -2,13 +2,12 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require('lspconfig')
-			lspconfig.pyright.setup {}
-			lspconfig.solargraph.setup {} -- or ruby_lsp
-			lspconfig.clangd.setup {}
-			lspconfig.lua_ls.setup {}
-			lspconfig.gopls.setup {}
-			lspconfig.rust_analyzer.setup {}
+			vim.lsp.enable("pyright")
+			vim.lsp.enable("solargraph")
+			vim.lsp.enable("clangd")
+			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("gopls")
+			vim.lsp.enable("rust_analyzer")
 		end,
 	},
 	{
