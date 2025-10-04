@@ -85,7 +85,7 @@ return {
 			end,
 			desc = "Git status"
 		},
-		{ "<leader>gl", function() Snacks.lazygit.log_file() end,            desc = "Git status" },
+		{ "<leader>gl", function() Snacks.lazygit.log_file() end,            desc = "Git log file" },
 		{ "<leader>l",  function() Snacks.lazygit() end,                     desc = "Open lazygit" },
 		{ "<leader>'",  function() Snacks.picker.resume() end,               desc = "Resume last picker" },
 		{ "<leader>j",  function() Snacks.picker.jumps() end,                desc = "Jumps picker" },
