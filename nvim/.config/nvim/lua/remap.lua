@@ -45,6 +45,20 @@ vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nar
 vim.api.nvim_create_user_command("StageDiffChange", "Gitsigns stage_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
+-- Open explorer (Linux/macOS/Windows)
+vim.keymap.set("n", "<leader>ex", function()
+  local dir = vim.fn.expand("%:p:h")
+  if dir == "" then dir = vim.fn.getcwd() end
+  local sys = vim.loop.os_uname().sysname
+  if sys == "Linux" then
+    vim.fn.jobstart({ "xdg-open", dir }, { detach = true })
+  elseif sys == "Darwin" then
+    vim.fn.jobstart({ "open", dir }, { detach = true })
+  elseif sys:match("Windows") then
+    vim.fn.jobstart({ "explorer.exe", dir }, { detach = true })
+  end
+end, { desc = "Open system file explorer" })
+
 -- Remove default LSP keymaps if present
 pcall(vim.keymap.del, "n", "gri")
 pcall(vim.keymap.del, "n", "grr")
