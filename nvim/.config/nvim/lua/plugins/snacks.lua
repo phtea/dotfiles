@@ -92,6 +92,7 @@ return {
 		{ "<leader>?",  function() Snacks.picker.keymaps() end,                    desc = "Keymaps" },
 		{ "<leader>h",  function() Snacks.picker.help() end,                       desc = "Help Pages" },
 		{ "<leader>*",  function() Snacks.picker.grep_word({ ignored = false }) end, desc = "Visual selection or word", mode = { "n", "x" } },
+		{ "<leader>8",  function() Snacks.picker.grep_word({ ignored = false }) end, desc = "Visual selection or word", mode = { "n", "x" } },
 		{ "<leader>i",  function() Snacks.picker.icons() end,                      desc = "Icons", },
 		-- Lsp
 		{ "<leader>d",  function() Snacks.picker.diagnostics_buffer() end,         desc = "Buffer Diagnostics" },
