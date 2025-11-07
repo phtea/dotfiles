@@ -16,7 +16,8 @@ return {
 				Pmenu = { bg = "none", },
 				GitSignsAdd = { fg = "#88D8AA" },
 				GitSignsChange = { fg = "#F6C177" },
-				GitSignsDelete = { fg = "#F02961" }
+				GitSignsDelete = { fg = "#F02961" },
+				WordSelected =  { bg = '#3c394e' },
 			},
 		})
 		vim.cmd [[colorscheme rose-pine]]
