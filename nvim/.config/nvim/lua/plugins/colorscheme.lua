@@ -10,16 +10,17 @@ return {
 				NormalFloat = { link = "Normal" },
 				FloatBorder = { fg = "muted", bg = "none" },
 				FloatTitle = { bg = "base" },
-				StatusLine = { bg = "#1f1d2e" },
-				StatusLineNC = { bg = "#1f1d2e" },
+				StatusLine = { bg = "#1F1D2E" },
+				StatusLineNC = { bg = "#1F1D2E" },
 				DiagnosticVirtualTextInfo = { bg = "none" },
 				Pmenu = { bg = "none", },
+				DiffAdd = { fg = "#88D8AA" },
 				GitSignsAdd = { fg = "#88D8AA" },
 				GitSignsChange = { fg = "#F6C177" },
 				GitSignsDelete = { fg = "#F02961" },
 				WordSelected =  { bg = '#3c394e' },
 			},
 		})
-		vim.cmd [[colorscheme rose-pine]]
+		vim.cmd.colorscheme('rose-pine')
 	end
 }
