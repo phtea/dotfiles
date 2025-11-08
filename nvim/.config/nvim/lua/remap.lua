@@ -36,6 +36,7 @@ vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from s
 
 -- Misc
 vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<leader>R", ":rest<CR>")
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
