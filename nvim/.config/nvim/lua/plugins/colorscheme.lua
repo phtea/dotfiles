@@ -37,6 +37,10 @@ return {
 				italic = false,
 			})
 			vim.cmd("colorscheme vague")
+
+			-- make statusline transparent
+			vim.api.nvim_set_hl(0, "StatusLine",   { bg = "none" })
+			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
 		end
 	},
 }
