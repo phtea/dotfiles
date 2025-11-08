@@ -10,6 +10,9 @@ return {
 				height = 0.99,
 				width = 0,
 			},
+			theme = {
+				cherryPickedCommitBgColor  = { bg = "WordSelected" },
+			},
 		},
 		picker = {
 			prompt = " ",
