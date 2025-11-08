@@ -13,5 +13,6 @@
   "oil.nvim": { "branch": "master", "commit": "7e1cd7703ff2924d7038476dcbc04b950203b902" },
   "quicker.nvim": { "branch": "master", "commit": "12a2291869a326424b1cbee937f4f80334433012" },
   "rose-pine": { "branch": "main", "commit": "eb3ff49a4f2b4e8b06d27de529e44fa52a60ab8a" },
-  "snacks.nvim": { "branch": "main", "commit": "eee204d690f8d8e755229ff20f63d23d48565d7c" }
+  "snacks.nvim": { "branch": "main", "commit": "eee204d690f8d8e755229ff20f63d23d48565d7c" },
+  "vague.nvim": { "branch": "main", "commit": "dba28050887c2810b5ebf9e0143b4e919bd55757" }
 }
