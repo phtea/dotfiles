@@ -35,7 +35,17 @@ vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]], { desc = "Paste after from sy
 vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from system clipboard" })
 
 -- Misc
-vim.keymap.set("n", "Q", "<nop>")
+local function toggle_qf()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("copen")
+end
+
+vim.keymap.set("n", "Q", toggle_qf, { silent = true })
 vim.keymap.set("n", "<leader>R", ":rest<CR>")
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
