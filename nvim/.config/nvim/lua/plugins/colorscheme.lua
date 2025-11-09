@@ -38,9 +38,16 @@ return {
 			})
 			vim.cmd("colorscheme vague")
 
-			-- make statusline transparent
+			-- Make statusline transparent
 			vim.api.nvim_set_hl(0, "StatusLine",   { bg = "none" })
 			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
+
+			-- Make CursorLine barely visible
+			vim.api.nvim_set_hl(0, "CursorLine",   { bg = "#1A1A1A" })
+
+			-- Custom hls
+			vim.api.nvim_set_hl(0, "WordSelected",   { bg = "#333333" })
+			vim.api.nvim_set_hl(0, "LocalHighlight",   { bg = "#333333" })
 		end
 	},
 }
