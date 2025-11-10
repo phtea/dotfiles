@@ -16,6 +16,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.winborder = "single"
 vim.opt.showmode = false
 vim.opt.cursorline = true
+vim.opt.showtabline = 0
 
 -- No intro message
 vim.opt.shortmess:append("I")
