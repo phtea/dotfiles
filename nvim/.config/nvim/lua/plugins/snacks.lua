@@ -69,7 +69,6 @@ return {
 			desc = "Find files"
 		},
 		{ "<leader>F",       function() Snacks.picker.files({ hidden = true, ignored = true, }) end, desc = "Find files (no ignores)" },
-		{ "<leader>n",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 		{ "<leader>/",       function() Snacks.picker.grep({ ignored = false }) end,                 desc = "Live grep" },
 		{ "<leader>b",       function() Snacks.picker.buffers() end,                                 desc = "Find buffers" },
 		{

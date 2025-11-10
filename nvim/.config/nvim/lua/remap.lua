@@ -36,19 +36,30 @@ vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from s
 
 -- Misc
 local function toggle_qf()
-  for _, win in ipairs(vim.fn.getwininfo()) do
-    if win.quickfix == 1 then
-      vim.cmd("cclose")
-      return
-    end
-  end
-  vim.cmd("copen")
+	for _, win in ipairs(vim.fn.getwininfo()) do
+		if win.quickfix == 1 then
+			vim.cmd("cclose")
+			return
+		end
+	end
+	vim.cmd("copen")
 end
 
 vim.keymap.set("n", "Q", toggle_qf, { silent = true })
 vim.keymap.set("n", "<leader>R", ":rest<CR>")
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+
+-- Turn ", " into ",\n" in visual selection
+vim.keymap.set("x", "<leader>,", function()
+	vim.cmd([[silent! s/, /,\r/g|noh]])
+end, { desc = "Split inline args to multiline" })
+
+-- Reindent whole file
+vim.keymap.set("n", "<leader>=",
+	"gg=G``zz",
+	{ desc = "Reindent whole file" }
+)
 
 -- Lsp
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
@@ -60,26 +71,60 @@ vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nar
 vim.api.nvim_create_user_command("StageDiffChange", "Gitsigns stage_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
+-- Notes
+vim.keymap.set("n", "<leader>n", function()
+  vim.cmd("edit " .. vim.fn.expand("~/notes.md"))
+end, { desc = "Open global notes" })
+
+vim.keymap.set("x", "<leader>an", function()
+  -- absolute path of current file
+  local file = vim.fn.expand("%:p")
+  local stamp = os.date("%Y-%m-%d %H:%M")
+
+  -- yank selection into "z
+  vim.cmd([[normal! "zy]])
+  local lines = vim.fn.split(vim.fn.getreg("z"), "\n")
+
+  local notes_path = vim.fn.expand("~/notes.md")
+
+  -- choose language for code fence
+  local ft = vim.bo.filetype or ""
+  if ft == "" then
+    -- fallback: use extension, or "text" if none
+    local ext = vim.fn.fnamemodify(file, ":e")
+    ft = ext ~= "" and ext or "text"
+  end
+
+  local header = string.format("## %s (%s)", stamp, file)
+
+  local to_append = { "", header, "", "```" .. ft }
+  vim.list_extend(to_append, lines)
+  vim.list_extend(to_append, { "```", "" })
+
+  vim.fn.writefile(to_append, notes_path, "a")
+  print("Appended selection to notes.md")
+end, { desc = "Append selection to global notes" })
+
 local function is_wsl()
-  local uname = vim.loop.os_uname()
-  return uname.release:match("Microsoft") or uname.release:match("WSL")
+	local uname = vim.loop.os_uname()
+	return uname.release:match("Microsoft") or uname.release:match("WSL")
 end
 
 local function open_explorer()
-  local dir = vim.fn.expand("%:p:h")
-  if dir == "" then dir = vim.fn.getcwd() end
-  local sys = vim.loop.os_uname().sysname
+	local dir = vim.fn.expand("%:p:h")
+	if dir == "" then dir = vim.fn.getcwd() end
+	local sys = vim.loop.os_uname().sysname
 
-  if is_wsl() then
-    local win_path = dir:gsub("^/mnt/([a-z])", "%1:"):gsub("/", "\\")
-    vim.fn.jobstart({ "explorer.exe", win_path }, { detach = true })
-  elseif sys == "Linux" then
-    vim.fn.jobstart({ "xdg-open", dir }, { detach = true })
-  elseif sys == "Darwin" then
-    vim.fn.jobstart({ "open", dir }, { detach = true })
-  elseif sys:match("Windows") then
-    vim.fn.jobstart({ "explorer.exe", dir }, { detach = true })
-  end
+	if is_wsl() then
+		local win_path = dir:gsub("^/mnt/([a-z])", "%1:"):gsub("/", "\\")
+		vim.fn.jobstart({ "explorer.exe", win_path }, { detach = true })
+	elseif sys == "Linux" then
+		vim.fn.jobstart({ "xdg-open", dir }, { detach = true })
+	elseif sys == "Darwin" then
+		vim.fn.jobstart({ "open", dir }, { detach = true })
+	elseif sys:match("Windows") then
+		vim.fn.jobstart({ "explorer.exe", dir }, { detach = true })
+	end
 end
 
 vim.keymap.set("n", "<leader>ex", open_explorer, { desc = "Open folder in system explorer" })
