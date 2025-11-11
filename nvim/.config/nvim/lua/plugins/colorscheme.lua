@@ -1,53 +1,17 @@
-return {
-	{
-		"rose-pine/neovim",
-		enabled = false,
-		name = "rose-pine",
-		config = function()
-			require('rose-pine').setup({
-				styles = {
-					bold = false,
-					italic = false,
-				},
-				highlight_groups = {
-					NormalFloat = { link = "Normal" },
-					FloatBorder = { fg = "muted", bg = "none" },
-					FloatTitle = { bg = "base" },
-					StatusLine = { bg = "#1F1D2E" },
-					StatusLineNC = { bg = "#1F1D2E" },
-					DiagnosticVirtualTextInfo = { bg = "none" },
-					Pmenu = { bg = "none", },
-					DiffAdd = { fg = "#88D8AA" },
-					GitSignsAdd = { fg = "#88D8AA" },
-					GitSignsChange = { fg = "#F6C177" },
-					GitSignsDelete = { fg = "#F02961" },
-					WordSelected =  { bg = '#3c394e' },
-				},
-			})
-			vim.cmd.colorscheme('rose-pine')
-		end
-	},
-	{
-		"vague-theme/vague.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("vague").setup({
-				bold = false,
-				italic = false,
-			})
-			vim.cmd("colorscheme vague")
+vim.pack.add({"https://github.com/vague-theme/vague.nvim"})
+require("vague").setup({
+	bold = false,
+	italic = false,
+})
+vim.cmd("colorscheme vague")
 
-			-- Make statusline transparent
-			vim.api.nvim_set_hl(0, "StatusLine",   { bg = "none" })
-			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
+-- Make statusline transparent
+vim.api.nvim_set_hl(0, "StatusLine",   { bg = "none" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
 
-			-- Make CursorLine barely visible
-			vim.api.nvim_set_hl(0, "CursorLine",   { bg = "#1A1A1A" })
+-- Make CursorLine barely visible
+vim.api.nvim_set_hl(0, "CursorLine",   { bg = "#1A1A1A" })
 
-			-- Custom hls
-			vim.api.nvim_set_hl(0, "WordSelected",   { bg = "#333333" })
-			vim.api.nvim_set_hl(0, "LocalHighlight",   { bg = "#333333" })
-		end
-	},
-}
+-- Custom hls
+vim.api.nvim_set_hl(0, "WordSelected",   { bg = "#333333" })
+vim.api.nvim_set_hl(0, "LocalHighlight",   { bg = "#333333" })

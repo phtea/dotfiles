@@ -56,3 +56,22 @@ vim.api.nvim_create_autocmd("BufLeave", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local data = ev.data or vim.v.event  -- depending on Neovim version
+
+    if not data then
+      return
+    end
+
+    local kind = data.kind         -- "install" | "update" | "delete"
+    local spec = data.spec or {}
+    local name = spec.name or ""
+
+    -- Only for nvim-treesitter, and only on install or update
+    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+      vim.cmd("TSUpdate")
+    end
+  end,
+})
