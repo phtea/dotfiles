@@ -57,6 +57,8 @@ vim.api.nvim_create_autocmd("BufLeave", {
   end,
 })
 
+-- Hook for when package is changed (installed, updated, deleted)
+-- lazy-style build equivalent
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
     local data = ev.data or vim.v.event  -- depending on Neovim version
