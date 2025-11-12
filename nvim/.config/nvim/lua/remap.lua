@@ -73,8 +73,7 @@ vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { n
 
 -- Notes
 vim.keymap.set("n", "<leader>n", function()
-  vim.cmd("edit " .. vim.fn.expand("~/notes.md"))
-	vim.cmd("norm G")
+  vim.cmd("edit +$ " .. vim.fn.expand("~/notes.md"))
 end, { desc = "Open global notes" })
 
 vim.keymap.set("x", "<leader>an", function()

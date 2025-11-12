@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "version": "1.0.0 - 1.1.0"
+    },
+    "diagflow.nvim": [],
+    "gitsigns.nvim": [],
+    "grapple.nvim": [],
+    "local-highlight.nvim": [],
+    "mason.nvim": [],
+    "nvim-autopairs": [],
+    "nvim-lspconfig": [],
+    "nvim-surround": [],
+    "nvim-treesitter": [],
+    "oil.nvim": [],
+    "quicker.nvim": [],
+    "snacks.nvim": [],
+    "vague.nvim": []
+  }
+}
