@@ -40,6 +40,15 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- Syntax highlighting for yml files
+vim.api.nvim_create_autocmd("BufRead", {
+	group = vim.api.nvim_create_augroup("yml_ft", { clear = true }),
+	pattern = { "*.yml", "*.yml.*" },
+	callback = function()
+		vim.bo.filetype = "yaml"
+	end,
+})
+
 local notes_path = vim.fn.expand("~/notes.md")
 
 vim.api.nvim_create_autocmd("BufLeave", {
