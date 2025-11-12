@@ -1,22 +1,15 @@
-return {
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.lsp.enable("pyright")
-			vim.lsp.enable("solargraph")
-			vim.lsp.enable("clangd")
-			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("gopls")
-			vim.lsp.enable("rust_analyzer")
-		end,
-	},
-	{
-		'dgagn/diagflow.nvim',
-		-- event = 'LspAttach', This is what recommended for Lazy plugin manager
-		opts = {}
-	},
-	{
-		"mason-org/mason.nvim",
-		opts = {}
-	}
-}
+vim.pack.add({
+	"https://github.com/neovim/nvim-lspconfig",
+	"https://github.com/dgagn/diagflow.nvim",
+	"https://github.com/mason-org/mason.nvim",
+})
+
+vim.lsp.enable("pyright")
+vim.lsp.enable("solargraph")
+vim.lsp.enable("clangd")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("gopls")
+vim.lsp.enable("rust_analyzer")
+
+require('diagflow').setup()
+require('mason').setup()

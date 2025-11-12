@@ -1,20 +1,8 @@
--- BOOTSTRAP Lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
-end
-
-vim.opt.rtp:prepend(lazypath)
+-- nvim config for nvim 0.12+ (hyped for release 😃)
+package.path = vim.fn.stdpath("config") .. "/?.lua;" .. package.path -- Enable local Lua modules
 
 require("options")
 require("remap")
 require("autocmds")
-require("lazy").setup("plugins", { change_detection = { notify = false, }, })
+
+require("plugins")

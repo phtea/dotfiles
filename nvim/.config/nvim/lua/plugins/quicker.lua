@@ -1,8 +1,2 @@
-return {
-	-- Plugin for better quickfix list functionality
-	'stevearc/quicker.nvim',
-	ft = "qf",
-	---@module "quicker"
-	---@type quicker.SetupOptions
-	opts = {},
-}
+vim.pack.add({"https://github.com/stevearc/quicker.nvim"})
+require("quicker").setup({})
