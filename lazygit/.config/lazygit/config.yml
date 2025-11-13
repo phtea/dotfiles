@@ -1,2 +1,3 @@
 gui:
   skipDiscardChangeWarning: false
+  language: 'en'

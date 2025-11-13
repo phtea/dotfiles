@@ -18,6 +18,12 @@ if ! tmux has-session -t "$SESSION" 2>/dev/null; then
   exit 0
 fi
 
+# Проверяем, attached ли текущий клиент к сессии tasks
+CURRENT_SESSION=$(tmux display-message -p '#S')
+if [[ "$CURRENT_SESSION" == "$SESSION" ]]; then
+  exit 0  # Не выводим ничего, если мы уже в сессии tasks
+fi
+
 # Формат строки для tmux list-windows.
 FMT="#{?window_active,${COLOR_ACTIVE},${COLOR_INACTIVE}}#{window_name}${COLOR_RESET}"
 
