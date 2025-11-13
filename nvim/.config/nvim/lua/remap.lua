@@ -46,7 +46,6 @@ local function toggle_qf()
 end
 
 vim.keymap.set("n", "Q", toggle_qf, { silent = true })
-vim.keymap.set("n", "<leader>R", ":rest<CR>")
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 
