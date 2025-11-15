@@ -44,10 +44,16 @@ local function toggle_qf()
 	end
 	vim.cmd("copen")
 end
-
 vim.keymap.set("n", "Q", toggle_qf, { silent = true })
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+
+-- Session handling
+local session_file = vim.fn.stdpath("state") .. "/Session.vim"
+vim.keymap.set("n", "<leader>RE", function()
+  vim.cmd("mks! " .. vim.fn.fnameescape(session_file))
+  vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
+end, { desc = "Save session and restart with it" })
 
 -- Turn ", " into ",\n" in visual selection
 vim.keymap.set("x", "<leader>,", function()
