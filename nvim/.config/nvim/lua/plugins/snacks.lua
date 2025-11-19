@@ -67,21 +67,22 @@ vim.keymap.set("n", "<leader>f",
 vim.keymap.set("n", "<leader>F", function() Snacks.picker.files({ hidden = true, ignored = true, }) end, { desc = "Find files (no ignores)" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
-vim.keymap.set("n", "<leader>gg",
-	function()
-		Snacks.picker.git_status({
-			ignored = false,
-			win = {
-				input = {
-					keys = {
-						["<Tab>"] = { "list_down", mode = { "n", "i" } },
-					},
+
+local git_function = 	function()
+	Snacks.picker.git_status({
+		ignored = false,
+		win = {
+			input = {
+				keys = {
+					["<Tab>"] = { "list_down", mode = { "n", "i" } },
 				},
 			},
-		})
-	end,
-	{ desc = "Git status" }
-)
+		},
+	})
+end
+vim.keymap.set("n", "<leader>gg", git_function, { desc = "Git status" })
+vim.keymap.set("n", "<leader>v", git_function, { desc = "Git status" })
+
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
 vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
