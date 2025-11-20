@@ -28,7 +28,7 @@ vim.api.nvim_create_user_command("Ggrep", "silent grep! <args> `git ls-files` | 
 
 -- Yank
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank to system clipboard to EOL" })
+vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
 
 -- Paste
 vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]], { desc = "Paste after from system clipboard" })
