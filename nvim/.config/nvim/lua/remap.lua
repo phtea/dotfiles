@@ -47,6 +47,11 @@ end
 vim.keymap.set("n", "Q", toggle_qf, { silent = true })
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>td", function()
+    local enabled = not vim.diagnostic.is_enabled()
+    vim.diagnostic.enable(enabled)
+    print("Diagnostics: " .. (enabled and "ON" or "OFF"))
+end, { desc = "Toggle diagnostics" })
 
 -- Session handling
 local session_file = vim.fn.stdpath("state") .. "/Session.vim"
