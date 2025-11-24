@@ -1,20 +1,57 @@
 {
   "plugins": {
     "blink.cmp": {
-      "version": "1.0.0 - 1.1.0"
+      "rev": "b19413d",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
     },
-    "diagflow.nvim": [],
-    "gitsigns.nvim": [],
-    "grapple.nvim": [],
-    "local-highlight.nvim": [],
-    "mason.nvim": [],
-    "nvim-autopairs": [],
-    "nvim-lspconfig": [],
-    "nvim-surround": [],
-    "nvim-treesitter": [],
-    "oil.nvim": [],
-    "quicker.nvim": [],
-    "snacks.nvim": [],
-    "vague.nvim": []
+    "gitsigns.nvim": {
+      "rev": "cdafc32",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "grapple.nvim": {
+      "rev": "b41ddfc",
+      "src": "https://github.com/cbochs/grapple.nvim"
+    },
+    "local-highlight.nvim": {
+      "rev": "272f36f",
+      "src": "https://github.com/tzachar/local-highlight.nvim"
+    },
+    "mason.nvim": {
+      "rev": "57e5a8a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "nvim-autopairs": {
+      "rev": "7a2c97c",
+      "src": "https://github.com/windwp/nvim-autopairs"
+    },
+    "nvim-lspconfig": {
+      "rev": "30a2b19",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-surround": {
+      "rev": "fcfa7e0",
+      "src": "https://github.com/kylechui/nvim-surround"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "oil.nvim": {
+      "rev": "01cb3a8",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "quicker.nvim": {
+      "rev": "12a2291",
+      "src": "https://github.com/stevearc/quicker.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "fe7cfe9",
+      "src": "https://github.com/folke/snacks.nvim"
+    },
+    "vague.nvim": {
+      "rev": "dba2805",
+      "src": "https://github.com/vague-theme/vague.nvim"
+    }
   }
 }
