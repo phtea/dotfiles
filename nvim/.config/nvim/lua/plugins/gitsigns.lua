@@ -31,5 +31,8 @@ require('gitsigns').setup {
 		vim.keymap.set('n', '<leader>gS', gs.stage_buffer, vim.tbl_extend("force", opts, { desc = "Gitsigns: Stage Buffer" }))
 		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, vim.tbl_extend("force", opts, { desc = "Gitsigns: Reset Buffer" }))
 		vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Undo Stage Hunk" }))
-	end
+	end,
+	preview_config = {
+		border = 'solid',
+	},
 }
