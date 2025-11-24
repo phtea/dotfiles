@@ -1,7 +1,7 @@
 theme = vague
 window-decoration = none
 
-# disable liagtures
+# disable ligatures
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
