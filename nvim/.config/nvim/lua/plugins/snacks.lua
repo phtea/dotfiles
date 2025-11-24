@@ -67,7 +67,16 @@ vim.keymap.set("n", "<leader>f",
 vim.keymap.set("n", "<leader>F", function() Snacks.picker.files({ hidden = true, ignored = true, }) end, { desc = "Find files (no ignores)" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
+vim.keymap.set("n", "<leader>j", function() Snacks.picker.jumps() end, { desc = "Jumps picker" })
+vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
+vim.keymap.set("n", "<leader>h", function() Snacks.picker.help() end, { desc = "Help Pages" })
+vim.keymap.set({"n", "x"}, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
+vim.keymap.set({"n", "x"}, "<leader>8", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
+vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
 
+
+-- Git
 local git_function = 	function()
 	Snacks.picker.git_status({
 		ignored = false,
@@ -82,16 +91,9 @@ local git_function = 	function()
 end
 vim.keymap.set("n", "<leader>gg", git_function, { desc = "Git status" })
 vim.keymap.set("n", "<leader>v", git_function, { desc = "Git status" })
-
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
-vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
-vim.keymap.set("n", "<leader>j", function() Snacks.picker.jumps() end, { desc = "Jumps picker" })
-vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
-vim.keymap.set("n", "<leader>h", function() Snacks.picker.help() end, { desc = "Help Pages" })
-vim.keymap.set({"n", "x"}, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
-vim.keymap.set({"n", "x"}, "<leader>8", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
-vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
+
 -- Lsp
 vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics_buffer() end, { desc = "Buffer Diagnostics" })
 vim.keymap.set("n", "<leader>D", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
