@@ -8,6 +8,9 @@ require("oil").setup({
 	keymaps = {
 		["<CR>"] = "actions.select",
 		["-"] = { "actions.parent", mode = "n" },
+	},
+	confirmation = {
+		border = "single",
 	}
 })
 
