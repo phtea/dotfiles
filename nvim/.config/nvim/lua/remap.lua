@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current 
 vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
 -- Subsitute current word in this file
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]],
 	{ desc = "Replace word under cursor" })
 vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
 	{ desc = "Replace word under cursor (project)" })
