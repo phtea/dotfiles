@@ -16,4 +16,7 @@ vim.api.nvim_set_hl(0, "CursorLine",   { bg = "#1A1A1A" })
 vim.api.nvim_set_hl(0, "LocalHighlight",   { bg = "#444444" })
 vim.api.nvim_set_hl(0, "Visual",   { bg = "#333333" })
 vim.api.nvim_set_hl(0, "WordSelected",   { link = "Visual" })
-vim.api.nvim_set_hl(0, "IncSearch",   { bg = "#BFAFA9", fg = "#323232" })
+
+vim.api.nvim_set_hl(0, "Search",   { bg = "#405065", ctermbg = 11, ctermfg = 0, fg = "#CDCDCD" })
+vim.api.nvim_set_hl(0, "CurSearch",   { link = "Search" })
+vim.api.nvim_set_hl(0, "IncSearch",   { bg = "#BFAFA9", fg = "#323232" }) -- inverse of Search
