@@ -15,10 +15,10 @@ nn <M-j> :cn<CR>
 nn <M-k> :cp<CR>
 nn <F2> :cn<CR>
 nn <F1> :cp<CR>
-nn <leader>s :%s/\<<C-R><C-w>\>/<C-R><C-w>/gI<Left><Left><Left>
+nn <leader>s :%s/\<<C-R><C-W>\>/<C-R><C-W>/gI<Left><Left><Left>
 vn s "zy:%s/<C-R>z/<C-R>z/gI<Left><Left><Left>
-nn <leader>S :Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-R><C-w>\>/<C-R><C-w>/gc<Left><Left><Left>
-vn S "zy:Grep -w <C-R>z<CR><C-w>k:cdo s/<C-R>z/<C-R>z/gc<Left><Left><Left>
+nn <leader>S :Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>
+vn S "zy:Grep -w <C-R>z<CR><C-W>k:cdo s/<C-R>z/<C-R>z/gc<Left><Left><Left>
 let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
 com! -nargs=+ -complete=file Grep execute 'sil grep! <args>' | redr! | cw " :Grep -> search in all files
 com! -nargs=+ Ggrep execute 'sil grep! <args> `git ls-files`' | redr! | cw " :Ggrep -> search in tracked files
@@ -32,6 +32,6 @@ nn <leader>Y "+y$
 vn <leader>y "+y
 nn <Esc> :noh<CR>
 nn Q <nop>
-nm <leader>w <C-w>
+nm <leader>w <C-W>
 nn <leader>l :sil !tmux new-window -n lazygit 'cd $(git rev-parse --show-toplevel 2>/dev/null \|\| pwd) && lazygit; tmux kill-window'<CR>:redr!<CR>
 nn <leader>R :so ~/.vimrc<CR>

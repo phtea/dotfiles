@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 
 -- Windows
-vim.keymap.set("n", "<leader>w", "<C-w>", { remap = true })
+vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true })
 
 -- Quickfix list navigation
 vim.keymap.set("n", "<A-j>", ":cnext<CR>", { noremap = true, silent = true, })
@@ -16,11 +16,17 @@ vim.keymap.set("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
 vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
--- Subsitute current word in this file
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]],
-	{ desc = "Replace word under cursor" })
-vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-w>k:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
-	{ desc = "Replace word under cursor (project)" })
+-- Substitute current word in this file
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
+    { desc = "Replace word under cursor" })
+vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],
+    { desc = "Replace visual selection" })
+
+-- Replace word under cursor (project)
+vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>]],
+    { desc = "Replace word under cursor (project)" })
+vim.keymap.set("v", "<leader>S", [["sy:Grep "<C-R>s"<CR><C-W>k:cdo s/<C-R>s/<C-R>s/gc<Left><Left><Left>]],
+    { desc = "Replace visual selection (project)" })
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
