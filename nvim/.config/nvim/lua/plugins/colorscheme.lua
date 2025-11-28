@@ -24,4 +24,8 @@ M.overrides.vague = function()
   set_hl(0, "IncSearch", { link = "CurSearch" })
 end
 
+M.overrides.vscode = function()
+  set_hl(0, "StatusLine",   { link = "StatusLineNC" })
+end
+
 return M
