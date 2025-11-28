@@ -1,4 +1,4 @@
-theme = vague
+theme = vscode-dark
 window-decoration = none
 
 # disable ligatures
