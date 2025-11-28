@@ -52,6 +52,10 @@
     "vague.nvim": {
       "rev": "dba2805",
       "src": "https://github.com/vague-theme/vague.nvim"
+    },
+    "vscode.nvim": {
+      "rev": "cb9df0873c10a21d05362455ae3bb355eadcef6b",
+      "src": "https://github.com/Mofiqul/vscode.nvim"
     }
   }
 }

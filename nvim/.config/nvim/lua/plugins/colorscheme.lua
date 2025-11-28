@@ -1,17 +1,27 @@
-vim.pack.add({"https://github.com/vague-theme/vague.nvim"})
-require("vague").setup({
-	bold = false,
-	italic = false,
+vim.pack.add({
+  "https://github.com/vague-theme/vague.nvim",
+  "https://github.com/Mofiqul/vscode.nvim",
 })
-vim.cmd("colorscheme vague")
 
--- Make statusline transparent
-vim.api.nvim_set_hl(0, "StatusLine",   { bg = "none" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
+require("vague").setup({
+  bold = false,
+  italic = false,
+})
 
--- Custom hls
-vim.api.nvim_set_hl(0, "LocalHighlight",   { bg = "#444444" })
+local M = {}
+M.default = "vscode" -- default colorscheme
 
-vim.api.nvim_set_hl(0, "Search",   { bg = "#405065", ctermbg = 11, ctermfg = 0, fg = "#CDCDCD" })
-vim.api.nvim_set_hl(0, "CurSearch",   { bg = "#BFAFA9", fg = "#323232" }) -- inverse of Search
-vim.api.nvim_set_hl(0, "IncSearch",   { link = "CurSearch" })
+local set_hl = vim.api.nvim_set_hl
+
+M.overrides = {}
+
+M.overrides.vague = function()
+  set_hl(0, "StatusLine",   { bg = "none" })
+  set_hl(0, "StatusLineNC", { bg = "none" })
+  set_hl(0, "LocalHighlight", { bg = "#444444" })
+  set_hl(0, "Search", { bg = "#405065", ctermbg = 11, ctermfg = 0, fg = "#CDCDCD" })
+  set_hl(0, "CurSearch", { bg = "#BFAFA9", fg = "#323232" })
+  set_hl(0, "IncSearch", { link = "CurSearch" })
+end
+
+return M
