@@ -10,27 +10,35 @@ require('gitsigns').setup {
 		use_focus = true,
 	},
 	on_attach = function(bufnr)
-		local gs = package.loaded.gitsigns
-		local opts = { buffer = bufnr, noremap = true, silent = true }
+		local gitsigns = require('gitsigns')
+
+		local function map(mode, l, r, opts)
+			opts = opts or {}
+			opts.buffer = bufnr
+			vim.keymap.set(mode, l, r, opts)
+		end
 
 		-- Navigation
-		vim.keymap.set('n', ']g', gs.next_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Next Hunk" }))
-		vim.keymap.set('n', '[g', gs.prev_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Previous Hunk" }))
+		map('n', ']g', gitsigns.next_hunk, { desc = "Gitsigns: Next Hunk" })
+		map('n', '[g', gitsigns.prev_hunk, { desc = "Gitsigns: Previous Hunk" })
 
 		-- Views
-		vim.keymap.set('n', '<leader>gh', gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Preview Hunk" }))
-		vim.keymap.set('n', '<leader>gt', gs.toggle_current_line_blame, vim.tbl_extend("force", opts, { desc = "Gitsigns: Toggle Current Blame Line" }))
-		vim.keymap.set('n', '<leader>gb', gs.blame_line, vim.tbl_extend("force", opts, { desc = "Gitsigns: Blame Line" }))
-		vim.keymap.set('n', '<leader>gB', gs.blame, vim.tbl_extend("force", opts, { desc = "Gitsigns: Full Blame" }))
+		map('n', '<leader>gh', gitsigns.preview_hunk, { desc = "Gitsigns: Preview Hunk" })
+		map('n', '<leader>tg', gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle Current Blame Line" })
+		map('n', '<leader>gb', gitsigns.blame_line, { desc = "Gitsigns: Blame Line" })
+		map('n', '<leader>gB', gitsigns.blame, { desc = "Gitsigns: Full Blame" })
 
 		-- Changes
-		vim.keymap.set('n', '<leader>gs', gs.stage_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Stage Hunk" }))
-		vim.keymap.set('n', '<leader>gr', gs.reset_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Reset Hunk" }))
+		map('n', '<leader>gs', gitsigns.stage_hunk, { desc = "Gitsigns: Stage Hunk" })
+		map('n', '<leader>gr', gitsigns.reset_hunk, { desc = "Gitsigns: Reset Hunk" })
 
 		-- Buffer
-		vim.keymap.set('n', '<leader>gS', gs.stage_buffer, vim.tbl_extend("force", opts, { desc = "Gitsigns: Stage Buffer" }))
-		vim.keymap.set('n', '<leader>gR', gs.reset_buffer, vim.tbl_extend("force", opts, { desc = "Gitsigns: Reset Buffer" }))
-		vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, vim.tbl_extend("force", opts, { desc = "Gitsigns: Undo Stage Hunk" }))
+		map('n', '<leader>gS', gitsigns.stage_buffer, { desc = "Gitsigns: Stage Buffer" })
+		map('n', '<leader>gR', gitsigns.reset_buffer, { desc = "Gitsigns: Reset Buffer" })
+		map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = "Gitsigns: Undo Stage Hunk" })
+
+		-- Text object
+		map({'o', 'x'}, 'ih', gitsigns.select_hunk)
 	end,
 	preview_config = {
 		border = 'solid',
