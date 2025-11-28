@@ -1,5 +1,6 @@
 vim.pack.add({'https://github.com/lewis6991/gitsigns.nvim'})
-require('gitsigns').setup {
+require('gitsigns').setup({
+	update_debounce = 50,
 	current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
 	current_line_blame_opts = {
 		virt_text = true,
@@ -43,4 +44,4 @@ require('gitsigns').setup {
 	preview_config = {
 		border = 'solid',
 	},
-}
+})
