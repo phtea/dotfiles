@@ -9,10 +9,15 @@ require("snacks").setup({
 		},
 	},
 	picker = {
-		prompt = " ",
+		prompt = "",
 		hidden = true,
 		ignored = true,
-		icons = { files = { enabled = false, } },
+		icons = {
+			files = { enabled = false, },
+			ui = {
+				live = "󰐰",
+			},
+		},
 		win = {
 			border = "single",
 			input = {
