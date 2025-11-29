@@ -5,10 +5,10 @@ require("grapple").setup({
 	status = false,
 })
 
-vim.keymap.set("n", "<leader>ma", "<cmd>Grapple toggle<cr>", { desc = "Grapple: Tag a file" })
-vim.keymap.set("n", "<leader>mm", "<cmd>Grapple toggle_tags<cr>", { desc = "Grapple: Toggle tags menu" })
+vim.keymap.set("n", "<leader>ma", "<CMD>Grapple toggle<CR>", { desc = "Grapple: Tag a file" })
+vim.keymap.set("n", "<leader>mm", "<CMD>Grapple toggle_tags<CR>", { desc = "Grapple: Toggle tags menu" })
 
-vim.keymap.set("n", "<leader>1", "<cmd>Grapple select index=1<cr>", { desc = "Grapple: Select 1 tag" })
-vim.keymap.set("n", "<leader>2", "<cmd>Grapple select index=2<cr>", { desc = "Grapple: Select 2 tag" })
-vim.keymap.set("n", "<leader>3", "<cmd>Grapple select index=3<cr>", { desc = "Grapple: Select 3 tag" })
-vim.keymap.set("n", "<leader>4", "<cmd>Grapple select index=4<cr>", { desc = "Grapple: Select 4 tag" })
+vim.keymap.set("n", "<leader>1", "<CMD>Grapple select index=1<CR>", { desc = "Grapple: Select 1 tag" })
+vim.keymap.set("n", "<leader>2", "<CMD>Grapple select index=2<CR>", { desc = "Grapple: Select 2 tag" })
+vim.keymap.set("n", "<leader>3", "<CMD>Grapple select index=3<CR>", { desc = "Grapple: Select 3 tag" })
+vim.keymap.set("n", "<leader>4", "<CMD>Grapple select index=4<CR>", { desc = "Grapple: Select 4 tag" })
