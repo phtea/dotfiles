@@ -81,6 +81,7 @@ vim.keymap.set("n", "<leader>=",
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
+vim.api.nvim_create_user_command("RunCode", function() vim.cmd[[!make debug]] end, { nargs = 0, desc = "!make debug" })
 
 -- Git
 vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nargs = 0, desc = "Git: Reset hunk" })

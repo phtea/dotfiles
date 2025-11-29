@@ -27,6 +27,7 @@ end
 M.overrides.vscode = function()
   set_hl(0, "StatusLine",   { link = "StatusLineNC" })
   set_hl(0, "Pmenu",   { link = "CursorLine" })
+  set_hl(0, "LocalHighlight",   { bg = "#400069" })
 end
 
 return M
