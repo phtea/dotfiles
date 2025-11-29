@@ -32,3 +32,49 @@ require("blink.cmp").setup({
 		},
 	},
 })
+
+-- Recipes
+-- Emacs behavior
+
+-- local has_words_before = function()
+-- 	local col = vim.api.nvim_win_get_cursor(0)[2]
+-- 	if col == 0 then
+-- 		return false
+-- 	end
+-- 	local line = vim.api.nvim_get_current_line()
+-- 	return line:sub(col, col):match("%s") == nil
+-- end
+-- require("blink.cmp").setup({
+-- 	keymap = {
+-- 		preset = 'none',
+-- 		['<Tab>'] = {
+-- 			function(cmp)
+-- 				if has_words_before() then
+-- 					vim.schedule(function()
+-- 						require('blink.cmp.completion.list').select_next()
+-- 					end)
+-- 					return true
+-- 				end
+-- 			end,
+-- 			'fallback',
+-- 		},
+-- 		['<S-Tab>'] = {
+-- 			function()
+-- 				vim.schedule(function()
+-- 					require('blink.cmp.completion.list').select_prev()
+-- 				end)
+-- 				return true
+-- 			end,
+-- 			'fallback',
+-- 		},
+-- 	},
+-- 	completion = {
+-- 		ghost_text = {
+-- 			enabled = false,
+-- 			-- Show the ghost text when no item has been selected, defaulting to the first item
+-- 			show_without_selection = true,
+-- 		},
+-- 		menu = { enabled = false },
+-- 		list = { selection = { preselect = false }, cycle = { from_top = false } },
+-- 	},
+-- })
