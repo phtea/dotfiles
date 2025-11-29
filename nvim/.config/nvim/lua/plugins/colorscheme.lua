@@ -26,6 +26,7 @@ end
 
 M.overrides.vscode = function()
   set_hl(0, "StatusLine",   { link = "StatusLineNC" })
+  set_hl(0, "Pmenu",   { link = "CursorLine" })
 end
 
 return M

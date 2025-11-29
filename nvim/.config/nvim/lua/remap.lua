@@ -61,7 +61,7 @@ end, { desc = "Toggle diagnostics" })
 
 -- Session handling
 local session_file = vim.fn.stdpath("state") .. "/Session.vim"
-vim.keymap.set("n", "<leader>RE", function()
+vim.keymap.set("n", "<leader>R", function()
   vim.cmd("mks! " .. vim.fn.fnameescape(session_file))
   vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
 end, { desc = "Save session and restart with it" })
