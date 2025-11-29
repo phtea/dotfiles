@@ -44,4 +44,5 @@ require('gitsigns').setup({
 	preview_config = {
 		border = 'solid',
 	},
+	signs_staged_enable = false,
 })
