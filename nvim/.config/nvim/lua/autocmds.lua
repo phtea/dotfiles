@@ -52,39 +52,39 @@ vim.api.nvim_create_autocmd("BufRead", {
 local notes_path = vim.fn.expand("~/notes.md")
 
 vim.api.nvim_create_autocmd("BufLeave", {
-  group = vim.api.nvim_create_augroup("ephemeral_notes", { clear = true }),
-  callback = function(args)
-    local name = vim.api.nvim_buf_get_name(args.buf)
-    if name == notes_path then
-      -- delete after the leave finishes to avoid weirdness
-      vim.schedule(function()
-        if vim.api.nvim_buf_is_valid(args.buf) then
-          vim.api.nvim_buf_delete(args.buf, { force = true })
-        end
-      end)
-    end
-  end,
+	group = vim.api.nvim_create_augroup("ephemeral_notes", { clear = true }),
+	callback = function(args)
+		local name = vim.api.nvim_buf_get_name(args.buf)
+		if name == notes_path then
+			-- delete after the leave finishes to avoid weirdness
+			vim.schedule(function()
+				if vim.api.nvim_buf_is_valid(args.buf) then
+					vim.api.nvim_buf_delete(args.buf, { force = true })
+				end
+			end)
+		end
+	end,
 })
 
 -- Hook for when package is changed (installed, updated, deleted)
 -- lazy-style build equivalent
 vim.api.nvim_create_autocmd("PackChanged", {
-  callback = function(ev)
-    local data = ev.data or vim.v.event  -- depending on Neovim version
+	callback = function(ev)
+		local data = ev.data or vim.v.event -- depending on Neovim version
 
-    if not data then
-      return
-    end
+		if not data then
+			return
+		end
 
-    local kind = data.kind         -- "install" | "update" | "delete"
-    local spec = data.spec or {}
-    local name = spec.name or ""
+		local kind = data.kind -- "install" | "update" | "delete"
+		local spec = data.spec or {}
+		local name = spec.name or ""
 
-    -- Only for nvim-treesitter, and only on install or update
-    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
-      vim.cmd("TSUpdate")
-    end
-  end,
+		-- Only for nvim-treesitter, and only on install or update
+		if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+			vim.cmd("TSUpdate")
+		end
+	end,
 })
 
 -- Colorscheme overrides
@@ -93,18 +93,18 @@ local colors = require("plugins.colorscheme") -- get table with overrides and de
 local group = vim.api.nvim_create_augroup("MyColors", { clear = true })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = group,
-  pattern = "*",
-  callback = function(args)
-    local cs = args.match
-    local fn = colors.overrides[cs]
-    if fn then
-      fn()
-    end
-  end,
+	group = group,
+	pattern = "*",
+	callback = function(args)
+		local cs = args.match
+		local fn = colors.overrides[cs]
+		if fn then
+			fn()
+		end
+	end,
 })
 
--- дефолтная тема при старте
+-- Call default colorscheme
 if colors.default then
-  vim.cmd("colorscheme " .. colors.default)
+	vim.cmd("colorscheme " .. colors.default)
 end

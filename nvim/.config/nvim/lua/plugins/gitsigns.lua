@@ -1,4 +1,4 @@
-vim.pack.add({'https://github.com/lewis6991/gitsigns.nvim'})
+vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
 require('gitsigns').setup({
 	update_debounce = 50,
 	current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
@@ -39,7 +39,7 @@ require('gitsigns').setup({
 		map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = "Gitsigns: Undo Stage Hunk" })
 
 		-- Text object
-		map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+		map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
 	end,
 	preview_config = {
 		border = 'solid',

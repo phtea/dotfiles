@@ -18,15 +18,15 @@ vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected 
 
 -- Substitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
-    { desc = "Replace word under cursor" })
+	{ desc = "Replace word under cursor" })
 vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],
-    { desc = "Replace visual selection" })
+	{ desc = "Replace visual selection" })
 
 -- Replace word under cursor (project)
 vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>]],
-    { desc = "Replace word under cursor (project)" })
+	{ desc = "Replace word under cursor (project)" })
 vim.keymap.set("v", "<leader>S", [["sy:Grep "<C-R>s"<CR><C-W>k:cdo s/<C-R>s/<C-R>s/gc<Left><Left><Left>]],
-    { desc = "Replace visual selection (project)" })
+	{ desc = "Replace visual selection (project)" })
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
@@ -54,16 +54,16 @@ vim.keymap.set("n", "Q", toggle_qf, { silent = true })
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>td", function()
-    local enabled = not vim.diagnostic.is_enabled()
-    vim.diagnostic.enable(enabled)
-    print("Diagnostics: " .. (enabled and "ON" or "OFF"))
+	local enabled = not vim.diagnostic.is_enabled()
+	vim.diagnostic.enable(enabled)
+	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
 end, { desc = "Toggle diagnostics" })
 
 -- Session handling
 local session_file = vim.fn.stdpath("state") .. "/Session.vim"
 vim.keymap.set("n", "<leader>R", function()
-  vim.cmd("mks! " .. vim.fn.fnameescape(session_file))
-  vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
+	vim.cmd("mks! " .. vim.fn.fnameescape(session_file))
+	vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
 end, { desc = "Save session and restart with it" })
 
 -- Turn ", " into ",\n" in visual selection
@@ -81,7 +81,7 @@ vim.keymap.set("n", "<leader>=",
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
-vim.api.nvim_create_user_command("RunCode", function() vim.cmd[[!make debug]] end, { nargs = 0, desc = "!make debug" })
+vim.api.nvim_create_user_command("RunCode", function() vim.cmd [[!make debug]] end, { nargs = 0, desc = "!make debug" })
 
 -- Git
 vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nargs = 0, desc = "Git: Reset hunk" })
@@ -90,36 +90,36 @@ vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { n
 
 -- Notes
 vim.keymap.set("n", "<leader>n", function()
-  vim.cmd("edit +$ " .. vim.fn.expand("~/notes.md"))
+	vim.cmd("edit +$ " .. vim.fn.expand("~/notes.md"))
 end, { desc = "Open global notes" })
 
 vim.keymap.set("x", "<leader>an", function()
-  -- absolute path of current file
-  local file = vim.fn.expand("%:p")
-  local stamp = os.date("%Y-%m-%d %H:%M")
+	-- absolute path of current file
+	local file = vim.fn.expand("%:p")
+	local stamp = os.date("%Y-%m-%d %H:%M")
 
-  -- yank selection into "z
-  vim.cmd([[normal! "zy]])
-  local lines = vim.fn.split(vim.fn.getreg("z"), "\n")
+	-- yank selection into "z
+	vim.cmd([[normal! "zy]])
+	local lines = vim.fn.split(vim.fn.getreg("z"), "\n")
 
-  local notes_path = vim.fn.expand("~/notes.md")
+	local notes_path = vim.fn.expand("~/notes.md")
 
-  -- choose language for code fence
-  local ft = vim.bo.filetype or ""
-  if ft == "" then
-    -- fallback: use extension, or "text" if none
-    local ext = vim.fn.fnamemodify(file, ":e")
-    ft = ext ~= "" and ext or "text"
-  end
+	-- choose language for code fence
+	local ft = vim.bo.filetype or ""
+	if ft == "" then
+		-- fallback: use extension, or "text" if none
+		local ext = vim.fn.fnamemodify(file, ":e")
+		ft = ext ~= "" and ext or "text"
+	end
 
-  local header = string.format("## %s (%s)", stamp, file)
+	local header = string.format("## %s (%s)", stamp, file)
 
-  local to_append = { "", header, "", "```" .. ft }
-  vim.list_extend(to_append, lines)
-  vim.list_extend(to_append, { "```", "" })
+	local to_append = { "", header, "", "```" .. ft }
+	vim.list_extend(to_append, lines)
+	vim.list_extend(to_append, { "```", "" })
 
-  vim.fn.writefile(to_append, notes_path, "a")
-  print("Appended selection to notes.md")
+	vim.fn.writefile(to_append, notes_path, "a")
+	print("Appended selection to notes.md")
 end, { desc = "Append selection to global notes" })
 
 local function is_wsl()
