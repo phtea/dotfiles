@@ -1,3 +1,5 @@
+if true then return {} end -- disable this plugin
+
 vim.pack.add({ "https://github.com/cbochs/grapple.nvim" })
 require("grapple").setup({
 	scope = "git_branch",

@@ -1,4 +1,7 @@
-vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
+vim.pack.add({
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/HiPhish/rainbow-delimiters.nvim",
+})
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {

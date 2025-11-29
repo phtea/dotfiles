@@ -45,6 +45,10 @@
       "rev": "12a2291",
       "src": "https://github.com/stevearc/quicker.nvim"
     },
+    "rainbow-delimiters.nvim": {
+      "rev": "8aafe2cbd89cd4090f573a98cab6b20366576fde",
+      "src": "https://github.com/HiPhish/rainbow-delimiters.nvim"
+    },
     "snacks.nvim": {
       "rev": "fe7cfe9",
       "src": "https://github.com/folke/snacks.nvim"
