@@ -3,6 +3,8 @@ vim.pack.add({{
 	version = vim.version.range('^1')
 }})
 
+-- My personal setup
+
 require("blink.cmp").setup({
 	keymap = {
 		preset = 'super-tab'
@@ -11,14 +13,20 @@ require("blink.cmp").setup({
 		nerd_font_variant = 'mono',
 	},
 	signature = {
-		enabled = true
+		enabled = true,
+		window = { border = 'single' },
+	},
+	completion = {
+		menu = { border = 'none' },
+		documentation = { window = { border = 'single' } },
 	},
 	cmdline = {
 		keymap = { preset = 'inherit' },
 		completion = {
 			menu = {
-				auto_show = function()
-					return vim.fn.getcmdtype() == ':'
+				auto_show = function(ctx)
+					-- if ':command' has more than n symbols (with :) => auto show completions 
+					return vim.fn.getcmdtype() == ':' and #ctx.line >= 3
 				end,
 			}
 		},
