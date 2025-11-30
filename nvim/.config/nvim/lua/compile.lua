@@ -49,7 +49,7 @@ vim.api.nvim_create_user_command("Compile", function()
   vim.ui.input({
     prompt = "Compile command: ",
     default = prev,          -- empty if none for this cwd yet
-    completion = "shellcmd", -- bash-ish completion
+    completion = "shellcmdline", -- bash-ish completion
   }, function(input)
     -- user aborted with <Esc> or closed the prompt
     if input == nil then
@@ -66,7 +66,7 @@ vim.api.nvim_create_user_command("Compile", function()
     commands[cwd] = cmd
     save_commands(commands)
 
-    -- run as shell command
+		print("\n")
     vim.cmd("!" .. cmd)
   end)
 end, {
