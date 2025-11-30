@@ -1,3 +1,5 @@
+require("helper_functions")
+
 vim.opt.swapfile = false
 vim.opt.lazyredraw = true
 vim.opt.path:append("**")
@@ -36,8 +38,8 @@ if vim.fn.isdirectory(undodir) == 0 then
 end
 
 vim.opt.statusline = table.concat({
-	"%{v:lua.require'git_branch'.get_branch()}",
-	"  %f %h%m%r%=",
-	"%{v:lua.require'lsp_statusline'.get_lsp()}",
-	" %l:%v ",
+	"%{v:lua.get_git_branch()}",
+	"%{v:lua.statusline_filename()} %h%m%r%=",
+	"%{v:lua.get_current_lsp_names()}",
+	"%l:%v",
 })

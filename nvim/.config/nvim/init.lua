@@ -2,7 +2,6 @@
 package.path = vim.fn.stdpath("config") .. "/?.lua;" .. package.path -- Enable local Lua modules
 
 require("options")
-require("compile")
 require("remap")
 require("autocmds")
 
