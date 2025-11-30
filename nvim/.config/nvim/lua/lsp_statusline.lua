@@ -12,8 +12,7 @@ function M.get_lsp()
 		table.insert(names, client.name)
 	end
 
-	local prefix = ""
-	return " " .. prefix .. table.concat(names, ",")
+	return " " .. table.concat(names, ",") .. " "
 end
 
 return M
