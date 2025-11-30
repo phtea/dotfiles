@@ -8,12 +8,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Open help in vertical split
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "help",
-	command = "wincmd L",
-})
-
 -- No auto continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("no_auto_comment", {}),

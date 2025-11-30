@@ -21,6 +21,7 @@ require("blink.cmp").setup({
 		documentation = { window = { border = 'single' } },
 	},
 	cmdline = {
+		enabled = false,
 		keymap = { preset = 'inherit' },
 		completion = {
 			menu = {

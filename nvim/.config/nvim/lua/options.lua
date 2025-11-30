@@ -35,23 +35,7 @@ if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, "p")
 end
 
-function _G.statusline_mode()
-	local modes = {
-		n = "NORMAL",
-		i = "INSERT",
-		v = "VISUAL",
-		V = "V-LINE",
-		[""] = "V-BLOCK",
-		c = "COMMAND",
-		R = "REPLACE",
-		t = "TERMINAL",
-	}
-	local m = vim.fn.mode()
-	return modes[m] or m
-end
-
 vim.opt.statusline = table.concat({
-	" %{v:lua.statusline_mode()} ",
 	"%{v:lua.require'git_branch'.get_branch()}",
 	"  %f %h%m%r%=",
 	"%{v:lua.require'lsp_statusline'.get_lsp()}",
