@@ -17,7 +17,7 @@ require("blink.cmp").setup({
 		window = { border = 'single' },
 	},
 	completion = {
-		menu = { border = 'none' },
+		menu = { border = 'single' },
 		documentation = { window = { border = 'single' } },
 	},
 	cmdline = {
