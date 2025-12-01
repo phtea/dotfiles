@@ -73,3 +73,5 @@ end, {
   nargs = 0,
   desc = "Compile (per cwd) using a stored shell command",
 })
+
+vim.keymap.set("n", "<leader>x", "<CMD>Compile<CR>", { desc = "Compile code" })

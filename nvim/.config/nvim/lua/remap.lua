@@ -106,7 +106,6 @@ vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
-vim.keymap.set("n", "<leader>x", "<CMD>Compile<CR>", { desc = "Compile code" })
 
 -- Git
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })

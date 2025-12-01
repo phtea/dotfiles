@@ -1,6 +1,3 @@
--- :Compile functionality here because it is a set of helper functions
-require("compile")
-
 function _G.statusline_filename()
   -- full path to current buffer
   local fname = vim.api.nvim_buf_get_name(0)

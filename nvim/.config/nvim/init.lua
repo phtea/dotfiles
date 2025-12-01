@@ -6,3 +6,4 @@ require("remap")
 require("autocmds")
 
 require("plugins")
+require("custom_code")
