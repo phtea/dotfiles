@@ -36,11 +36,36 @@ vim.api.nvim_create_user_command("Ggrep", "silent grep! <args> `git ls-files` | 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
 
--- Paste
-vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]], { desc = "Paste after from system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]], { desc = "Paste before from system clipboard" })
+-- Copy [p]ath: [r]elative/[a]bsolute/[f]ilename/[d]irectory
+-- Relative path
+vim.keymap.set('n', '<leader>pr', function()
+  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path)
+end, { desc = 'Copy relative path' })
 
--- Misc
+-- Absolute path
+vim.keymap.set('n', '<leader>pa', function()
+  local path = vim.fn.expand('%:p')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path)
+end, { desc = 'copy absolute path' })
+
+-- Filename only
+vim.keymap.set('n', '<leader>pf', function()
+  local path = vim.fn.expand('%:t')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path)
+end, { desc = 'copy filename' })
+
+-- Directory path
+vim.keymap.set('n', '<leader>pd', function()
+  local path = vim.fn.expand('%:p:h')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path)
+end, { desc = 'copy directory path' })
+
+-- misc
 local function toggle_qf()
 	for _, win in ipairs(vim.fn.getwininfo()) do
 		if win.quickfix == 1 then
@@ -51,7 +76,6 @@ local function toggle_qf()
 	vim.cmd("copen")
 end
 vim.keymap.set("n", "Q", toggle_qf, { silent = true })
-vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>td", function()
 	local enabled = not vim.diagnostic.is_enabled()
@@ -78,14 +102,13 @@ vim.keymap.set("n", "<leader>=",
 )
 
 -- Lsp and code
+vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 vim.keymap.set("n", "<leader>x", "<CMD>Compile<CR>", { desc = "Compile code" })
 
 -- Git
-vim.api.nvim_create_user_command("ResetDiffChange", "Gitsigns reset_hunk", { nargs = 0, desc = "Git: Reset hunk" })
-vim.api.nvim_create_user_command("StageDiffChange", "Gitsigns stage_hunk", { nargs = 0, desc = "Git: Reset hunk" })
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
 -- Notes
