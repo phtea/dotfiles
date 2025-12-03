@@ -13,14 +13,12 @@ nmap <leader>w <C-W>
 nnoremap - :Ex<CR>
 nnoremap <leader>f :find 
 nnoremap <leader>b :buffer 
-command! -nargs=+ -complete=file Grep execute 'sil grep! <args>' | redraw! | cwindow " :Grep -> search in all files
-command! -nargs=+ Ggrep execute 'sil grep! <args> `git ls-files`' | redraw! | cwindow " :Ggrep -> search in tracked files
+command! -nargs=+ -complete=file Grep execute 'sil grep! <args>' | redraw! | cwindow " search in all files
+command! -nargs=+ GitGrep execute 'sil grep! <args> `git ls-files`' | redraw! | cwindow " search in tracked files
 nnoremap <leader>/ :Grep 
 nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>
-nnoremap <leader>8 :Grep <C-R><C-W><CR>
-nnoremap <leader>* :Ggrep <C-R><C-W><CR>
-vnoremap <leader>8 "ay:Grep <C-R>a<CR>
-vnoremap <leader>* "ay:Ggrep <C-R>a<CR>
+nnoremap <leader>* :GitGrep <C-R><C-W><CR>
+vnoremap <leader>* "ay:GitGrep <C-R>a<CR>
 vnoremap S "zy:Grep -w <C-R>z<CR><C-W>k:cdo s/<C-R>z/<C-R>z/gc<Left><Left><Left>
 nnoremap Q <nop>
 vnoremap * "ay/\V<C-R>a<CR>
@@ -33,6 +31,16 @@ nnoremap Y y$
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 vnoremap <leader>y "+y
-nnoremap <Esc> :noh<CR>
+nnoremap <silent> <Esc> :noh<CR>
 nnoremap <leader>l :silent !tmux new-window -n lazygit 'cd $(git rev-parse --show-toplevel 2>/dev/null \|\| pwd) && lazygit; tmux kill-window'<CR>:redraw!<CR>
 nnoremap <leader>R :so ~/.vimrc<CR>
+
+" Autocomplete on <Tab>/<Shift-Tab> !
+function! s:has_words_before() abort
+  let col = col('.') - 1
+  return col > 0 && getline('.')[col - 1] !~# '\s'
+endfunction
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" :
+      \ <SID>has_words_before() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
