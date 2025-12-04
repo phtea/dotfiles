@@ -17,7 +17,19 @@ set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
 
-let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
+let rg_globs = [
+  \ '!**/.git/*',
+  \ '!**/node_modules/*',
+  \ '!**/package-lock.json',
+  \ '!**/yarn.lock',
+  \ '!tags',
+  \ '!*.js',
+  \ '!*.css',
+  \ '!*.map'
+\]
+
+let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden ' .
+  \ join(map(rg_globs, '"--glob \"".v:val."\""'), ' ')
 set grepformat=%f:%l:%c:%m
 
 nmap <leader>w <C-W>
@@ -34,8 +46,15 @@ nnoremap <silent> <leader>/ :call <SID>RGPrompt()<CR>
 vnoremap <silent>* <ESC>:call VisualSearch('/')<CR>/<CR>
 vnoremap <silent># <ESC>:call VisualSearch('?')<CR>?<CR>
 nnoremap <leader>C :!ctags -R .<CR><CR>
+
+" Quickfix navigation
 nnoremap <silent> <F1> :cprev<CR>
 nnoremap <silent> <F2> :cnext<CR>
+nnoremap <silent> [q :cprev<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [Q :cfirst<CR>
+nnoremap <silent> ]Q :clast<CR>
+
 nnoremap <leader>h :help <C-R><C-W><CR>
 nnoremap <leader>s :%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>
 vnoremap s "zy:%s/<C-R>z/<C-R>z/gI<Left><Left><Left>
@@ -164,9 +183,7 @@ function! s:ReferencesRgVisual() abort
     return
   endif
 
-  let l:cmd = 'rg --multiline --vimgrep --smart-case --hidden --glob "!**/.git/*" -n '
-        \ . shellescape(l:text) . ' .'
-
+  let l:cmd = &grepprg . ' --multiline ' . shellescape(l:text) . ' .'
   cexpr systemlist(l:cmd)
   if empty(getqflist())
     echo "No matches"
