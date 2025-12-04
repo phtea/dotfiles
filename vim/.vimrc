@@ -6,6 +6,9 @@ set number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecas
 set path+=** wildmenu wildignorecase wildmode=longest:full,full
 set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set grepformat=%f:%l:%c:%m undofile undodir=~/.vim/undo
+
+set showmatch matchtime=2 showtabline=0 signcolumn=yes smartindent " qol
+set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
 
@@ -21,9 +24,29 @@ nnoremap <leader>* :GitGrep <C-R><C-W><CR>
 vnoremap <leader>* "ay:GitGrep <C-R>a<CR>
 vnoremap S "zy:Grep -w <C-R>z<CR><C-W>k:cdo s/<C-R>z/<C-R>z/gc<Left><Left><Left>
 nnoremap Q <nop>
-vnoremap * "ay/\V<C-R>a<CR>
-nnoremap <F1> :cp<CR>
-nnoremap <F2> :cn<CR>
+
+nnoremap [<space> m0O<Esc>`0
+nnoremap ]<space> m0o<Esc>`0
+
+vnoremap <silent>* <ESC>:call VisualSearch('/')<CR>/<CR>
+vnoremap <silent># <ESC>:call VisualSearch('?')<CR>?<CR>
+
+function! VisualSearch(dirrection)
+    let l:register=@@
+    normal! gvy
+    let l:search=escape(@@, '$.*/\[]')
+    if a:dirrection=='/'
+	execute 'normal! /'.l:search
+    else
+	execute 'normal! ?'.l:search
+    endif
+    let @/=l:search
+    normal! gV
+    let @@=l:register
+endfunction
+
+nnoremap <silent> <F1> :cprev<CR>
+nnoremap <silent> <F2> :cnext<CR>
 nnoremap <leader>h :help <C-R><C-W><CR>
 nnoremap <leader>s :%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>
 vnoremap s "zy:%s/<C-R>z/<C-R>z/gI<Left><Left><Left>
@@ -33,7 +56,13 @@ nnoremap <leader>Y "+y$
 vnoremap <leader>y "+y
 nnoremap <silent> <Esc> :noh<CR>
 nnoremap <leader>l :silent !tmux new-window -n lazygit 'cd $(git rev-parse --show-toplevel 2>/dev/null \|\| pwd) && lazygit; tmux kill-window'<CR>:redraw!<CR>
-nnoremap <leader>R :so ~/.vimrc<CR>
+nnoremap <leader>R :source ~/.vimrc<CR>
+
+" todo: show current file used
+"set autoread
+"au FocusGained,BufEnter * :checktime
+
+" todo: auto update file after lazygit
 
 " Autocomplete on <Tab>/<Shift-Tab> !
 function! s:has_words_before() abort

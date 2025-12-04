@@ -25,15 +25,6 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
--- Syntax highlighting for params files
-vim.api.nvim_create_autocmd("BufRead", {
-	group = vim.api.nvim_create_augroup("params_ft", { clear = true }),
-	pattern = { "params_[0-9]*.txt", },
-	callback = function()
-		vim.bo.filetype = "json"
-	end,
-})
-
 -- Syntax highlighting for yml files
 vim.api.nvim_create_autocmd("BufRead", {
 	group = vim.api.nvim_create_augroup("yml_ft", { clear = true }),
@@ -43,6 +34,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- Notes taking
 local notes_path = vim.fn.expand("~/notes.md")
 
 vim.api.nvim_create_autocmd("BufLeave", {
