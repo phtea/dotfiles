@@ -18,18 +18,18 @@ if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
 
 let rg_globs = [
-			\ '!**/.git/*',
-			\ '!**/node_modules/*',
-			\ '!**/package-lock.json',
-			\ '!**/yarn.lock',
-			\ '!tags',
-			\ '!*.js',
-			\ '!*.css',
-			\ '!*.map'
-			\]
+  \ '!**/.git/*',
+  \ '!**/node_modules/*',
+  \ '!**/package-lock.json',
+  \ '!**/yarn.lock',
+  \ '!tags',
+  \ '!*.js',
+  \ '!*.css',
+  \ '!*.map'
+\]
 
 let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden ' .
-			\ join(map(rg_globs, '"--glob \"".v:val."\""'), ' ')
+  \ join(map(rg_globs, '"--glob \"".v:val."\""'), ' ')
 set grepformat=%f:%l:%c:%m
 
 nmap <leader>w <C-W>
@@ -72,7 +72,7 @@ set autoread
 
 " <Tab> / <S-Tab> autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" :
-			\ <SID>has_words_before() ? "\<C-n>" : "\<Tab>"
+      \ <SID>has_words_before() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 nnoremap <silent> gd :call <SID>GdTagsElseNormal()<CR>
@@ -89,56 +89,56 @@ xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
 
 " Util functions
 function! s:RGPrompt() abort
-	if !executable('rg')
-		echoerr 'rg not found'
-		return
-	endif
+  if !executable('rg')
+    echoerr 'rg not found'
+    return
+  endif
 
-	let l:pat = input('rg> ')
-	if empty(l:pat) | return | endif
+  let l:pat = input('rg> ')
+  if empty(l:pat) | return | endif
 
-	cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
-	cwindow
+  cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
+  cwindow
 endfunction
 
 function! ToggleQuickFix()
-	if empty(filter(getwininfo(), 'v:val.quickfix'))
-		copen
-	else
-		cclose
-	endif
+  if empty(filter(getwininfo(), 'v:val.quickfix'))
+    copen
+  else
+    cclose
+  endif
 endfunction
 
 function! VisualSearch(dirrection)
-	let l:register=@@
-	normal! gvy
-	let l:search=escape(@@, '$.*/\[]')
-	if a:dirrection=='/'
-		execute 'normal! /'.l:search
-	else
-		execute 'normal! ?'.l:search
-	endif
-	let @/=l:search
-	normal! gV
-	let @@=l:register
+    let l:register=@@
+    normal! gvy
+    let l:search=escape(@@, '$.*/\[]')
+    if a:dirrection=='/'
+	execute 'normal! /'.l:search
+    else
+	execute 'normal! ?'.l:search
+    endif
+    let @/=l:search
+    normal! gV
+    let @@=l:register
 endfunction
 
 function! s:has_words_before() abort
-	let col = col('.') - 1
-	return col > 0 && getline('.')[col - 1] !~# '\s'
+  let col = col('.') - 1
+  return col > 0 && getline('.')[col - 1] !~# '\s'
 endfunction
 
 function! s:GdTagsElseNormal() abort
-	let l:sym = expand('<cword>')
+  let l:sym = expand('<cword>')
 
-	" If an exact tag exists, jump via tags
-	if exists('*taglist') && !empty(taglist('^' . escape(l:sym, '\') . '$'))
-		execute "normal! \<C-]>"
-		return
-	endif
+  " If an exact tag exists, jump via tags
+  if exists('*taglist') && !empty(taglist('^' . escape(l:sym, '\') . '$'))
+    execute "normal! \<C-]>"
+    return
+  endif
 
-	" Otherwise keep Vim's default gd behavior
-	execute "normal! gd"
+  " Otherwise keep Vim's default gd behavior
+  execute "normal! gd"
 endfunction
 
 " Use ripgrep to search for references of word under cursor (whole word) into quickfix
@@ -163,226 +163,202 @@ endfunction
 
 " Visual references: uses the current visual selection
 function! s:ReferencesRgVisual() abort
-	if !executable('rg')
-		echoerr "ripgrep (rg) not found in PATH"
-		return
-	endif
+  if !executable('rg')
+    echoerr "ripgrep (rg) not found in PATH"
+    return
+  endif
 
-	" Save + yank selection (reselect with gv in case we're not currently in Visual)
-	let l:save_reg = getreg('z')
-	let l:save_typ = getregtype('z')
+  " Save + yank selection (reselect with gv in case we're not currently in Visual)
+  let l:save_reg = getreg('z')
+  let l:save_typ = getregtype('z')
 
-	silent! normal! gv"zy
+  silent! normal! gv"zy
 
-	let l:text = getreg('z')
-	call setreg('z', l:save_reg, l:save_typ)
+  let l:text = getreg('z')
+  call setreg('z', l:save_reg, l:save_typ)
 
-	" Trim and sanity-check
-	let l:text = substitute(l:text, '^\s\+|\s\+$', '', 'g')
-	if empty(l:text)
-		echo "Empty selection"
-		return
-	endif
+  " Trim and sanity-check
+  let l:text = substitute(l:text, '^\s\+|\s\+$', '', 'g')
+  if empty(l:text)
+    echo "Empty selection"
+    return
+  endif
 
-	let l:cmd = &grepprg . ' --multiline ' . shellescape(l:text) . ' .'
-	cexpr systemlist(l:cmd)
-	if empty(getqflist())
-		echo "No matches"
-	else
+  let l:cmd = &grepprg . ' --multiline ' . shellescape(l:text) . ' .'
+  cexpr systemlist(l:cmd)
+  if empty(getqflist())
+    echo "No matches"
+  else
 		cwindow
 		let @/ = l:text
-	endif
+  endif
 endfunction
 
 augroup LineCommentStrings
-	autocmd!
-	" Shell / config
-	autocmd FileType sh,bash,zsh setlocal commentstring=#\ %s
-	autocmd FileType conf,config,dosini setlocal commentstring=#\ %s
-	autocmd FileType yaml setlocal commentstring=#\ %s
-	autocmd FileType toml setlocal commentstring=#\ %s
+  autocmd!
+  " Shell / config
+  autocmd FileType sh,bash,zsh setlocal commentstring=#\ %s
+  autocmd FileType conf,config,dosini setlocal commentstring=#\ %s
+  autocmd FileType yaml setlocal commentstring=#\ %s
+  autocmd FileType toml setlocal commentstring=#\ %s
 
-	" Ruby / Python
-	autocmd FileType ruby,eruby setlocal commentstring=#\ %s
-	autocmd FileType python setlocal commentstring=#\ %s
+  " Ruby / Python
+  autocmd FileType ruby,eruby setlocal commentstring=#\ %s
+  autocmd FileType python setlocal commentstring=#\ %s
 
-	" JS/TS + friends
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal commentstring=//\ %s
-	autocmd FileType jsonc setlocal commentstring=//\ %s
+  " JS/TS + friends
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal commentstring=//\ %s
+  autocmd FileType jsonc setlocal commentstring=//\ %s
 
-	" Web
-	autocmd FileType css,scss,less setlocal commentstring=//\ %s
+  " Web
+  autocmd FileType css,scss,less setlocal commentstring=//\ %s
 
-	" Go / Rust / C-family
-	autocmd FileType go,rust,c,cpp,objc,objcpp,java,kotlin,scala setlocal commentstring=//\ %s
+  " Go / Rust / C-family
+  autocmd FileType go,rust,c,cpp,objc,objcpp,java,kotlin,scala setlocal commentstring=//\ %s
 
-	" Lua
-	autocmd FileType lua setlocal commentstring=--\ %s
+  " Lua
+  autocmd FileType lua setlocal commentstring=--\ %s
 
-	" Vimscript
-	autocmd FileType vim setlocal commentstring=\"\ %s
+  " Vimscript
+  autocmd FileType vim setlocal commentstring=\"\ %s
 
-	" Elixir / Erlang
-	autocmd FileType elixir setlocal commentstring=#\ %s
-	autocmd FileType erlang setlocal commentstring=%\ %s
+  " Elixir / Erlang
+  autocmd FileType elixir setlocal commentstring=#\ %s
+  autocmd FileType erlang setlocal commentstring=%\ %s
 
-	" Haskell
-	autocmd FileType haskell setlocal commentstring=--\ %s
+  " Haskell
+  autocmd FileType haskell setlocal commentstring=--\ %s
 
-	" SQL
-	autocmd FileType sql setlocal commentstring=--\ %s
+  " SQL
+  autocmd FileType sql setlocal commentstring=--\ %s
 
-	" Markdown (HTML comments are least surprising)
-	autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
+  " Markdown (HTML comments are least surprising)
+  autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
 augroup END
 
 " Toggle comment for line / visual selection using 'commentstring'
 function! s:ToggleCommentRange(l1, l2) abort
-	let cs = &commentstring
-	if empty(cs) || cs !~ '%s'
-		echoerr "No commentstring for this filetype"
-		return
-	endif
+  let cs = &commentstring
+  if empty(cs) || cs !~ '%s'
+    echoerr "No commentstring for this filetype"
+    return
+  endif
 
-	let pre = substitute(cs, '%s.*$', '', '')
-	let suf = substitute(cs, '^.*%s', '', '')
+  let pre = substitute(cs, '%s.*$', '', '')
+  let suf = substitute(cs, '^.*%s', '', '')
 
-	" escape for very-magic regex usage below
-	let pre_esc = escape(pre, '\.^$~[]*\/')
-	let suf_esc = escape(suf, '\.^$~[]*\/')
+  " escape for very-magic regex usage below
+  let pre_esc = escape(pre, '\.^$~[]*\/')
+  let suf_esc = escape(suf, '\.^$~[]*\/')
 
-	" Check if all non-empty lines are already commented
-	let all_commented = 1
-	for lnum in range(a:l1, a:l2)
-		let line = getline(lnum)
-		if line =~ '^\s*$' | continue | endif
-		if line !~ '^\s*' . pre_esc . '.*' . suf_esc . '\s*$'
-			let all_commented = 0
-			break
-		endif
-	endfor
+  " Check if all non-empty lines are already commented
+  let all_commented = 1
+  for lnum in range(a:l1, a:l2)
+    let line = getline(lnum)
+    if line =~ '^\s*$' | continue | endif
+    if line !~ '^\s*' . pre_esc . '.*' . suf_esc . '\s*$'
+      let all_commented = 0
+      break
+    endif
+  endfor
 
-	if all_commented
-		" Uncomment
-		for lnum in range(a:l1, a:l2)
-			let line = getline(lnum)
-			if line =~ '^\s*$' | continue | endif
-			let line = substitute(line, '^\(\s*\)' . pre_esc . '\s\?', '\1', '')
-			if !empty(suf)
-				let line = substitute(line, '\s\?' . suf_esc . '\s*$', '', '')
-			endif
-			call setline(lnum, line)
-		endfor
-	else
-		" Comment
-		for lnum in range(a:l1, a:l2)
-			let line = getline(lnum)
-			if line =~ '^\s*$' | continue | endif
-			let indent = matchstr(line, '^\s*')
-			let body = line[len(indent):]
-			call setline(lnum, indent . pre . body . suf)
-		endfor
-	endif
+  if all_commented
+    " Uncomment
+    for lnum in range(a:l1, a:l2)
+      let line = getline(lnum)
+      if line =~ '^\s*$' | continue | endif
+      let line = substitute(line, '^\(\s*\)' . pre_esc . '\s\?', '\1', '')
+      if !empty(suf)
+        let line = substitute(line, '\s\?' . suf_esc . '\s*$', '', '')
+      endif
+      call setline(lnum, line)
+    endfor
+  else
+    " Comment
+    for lnum in range(a:l1, a:l2)
+      let line = getline(lnum)
+      if line =~ '^\s*$' | continue | endif
+      let indent = matchstr(line, '^\s*')
+      let body = line[len(indent):]
+      call setline(lnum, indent . pre . body . suf)
+    endfor
+  endif
 endfunction
 
 function! s:ToggleCommentLine() abort
-	call <SID>ToggleCommentRange(line('.'), line('.'))
+  call <SID>ToggleCommentRange(line('.'), line('.'))
 endfunction
 
 function! s:ToggleCommentVisual() abort
-	" visual range is provided by '< and '>
-	call <SID>ToggleCommentRange(line("'<"), line("'>"))
+  " visual range is provided by '< and '>
+  call <SID>ToggleCommentRange(line("'<"), line("'>"))
 endfunction
 
 " Enhanced version with proper escaping and visual feedback
 augroup quickfix_filter
-	autocmd!
-	autocmd FileType qf nnoremap <buffer> <leader>d :call FilterQuickfix('delete')<CR>
-	autocmd FileType qf nnoremap <buffer> <leader>k :call FilterQuickfix('keep')<CR>
-	autocmd FileType qf nnoremap <buffer> <leader>c :call ClearQuickfixFilter()<CR>
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <leader>d :call FilterQuickfix('delete')<CR>
+  autocmd FileType qf nnoremap <buffer> <leader>k :call FilterQuickfix('keep')<CR>
 augroup END
 
 function! FilterQuickfix(action) abort
-	" Get the current search pattern
-	let search_pattern = @/
-
-	if empty(search_pattern)
-		echohl WarningMsg
-		echo "No search pattern set. Use / to search within the quickfix window first."
-		echohl None
-		return
-	endif
-
-	" Escape the pattern for use in filter()
-	let escaped_pattern = escape(search_pattern, '\"')
-
-	" Get current quickfix list
-	let qflist = getqflist()
-
-	if empty(qflist)
-		echohl WarningMsg
-		echo "Quickfix list is empty!"
-		echohl None
-		return
-	endif
-
-	let original_count = len(qflist)
-
-	if a:action ==# 'delete'
-		" Delete entries that match the search pattern (case-insensitive)
-		let filtered = filter(copy(qflist), 
-					\ 'tolower(v:val.text) !~? "' . escaped_pattern . '"')
-		let action_text = 'deleted'
-	else " 'keep'
-		" Keep only entries that match the search pattern (case-insensitive)
-		let filtered = filter(copy(qflist), 
-					\ 'tolower(v:val.text) =~? "' . escaped_pattern . '"')
-		let action_text = 'kept'
-	endif
-
-	let new_count = len(filtered)
-
-	if new_count == original_count
-		echohl WarningMsg
-		echo "No entries matched the pattern: " . search_pattern
-		echohl None
-		return
-	endif
-
-	" Update the quickfix list
-	call setqflist(filtered, 'r')
-
-	" Show quickfix window with updated list
-	call s:RefreshQuickfixWindow()
-
-	echohl SuccessMsg
-	echo printf('%s %d entries (pattern: %s)', 
-				\ a:action ==# 'delete' ? 'Deleted' : 'Kept',
-				\ abs(original_count - new_count),
-				\ search_pattern)
-	echohl None
-endfunction
-
-function! ClearQuickfixFilter() abort
-	" Clear the search highlight
-	nohlsearch
-	let @/ = ''
-	echo "Quickfix filter cleared"
+  " Get the current search pattern
+  let search_pattern = @/
+  
+  if empty(search_pattern)
+    return
+  endif
+  
+  " Escape the pattern for use in filter()
+  let escaped_pattern = escape(search_pattern, '\"')
+  
+  " Get current quickfix list
+  let qflist = getqflist()
+  
+  if empty(qflist)
+    return
+  endif
+  
+  let original_count = len(qflist)
+  
+  if a:action ==# 'delete'
+    " Delete entries that match the search pattern (case-insensitive)
+    let filtered = filter(copy(qflist), 
+          \ 'tolower(v:val.text) !~? "' . escaped_pattern . '"')
+    let action_text = 'deleted'
+  else " 'keep'
+    " Keep only entries that match the search pattern (case-insensitive)
+    let filtered = filter(copy(qflist), 
+          \ 'tolower(v:val.text) =~? "' . escaped_pattern . '"')
+    let action_text = 'kept'
+  endif
+  
+  let new_count = len(filtered)
+  
+  if new_count == original_count
+    return
+  endif
+  
+  " Update the quickfix list
+  call setqflist(filtered, 'r')
+  
+  " Show quickfix window with updated list
+  call s:RefreshQuickfixWindow()
 endfunction
 
 function! s:RefreshQuickfixWindow() abort
-	" If we're in a quickfix window, refresh it
-	if &buftype ==# 'quickfix'
-		" Save current position
-		let saved_view = winsaveview()
-
-		" Refresh the list
-		cclose
-		copen
-
-		" Restore position if possible
-		if line('.') <= line('$')
-			call winrestview(saved_view)
-		endif
-	endif
+  " If we're in a quickfix window, refresh it
+  if &buftype ==# 'quickfix'
+    " Save current position
+    let saved_view = winsaveview()
+    
+    " Refresh the list
+    cclose
+    copen
+    
+    " Restore position if possible
+    if line('.') <= line('$')
+      call winrestview(saved_view)
+    endif
+  endif
 endfunction
