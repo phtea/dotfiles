@@ -1,6 +1,7 @@
 [core]
     preloadIndex = true
     parallelCheckout = true
+    excludesfile = /home/phtea/.gitignore
 
 [alias]
     st = status
@@ -16,7 +17,7 @@
     default = simple
 
 [pull]
-	rebase = true
+    rebase = true
 
 [fetch]
     prune = true
@@ -35,8 +36,8 @@
     prompt = false
 
 [user]
-	email = phtea@mail.com
-	name = phtea
+    email = phtea@mail.com
+    name = phtea
 
 [rerere]
-	enabled = true
+    enabled = true
