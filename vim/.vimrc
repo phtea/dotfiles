@@ -7,6 +7,7 @@ set path+=** number relativenumber showcmd incsearch hlsearch hidden noswapfile 
 " Wildmenu settings
 set wildmenu wildignorecase wildmode=longest:full,full wildoptions=fuzzy,pum
 set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore+=**/node_modules/**,**/.git/**
 
 set undofile undodir=~/.vim/undo " undo settings
 set shortmess-=S " show count of search results
@@ -70,16 +71,14 @@ xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
 " Util functions
 function! s:RGPrompt() abort
   if !executable('rg')
-    echoerr "rg not found"
+    echoerr 'rg not found'
     return
   endif
 
   let l:pat = input('rg> ')
   if empty(l:pat) | return | endif
 
-  " Put the pattern in the shell command safely; rg receives it as-is
-  execute 'silent grep! ' . shellescape(l:pat)
-  redraw!
+  cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
   cwindow
 endfunction
 
@@ -132,7 +131,7 @@ function! s:ReferencesRgWord() abort
 
   let l:word = expand('<cword>')
   let l:pat  = '\b' . escape(l:word, '\') . '\b'
-  let l:cmd  = 'rg --vimgrep --smart-case --hidden --glob "!.git/*" -n ' . shellescape(l:pat) . ' .'
+  let l:cmd = &grepprg . ' -n ' . shellescape(l:pat) . ' .'
 
   cexpr systemlist(l:cmd)
   if empty(getqflist())
