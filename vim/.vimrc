@@ -7,23 +7,31 @@ set path+=** wildmenu wildignorecase wildmode=longest:full,full
 set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set grepformat=%f:%l:%c:%m undofile undodir=~/.vim/undo
 
-set showmatch matchtime=2 showtabline=0 signcolumn=yes smartindent " qol
+set showtabline=0 signcolumn=yes smartindent mouse=a " qol
 set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
 
 nmap <leader>w <C-W>
 nnoremap - :Ex<CR>
-nnoremap <leader>f :find 
-nnoremap <leader>b :buffer 
+nnoremap <leader>f :find *
+nnoremap <leader>b :buffer *
 command! -nargs=+ -complete=file Grep execute 'sil grep! <args>' | redraw! | cwindow " search in all files
-command! -nargs=+ GitGrep execute 'sil grep! <args> `git ls-files`' | redraw! | cwindow " search in tracked files
+command! -nargs=+ Ggrep execute 'sil grep! <args> `git ls-files`' | redraw! | cwindow " search in tracked files
 nnoremap <leader>/ :Grep 
 nnoremap <leader>S :Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>
-nnoremap <leader>* :GitGrep <C-R><C-W><CR>
-vnoremap <leader>* "ay:GitGrep <C-R>a<CR>
+nnoremap <leader>* :Ggrep <C-R><C-W><CR>
+vnoremap <leader>* "ay:Ggrep <C-R>a<CR>
 vnoremap S "zy:Grep -w <C-R>z<CR><C-W>k:cdo s/<C-R>z/<C-R>z/gc<Left><Left><Left>
-nnoremap Q <nop>
+nnoremap Q :call ToggleQuickFix()<CR>
+function! ToggleQuickFix()
+  if empty(filter(getwininfo(), 'v:val.quickfix'))
+    copen
+  else
+    cclose
+  endif
+endfunction
+nnoremap K :Ggrep "\b<C-R><C-W>\b"<cr>:cw<cr>
 
 nnoremap [<space> m0O<Esc>`0
 nnoremap ]<space> m0o<Esc>`0
@@ -44,6 +52,8 @@ function! VisualSearch(dirrection)
     normal! gV
     let @@=l:register
 endfunction
+
+nnoremap <leader>c :!ctags -R .<cr><cr>
 
 nnoremap <silent> <F1> :cprev<CR>
 nnoremap <silent> <F2> :cnext<CR>
