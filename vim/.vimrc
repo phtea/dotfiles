@@ -12,12 +12,18 @@ set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
 
+let &grepprg = 'rg --vimgrep --no-heading --smart-case --hidden --glob "!**/.git/*" --glob "!**/node_modules/*" --glob "!**/package-lock.json" --glob "!**/yarn.lock"'
+set grepformat=%f:%l:%c:%m
+
 nmap <leader>w <C-W>
 nnoremap - :Explore<CR>
-nnoremap <leader>f :find *
-nnoremap <leader>b :buffer *
+nnoremap <leader>f :find 
+nnoremap <leader>b :buffer 
+
+" Add space while not leaving normal mode
 nnoremap [<space> mzO<Esc>`z
 nnoremap ]<space> mzo<Esc>`z
+
 nnoremap Q :call ToggleQuickFix()<CR>
 nnoremap <silent> <leader>/ :call <SID>RGPrompt()<CR>
 vnoremap <silent>* <ESC>:call VisualSearch('/')<CR>/<CR>
@@ -48,10 +54,16 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nnoremap <silent> gd :call <SID>GdTagsElseNormal()<CR>
 nnoremap <silent> gr :call <SID>ReferencesRgWord()<CR>
 nnoremap <silent> K :call <SID>ReferencesRgWord()<CR>
+
 " Use a visual-mode mapping; <C-u> removes the automatic '<,'> range
 vnoremap <silent> <leader>* :<C-u>call <SID>ReferencesRgVisual()<CR>
 vnoremap <silent> K :<C-u>call <SID>ReferencesRgVisual()<CR>
 
+" Toggle comment on <space>c
+nnoremap <silent> <leader>c :call <SID>ToggleCommentLine()<CR>
+xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
+
+" Util functions
 function! s:RGPrompt() abort
   if !executable('rg')
     echoerr "rg not found"
@@ -88,10 +100,6 @@ function! VisualSearch(dirrection)
     normal! gV
     let @@=l:register
 endfunction
-
-
-
-" todo: auto update file after lazygit
 
 function! s:has_words_before() abort
   let col = col('.') - 1
@@ -162,4 +170,104 @@ function! s:ReferencesRgVisual() abort
   else
     copen
   endif
+endfunction
+
+augroup LineCommentStrings
+  autocmd!
+  " Shell / config
+  autocmd FileType sh,bash,zsh setlocal commentstring=#\ %s
+  autocmd FileType conf,config,dosini setlocal commentstring=#\ %s
+  autocmd FileType yaml setlocal commentstring=#\ %s
+  autocmd FileType toml setlocal commentstring=#\ %s
+
+  " Ruby / Python
+  autocmd FileType ruby,eruby setlocal commentstring=#\ %s
+  autocmd FileType python setlocal commentstring=#\ %s
+
+  " JS/TS + friends
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal commentstring=//\ %s
+  autocmd FileType jsonc setlocal commentstring=//\ %s
+
+  " Web
+  autocmd FileType css,scss,less setlocal commentstring=//\ %s
+
+  " Go / Rust / C-family
+  autocmd FileType go,rust,c,cpp,objc,objcpp,java,kotlin,scala setlocal commentstring=//\ %s
+
+  " Lua
+  autocmd FileType lua setlocal commentstring=--\ %s
+
+  " Vimscript
+  autocmd FileType vim setlocal commentstring=\"\ %s
+
+  " Elixir / Erlang
+  autocmd FileType elixir setlocal commentstring=#\ %s
+  autocmd FileType erlang setlocal commentstring=%\ %s
+
+  " Haskell
+  autocmd FileType haskell setlocal commentstring=--\ %s
+
+  " SQL
+  autocmd FileType sql setlocal commentstring=--\ %s
+
+  " Markdown (HTML comments are least surprising)
+  autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
+augroup END
+
+" Toggle comment for line / visual selection using 'commentstring'
+function! s:ToggleCommentRange(l1, l2) abort
+  let cs = &commentstring
+  if empty(cs) || cs !~ '%s'
+    echoerr "No commentstring for this filetype"
+    return
+  endif
+
+  let pre = substitute(cs, '%s.*$', '', '')
+  let suf = substitute(cs, '^.*%s', '', '')
+
+  " escape for very-magic regex usage below
+  let pre_esc = escape(pre, '\.^$~[]*\/')
+  let suf_esc = escape(suf, '\.^$~[]*\/')
+
+  " Check if all non-empty lines are already commented
+  let all_commented = 1
+  for lnum in range(a:l1, a:l2)
+    let line = getline(lnum)
+    if line =~ '^\s*$' | continue | endif
+    if line !~ '^\s*' . pre_esc . '.*' . suf_esc . '\s*$'
+      let all_commented = 0
+      break
+    endif
+  endfor
+
+  if all_commented
+    " Uncomment
+    for lnum in range(a:l1, a:l2)
+      let line = getline(lnum)
+      if line =~ '^\s*$' | continue | endif
+      let line = substitute(line, '^\(\s*\)' . pre_esc . '\s\?', '\1', '')
+      if !empty(suf)
+        let line = substitute(line, '\s\?' . suf_esc . '\s*$', '', '')
+      endif
+      call setline(lnum, line)
+    endfor
+  else
+    " Comment
+    for lnum in range(a:l1, a:l2)
+      let line = getline(lnum)
+      if line =~ '^\s*$' | continue | endif
+      let indent = matchstr(line, '^\s*')
+      let body = line[len(indent):]
+      call setline(lnum, indent . pre . body . suf)
+    endfor
+  endif
+endfunction
+
+function! s:ToggleCommentLine() abort
+  call <SID>ToggleCommentRange(line('.'), line('.'))
+endfunction
+
+function! s:ToggleCommentVisual() abort
+  " visual range is provided by '< and '>
+  call <SID>ToggleCommentRange(line("'<"), line("'>"))
 endfunction
