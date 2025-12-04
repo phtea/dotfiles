@@ -2,10 +2,14 @@ let mapleader = " "
 syntax enable
 colorscheme habamax
 language en_US.UTF-8
-set number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=10 lazyredraw
-set path+=** wildmenu wildignorecase wildmode=longest:full,full
+set path+=** number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=10 lazyredraw
+
+" Wildmenu settings
+set wildmenu wildignorecase wildmode=longest:full,full wildoptions=fuzzy,pum
 set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set grepformat=%f:%l:%c:%m undofile undodir=~/.vim/undo
+
+set undofile undodir=~/.vim/undo " undo settings
+set shortmess-=S " show count of search results
 
 set showtabline=0 signcolumn=yes smartindent mouse=a " qol
 set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
