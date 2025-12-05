@@ -380,7 +380,9 @@ function! s:RefreshQuickfixWindow() abort
 	endif
 endfunction
 
-" ---- fd-powered smart file opener w/ completion ----
+"
+" ---- fd-powered smart file opener with completion ----
+"
 if executable('fd')
   function! s:FdComplete(ArgLead, CmdLine, CursorPos) abort
     let l:cmd = 'fd --hidden --follow --full-path --type f -- '
@@ -408,9 +410,33 @@ if executable('fd')
 
     call setqflist(map(l:matches, {_, v -> {'filename': v}}), 'r')
     copen
-    echom 'F: ' . len(l:matches) . ' matches (opened quickfix)'
+    cc
   endfunction
 
   command! -nargs=1 -complete=customlist,s:FdComplete F call s:SmartFdOpen(<q-args>)
   nnoremap <leader>f :F<Space>
 endif
+
+"
+" Git gutter signs
+"
+set signcolumn=yes
+set updatetime=100
+let g:gitgutter_enabled = 1
+
+" optional but great
+nnoremap ]g <Plug>(GitGutterNextHunk)
+nnoremap [g <Plug>(GitGutterPrevHunk)
+nnoremap <leader>gh <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
+nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+onoremap ih <Plug>(GitGutterTextObjectInnerPending)
+onoremap ah <Plug>(GitGutterTextObjectOuterPending)
+xnoremap ih <Plug>(GitGutterTextObjectInnerVisual)
+xnoremap ah <Plug>(GitGutterTextObjectOuterVisual)
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+let g:gitgutter_sign_added = '┃'
+let g:gitgutter_sign_modified = '┃'
+let g:gitgutter_sign_removed = '▁'
