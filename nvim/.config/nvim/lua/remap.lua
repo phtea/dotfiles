@@ -107,6 +107,17 @@ vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code ac
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
+-- Ctags generation
+vim.keymap.set("n", "<leader>C", function()
+  local result = vim.fn.system("ctags -R .")
+  
+  if vim.v.shell_error ~= 0 then
+    vim.notify("Failed to generate ctags: " .. result, vim.log.levels.ERROR)
+  else
+    vim.notify("Ctags generated successfully", vim.log.levels.INFO)
+  end
+end, { desc = "Generate Ctags" })
+
 -- Git
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
