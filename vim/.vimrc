@@ -58,7 +58,7 @@ nnoremap <silent> ]Q :clast<CR>
 
 nnoremap <leader>h :help <C-R><C-W><CR>
 nnoremap <leader>s :%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>
-vnoremap s "zy:%s/<C-R>z/<C-R>z/gI<Left><Left><Left>
+vnoremap <leader>s "zy:%s/<C-R>z/<C-R>z/gIc<Left><Left><Left><Left>
 nnoremap Y y$
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
