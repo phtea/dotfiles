@@ -1,11 +1,11 @@
 " Autocompletion
-function! s:has_words_before() abort
+function! MyUtilshas_words_before() abort
   let col = col('.') - 1
   return col > 0 && getline('.')[col - 1] !~# '\s'
 endfunction
 
 " Ripgrep
-function! s:RGPrompt() abort
+function! MyUtilsRGPrompt() abort
   if !executable('rg')
     echoerr 'rg not found'
     return
@@ -40,7 +40,7 @@ function! VisualSearch(dirrection)
 	let @@=l:register
 endfunction
 
-function! s:GdTagsElseNormal() abort
+function! MyUtilsGdTagsElseNormal() abort
 	let l:sym = expand('<cword>')
 
 	" If an exact tag exists, jump via tags
@@ -57,7 +57,7 @@ endfunction
 " Ripgrep
 "
 " Use ripgrep to search for references of word under cursor (whole word) into quickfix
-function! s:ReferencesRgWord() abort
+function! MyUtilsReferencesRgWord() abort
 	if !executable('rg')
 		echoerr "ripgrep (rg) not found in PATH"
 		return
@@ -77,7 +77,7 @@ function! s:ReferencesRgWord() abort
 endfunction
 
 " Visual references: uses the current visual selection
-function! s:ReferencesRgVisual() abort
+function! MyUtilsReferencesRgVisual() abort
 	if !executable('rg')
 		echoerr "ripgrep (rg) not found in PATH"
 		return
@@ -155,7 +155,7 @@ augroup LineCommentStrings
 augroup END
 
 " Toggle comment for line / visual selection using 'commentstring'
-function! s:ToggleCommentRange(l1, l2) abort
+function! MyUtilsToggleCommentRange(l1, l2) abort
 	let cs = &commentstring
 	if empty(cs) || cs !~ '%s'
 		echoerr "No commentstring for this filetype"
@@ -203,11 +203,11 @@ function! s:ToggleCommentRange(l1, l2) abort
 	endif
 endfunction
 
-function! s:ToggleCommentLine() abort
+function! MyUtilsToggleCommentLine() abort
 	call <SID>ToggleCommentRange(line('.'), line('.'))
 endfunction
 
-function! s:ToggleCommentVisual() abort
+function! MyUtilsToggleCommentVisual() abort
 	" visual range is provided by '< and '>
 	call <SID>ToggleCommentRange(line("'<"), line("'>"))
 endfunction
@@ -266,7 +266,7 @@ function! FilterQuickfix(action) abort
 	echo (a:action ==# 'delete' ? 'Removed ' : 'Kept ') . change . ' entries'
 endfunction
 
-function! s:RefreshQuickfixWindow() abort
+function! MyUtilsRefreshQuickfixWindow() abort
 	" If we're in a quickfix window, refresh it
 	if &buftype ==# 'quickfix'
 		" Save current position
@@ -287,14 +287,14 @@ endfunction
 " ---- fd-powered smart file opener with completion ----
 "
 if executable('fd')
-  function! s:FdComplete(ArgLead, CmdLine, CursorPos) abort
+  function! MyUtilsFdComplete(ArgLead, CmdLine, CursorPos) abort
     let l:cmd = 'fd --hidden --follow --full-path --type f -- '
           \ . shellescape(a:ArgLead) . ' .'
     let l:res = systemlist(l:cmd)
     return map(l:res, {_, v -> v =~# '^\./' ? v[2:] : v})
   endfunction
 
-  function! s:SmartFdOpen(query) abort
+  function! MyUtilsSmartFdOpen(query) abort
     let l:cmd = 'fd --hidden --follow --full-path --type f -- '
           \ . shellescape(a:query) . ' .'
     let l:matches = systemlist(l:cmd)
@@ -316,6 +316,6 @@ if executable('fd')
     cc
   endfunction
 
-  command! -nargs=1 -complete=customlist,s:FdComplete F call s:SmartFdOpen(<q-args>)
+  command! -nargs=1 -complete=customlist,MyUtilsFdComplete F call MyUtilsSmartFdOpen(<q-args>)
   nnoremap <leader>f :F<Space>
 endif

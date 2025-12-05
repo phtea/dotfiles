@@ -43,7 +43,7 @@ nnoremap [<space> mzO<Esc>`z
 nnoremap ]<space> mzo<Esc>`z
 
 nnoremap Q :call ToggleQuickFix()<CR>
-nnoremap <silent> <leader>/ :call <SID>RGPrompt()<CR>
+nnoremap <silent> <leader>/ :call MyUtilsRGPrompt()<CR>
 vnoremap <silent>* <ESC>:call VisualSearch('/')<CR>/<CR>
 vnoremap <silent># <ESC>:call VisualSearch('?')<CR>?<CR>
 nnoremap <leader>C :!ctags -R .<CR><CR>
@@ -73,23 +73,23 @@ set autoread
 
 " <Tab> / <S-Tab> autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" :
-			\ <SID>has_words_before() ? "\<C-n>" : "\<Tab>"
+			\ MyUtilshas_words_before() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "
 " Code: navigation (ctags and ripgrep), toggle comments
 "
-nnoremap <silent> gd :call <SID>GdTagsElseNormal()<CR>
-nnoremap <silent> gr :call <SID>ReferencesRgWord()<CR>
-nnoremap <silent> K :call <SID>ReferencesRgWord()<CR>
+nnoremap <silent> gd :call MyUtilsGdTagsElseNormal()<CR>
+nnoremap <silent> gr :call MyUtilsReferencesRgWord()<CR>
+nnoremap <silent> K :call MyUtilsReferencesRgWord()<CR>
 
 " Use a visual-mode mapping; <C-u> removes the automatic '<,'> range
-vnoremap <silent> <leader>* :<C-u>call <SID>ReferencesRgVisual()<CR>
-vnoremap <silent> K :<C-u>call <SID>ReferencesRgVisual()<CR>
+vnoremap <silent> <leader>* :<C-u>call MyUtilsReferencesRgVisual()<CR>
+vnoremap <silent> K :<C-u>call MyUtilsReferencesRgVisual()<CR>
 
 " Toggle comment on <space>c
-nnoremap <silent> <leader>c :call <SID>ToggleCommentLine()<CR>
-xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
+nnoremap <silent> <leader>c :call MyUtilsToggleCommentLine()<CR>
+xnoremap <silent> <leader>c :<C-u>call MyUtilsToggleCommentVisual()<CR>
 
 "
 " Git gutter signs
@@ -97,8 +97,6 @@ xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
 set signcolumn=yes
 set updatetime=100
 let g:gitgutter_enabled = 1
-
-" optional but great
 nnoremap ]g <Plug>(GitGutterNextHunk)
 nnoremap [g <Plug>(GitGutterPrevHunk)
 nnoremap <leader>gh <Plug>(GitGutterPreviewHunk)
@@ -114,4 +112,6 @@ highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 let g:gitgutter_sign_added = '┃'
 let g:gitgutter_sign_modified = '┃'
 let g:gitgutter_sign_removed = '▁'
+
+" Load custom code here
 source ~/.vim/vimrc.d/utils.vim
