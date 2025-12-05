@@ -1,6 +1,6 @@
 vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
 require('gitsigns').setup({
-	current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+	current_line_blame      = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
 	current_line_blame_opts = {
 		virt_text = true,
 		virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
@@ -9,7 +9,7 @@ require('gitsigns').setup({
 		virt_text_priority = 100,
 		use_focus = true,
 	},
-	on_attach = function(bufnr)
+	on_attach               = function(bufnr)
 		local gitsigns = require('gitsigns')
 
 		local function map(mode, l, r, opts)
@@ -25,6 +25,8 @@ require('gitsigns').setup({
 		-- Views
 		map('n', '<leader>gh', gitsigns.preview_hunk, { desc = "Gitsigns: Preview Hunk" })
 		map('n', '<leader>tg', gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle Current Blame Line" })
+		map('n', '<leader>ts', gitsigns.toggle_signs, { desc = "Gitsigns: Toggle signs" })
+		map('n', '<leader>tn', gitsigns.toggle_numhl, { desc = "Gitsigns: Toggle numhl" })
 		map('n', '<leader>gb', gitsigns.blame_line, { desc = "Gitsigns: Blame Line" })
 		map('n', '<leader>gB', gitsigns.blame, { desc = "Gitsigns: Full Blame" })
 
@@ -40,8 +42,9 @@ require('gitsigns').setup({
 		-- Text object
 		map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
 	end,
-	preview_config = {
+	preview_config          = {
 		border = 'single',
 	},
-	signs_staged_enable = false,
+	signs_staged_enable     = false,
+	numhl                   = false,
 })
