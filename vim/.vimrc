@@ -143,6 +143,7 @@ function! s:RGPrompt() abort
 
 	cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
 	cwindow
+	let @/=l:pat
 endfunction
 
 " Search for references of word under cursor
@@ -310,11 +311,16 @@ augroup END
 
 function! FilterQuickfix(action) abort
 	let search_pattern = @/
-	if empty(search_pattern) | return | endif
+	if empty(search_pattern) 
+		echo "No search pattern"
+		return 
+	endif
 
-	let escaped_pattern = escape(search_pattern, '\"')
 	let qflist = getqflist()
-	if empty(qflist) | return | endif
+	if empty(qflist)
+		echo "Quickfix is empty"
+		return 
+	endif
 
 	let original_count = len(qflist)
 	let filtered = []
@@ -324,9 +330,10 @@ function! FilterQuickfix(action) abort
 		let filename = has_key(entry, 'bufnr') ? bufname(entry.bufnr) : ''
 		let text = get(entry, 'text', '')
 
-		" Check if pattern matches
-		let matches = (!empty(filename) && tolower(filename) =~? escaped_pattern) ||
-					\ (!empty(text) && tolower(text) =~? escaped_pattern)
+		" Use the pattern as-is (user typed regex)
+		" =~? is case-insensitive matching
+		let matches = (!empty(filename) && filename =~? search_pattern) ||
+					\ (!empty(text) && text =~? search_pattern)
 
 		" Add to filtered list based on action
 		if (a:action ==# 'delete' && !matches) || (a:action ==# 'keep' && matches)
@@ -335,10 +342,15 @@ function! FilterQuickfix(action) abort
 	endfor
 
 	let new_count = len(filtered)
-	if new_count == original_count | return | endif
+	if new_count == original_count
+		echo "No changes"
+		return
+	endif
 
 	call setqflist(filtered, 'r')
-	call s:RefreshQuickfixWindow()
+
+	let change = abs(original_count - new_count)
+	echo (a:action ==# 'delete' ? 'Removed ' : 'Kept ') . change . ' entries'
 endfunction
 
 function! s:RefreshQuickfixWindow() abort
