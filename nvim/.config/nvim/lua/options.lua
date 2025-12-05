@@ -1,34 +1,23 @@
 require("helper_functions")
 
-vim.opt.swapfile = false
-vim.opt.lazyredraw = true
-vim.opt.path:append("**")
-vim.opt.number = true
-vim.opt.showcmd = true
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.termguicolors = true
-vim.opt.scrolloff = 10
-vim.opt.relativenumber = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.signcolumn = "yes"
-vim.opt.winborder = "single"
-vim.opt.showmode = false
-vim.opt.cursorline = true
-vim.opt.showtabline = 0
-
--- No intro message
-vim.opt.shortmess:append("I")
+vim.cmd [[
+	set hlsearch incsearch ignorecase smartcase " search
+	set number relativenumber " line numbers
+	set guicursor= " keep block style cursor
+	set tabstop=2 shiftwidth=2 scrolloff=10 signcolumn=yes
+	set path+=** lazyredraw
+	set termguicolors showcmd noshowmode winborder=single " ui
+	set cursorline " enable cursorline
+	set showtabline=0  " don't show tabs
+	set shortmess+=I " no intro message
+	set undofile noswapfile " file handling
+]]
 
 -- Grep
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- Enable persistent undo
-vim.opt.undofile = true
 local undodir = vim.fn.stdpath("data") .. "/undo"
 vim.opt.undodir = undodir
 
