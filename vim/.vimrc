@@ -2,7 +2,7 @@ let mapleader = " "
 syntax enable
 colorscheme habamax
 language en_US.UTF-8
-set path+=** number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=10 lazyredraw
+set path+=.** number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=10 lazyredraw
 
 " Wildmenu settings
 set wildmenu wildignorecase wildmode=longest:full,full wildoptions=fuzzy,pum
@@ -34,8 +34,9 @@ set grepformat=%f:%l:%c:%m
 
 nmap <leader>w <C-W>
 nnoremap - :Explore<CR>
-nnoremap <leader>f :find 
-nnoremap <leader>b :buffer 
+nnoremap <leader>b :buffer<Space>
+" Default :find
+nnoremap <leader>f :find<Space>
 
 " Add space while not leaving normal mode
 nnoremap [<space> mzO<Esc>`z
@@ -75,6 +76,9 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" :
 			\ <SID>has_words_before() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+"
+" Code: navigation (ctags and ripgrep), toggle comments
+"
 nnoremap <silent> gd :call <SID>GdTagsElseNormal()<CR>
 nnoremap <silent> gr :call <SID>ReferencesRgWord()<CR>
 nnoremap <silent> K :call <SID>ReferencesRgWord()<CR>
@@ -87,7 +91,30 @@ vnoremap <silent> K :<C-u>call <SID>ReferencesRgVisual()<CR>
 nnoremap <silent> <leader>c :call <SID>ToggleCommentLine()<CR>
 xnoremap <silent> <leader>c :<C-u>call <SID>ToggleCommentVisual()<CR>
 
-" Util functions
+"
+" All util functions defined below
+"
+
+" Autocompletion
+function! s:has_words_before() abort
+  let col = col('.') - 1
+  return col > 0 && getline('.')[col - 1] !~# '\s'
+endfunction
+
+" Ripgrep
+function! s:RGPrompt() abort
+  if !executable('rg')
+    echoerr 'rg not found'
+    return
+  endif
+
+  let l:pat = input('rg> ')
+  if empty(l:pat) | return | endif
+
+  cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
+  cwindow
+endfunction
+
 function! ToggleQuickFix()
 	if empty(filter(getwininfo(), 'v:val.quickfix'))
 		copen
@@ -110,11 +137,6 @@ function! VisualSearch(dirrection)
 	let @@=l:register
 endfunction
 
-function! s:has_words_before() abort
-	let col = col('.') - 1
-	return col > 0 && getline('.')[col - 1] !~# '\s'
-endfunction
-
 function! s:GdTagsElseNormal() abort
 	let l:sym = expand('<cword>')
 
@@ -129,24 +151,9 @@ function! s:GdTagsElseNormal() abort
 endfunction
 
 "
-" RIPGREP (rg)
+" Ripgrep
 "
-" Get rg prompt to find with grep
-function! s:RGPrompt() abort
-	if !executable('rg')
-		echoerr 'rg not found'
-		return
-	endif
-
-	let l:pat = input('rg> ')
-	if empty(l:pat) | return | endif
-
-	cexpr systemlist(&grepprg . ' ' . shellescape(l:pat) . ' .')
-	cwindow
-	let @/=l:pat
-endfunction
-
-" Search for references of word under cursor
+" Use ripgrep to search for references of word under cursor (whole word) into quickfix
 function! s:ReferencesRgWord() abort
 	if !executable('rg')
 		echoerr "ripgrep (rg) not found in PATH"
@@ -199,6 +206,9 @@ function! s:ReferencesRgVisual() abort
 	endif
 endfunction
 
+"
+" Comments
+"
 augroup LineCommentStrings
 	autocmd!
 	" Shell / config
@@ -369,3 +379,38 @@ function! s:RefreshQuickfixWindow() abort
 		endif
 	endif
 endfunction
+
+" ---- fd-powered smart file opener w/ completion ----
+if executable('fd')
+  function! s:FdComplete(ArgLead, CmdLine, CursorPos) abort
+    let l:cmd = 'fd --hidden --follow --full-path --type f -- '
+          \ . shellescape(a:ArgLead) . ' .'
+    let l:res = systemlist(l:cmd)
+    return map(l:res, {_, v -> v =~# '^\./' ? v[2:] : v})
+  endfunction
+
+  function! s:SmartFdOpen(query) abort
+    let l:cmd = 'fd --hidden --follow --full-path --type f -- '
+          \ . shellescape(a:query) . ' .'
+    let l:matches = systemlist(l:cmd)
+
+    if empty(l:matches)
+      echohl WarningMsg | echom 'F: no matches for: ' . a:query | echohl None
+      return
+    endif
+
+    call map(l:matches, {_, v -> v =~# '^\./' ? v[2:] : v})
+
+    if len(l:matches) == 1
+      execute 'edit ' . fnameescape(l:matches[0])
+      return
+    endif
+
+    call setqflist(map(l:matches, {_, v -> {'filename': v}}), 'r')
+    copen
+    echom 'F: ' . len(l:matches) . ' matches (opened quickfix)'
+  endfunction
+
+  command! -nargs=1 -complete=customlist,s:FdComplete F call s:SmartFdOpen(<q-args>)
+  nnoremap <leader>f :F<Space>
+endif
