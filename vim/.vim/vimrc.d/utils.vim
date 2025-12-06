@@ -155,7 +155,7 @@ augroup LineCommentStrings
 augroup END
 
 " Toggle comment for line / visual selection using 'commentstring'
-function! MyUtilsToggleCommentRange(l1, l2) abort
+function! <SID>ToggleCommentRange(l1, l2) abort
 	let cs = &commentstring
 	if empty(cs) || cs !~ '%s'
 		echoerr "No commentstring for this filetype"

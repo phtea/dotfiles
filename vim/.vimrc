@@ -8,6 +8,7 @@ set path+=.** number relativenumber showcmd incsearch hlsearch hidden noswapfile
 set wildmenu wildignorecase wildmode=longest:full,full wildoptions=fuzzy,pum
 set wildignore+=*.o,*.obj,*.bak,*.pyc,*.swp,*.zip,*.tar.gz,*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set wildignore+=**/node_modules/**,**/.git/**
+set completeopt=menu,menuone,preview
 
 set undofile undodir=~/.vim/undo " undo settings
 set shortmess-=S " show count of search results
