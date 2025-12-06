@@ -5,6 +5,7 @@ require('local-highlight').setup({
 	animate = {
 		enabled = false,
 	},
+	file_types = { 'xxx' }, -- don't attach to any by dafault
 })
 
 vim.keymap.set("n", "<leader>th", function ()
