@@ -1,5 +1,3 @@
-if true then return {} end -- deprecated
-
 local state_dir = vim.fn.stdpath("state")
 local compile_file = state_dir .. "/compile_commands.json"
 
