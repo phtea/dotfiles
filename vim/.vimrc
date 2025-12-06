@@ -47,6 +47,16 @@ nnoremap <silent> <leader>/ :call MyUtilsRGPrompt()<CR>
 vnoremap <silent>* <ESC>:call VisualSearch('/')<CR>/<CR>
 vnoremap <silent># <ESC>:call VisualSearch('?')<CR>?<CR>
 nnoremap <leader>C :!ctags -R .<CR><CR>
+nnoremap <expr> <leader>m MakeAndRun()
+
+function! MakeAndRun() abort
+  let l:cmd = input('Makeprg: ', &makeprg, 'shellcmd')
+  if empty(l:cmd)
+    return ''
+  endif
+  let &makeprg = l:cmd
+  return ":make\<CR>:copen\<CR>"
+endfunction
 
 " Quickfix navigation
 nnoremap <silent> <F1> :cprev<CR>
