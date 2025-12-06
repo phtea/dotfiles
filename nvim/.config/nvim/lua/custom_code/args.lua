@@ -1,6 +1,6 @@
 -- Replacement for Harpoon
 
-local show_args = function ()
+local show_args = function()
 	vim.cmd [[
 		echo
 		args

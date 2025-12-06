@@ -77,7 +77,7 @@ vnoremap <leader>y "+y
 nnoremap <silent> <Esc> :noh<CR>
 nnoremap <silent> <leader>R :source ~/.vimrc<CR>
 
-" todo: make :checktime after lazygit is closed
+" TODO: make :checktime after lazygit is closed
 nnoremap <leader>l :silent !tmux new-window -n lazygit 'cd $(git rev-parse --show-toplevel 2>/dev/null \|\| pwd) && lazygit; tmux kill-window'<CR>:redraw!<CR>
 set autoread
 " au FocusGained,BufEnter * :checktime

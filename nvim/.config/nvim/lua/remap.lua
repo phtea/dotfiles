@@ -39,30 +39,30 @@ vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to
 -- Copy [p]ath: [r]elative/[a]bsolute/[f]ilename/[d]irectory
 -- Relative path
 vim.keymap.set('n', '<leader>pr', function()
-  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.')
-  vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path)
+	local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.')
+	vim.fn.setreg('+', path)
+	vim.notify('Copied: ' .. path)
 end, { desc = 'Copy relative path' })
 
 -- Absolute path
 vim.keymap.set('n', '<leader>pa', function()
-  local path = vim.fn.expand('%:p')
-  vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path)
+	local path = vim.fn.expand('%:p')
+	vim.fn.setreg('+', path)
+	vim.notify('Copied: ' .. path)
 end, { desc = 'copy absolute path' })
 
 -- Filename only
 vim.keymap.set('n', '<leader>pf', function()
-  local path = vim.fn.expand('%:t')
-  vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path)
+	local path = vim.fn.expand('%:t')
+	vim.fn.setreg('+', path)
+	vim.notify('Copied: ' .. path)
 end, { desc = 'copy filename' })
 
 -- Directory path
 vim.keymap.set('n', '<leader>pd', function()
-  local path = vim.fn.expand('%:p:h')
-  vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path)
+	local path = vim.fn.expand('%:p:h')
+	vim.fn.setreg('+', path)
+	vim.notify('Copied: ' .. path)
 end, { desc = 'copy directory path' })
 
 -- misc
@@ -109,13 +109,13 @@ vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { n
 
 -- Ctags generation
 vim.keymap.set("n", "<leader>C", function()
-  local result = vim.fn.system("ctags -R .")
-  
-  if vim.v.shell_error ~= 0 then
-    vim.notify("Failed to generate ctags: " .. result, vim.log.levels.ERROR)
-  else
-    vim.notify("Ctags generated successfully", vim.log.levels.INFO)
-  end
+	local result = vim.fn.system("ctags -R .")
+
+	if vim.v.shell_error ~= 0 then
+		vim.notify("Failed to generate ctags: " .. result, vim.log.levels.ERROR)
+	else
+		vim.notify("Ctags generated successfully", vim.log.levels.INFO)
+	end
 end, { desc = "Generate Ctags" })
 
 -- Git

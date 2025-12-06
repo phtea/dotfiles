@@ -1,13 +1,13 @@
 function _G.statusline_filename()
-  -- full path to current buffer
-  local fname = vim.api.nvim_buf_get_name(0)
-  if fname == "" then
-    return "[No Name]"
-  end
+	-- full path to current buffer
+	local fname = vim.api.nvim_buf_get_name(0)
+	if fname == "" then
+		return "[No Name]"
+	end
 
-  -- make it relative to cwd (like `realpath --relative-to` style)
-  local rel = vim.fn.fnamemodify(fname, ':.')  -- :.(dot) = relative to cwd
-  return rel
+	-- make it relative to cwd (like `realpath --relative-to` style)
+	local rel = vim.fn.fnamemodify(fname, ':.') -- :.(dot) = relative to cwd
+	return rel
 end
 
 function _G.get_git_branch()
@@ -20,15 +20,15 @@ function _G.get_git_branch()
 end
 
 function _G.get_current_lsp_names()
-		local buf_clients = vim.lsp.get_clients()
+	local buf_clients = vim.lsp.get_clients()
 	if next(buf_clients) == nil then
-				return "" -- No LSP attached
-			end
+		return "" -- No LSP attached
+	end
 
 	-- Collect client names
-		local names = {}
+	local names = {}
 	for _, client in pairs(buf_clients) do
-			table.insert(names, client.name)
+		table.insert(names, client.name)
 	end
 
 	return " " .. table.concat(names, ",") .. " "

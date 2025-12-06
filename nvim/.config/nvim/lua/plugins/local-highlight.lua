@@ -8,6 +8,6 @@ require('local-highlight').setup({
 	file_types = { 'xxx' }, -- don't attach to any by dafault
 })
 
-vim.keymap.set("n", "<leader>th", function ()
+vim.keymap.set("n", "<leader>th", function()
 	vim.cmd("LocalHighlightToggle")
 end, { desc = "LocalHighlight: Toggle highlights" })
