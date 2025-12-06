@@ -1,8 +1,5 @@
 vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 require("snacks").setup({
-	indent = {
-		enabled = true,
-	},
 	lazygit = {
 		win = {
 			backdrop = false,
@@ -53,7 +50,13 @@ require("snacks").setup({
 		}
 	},
 	bigfile = { enabled = true, notify = false, },
-	statuscolumn = { enabled = true },
+	statuscolumn = { enabled = false, },
+	indent = {
+		enabled = true,
+		animate = {
+			enabled = false,
+		},
+	},
 })
 
 vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Smart Find Files" })

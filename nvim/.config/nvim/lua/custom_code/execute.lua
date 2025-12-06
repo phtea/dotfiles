@@ -64,6 +64,10 @@ vim.api.nvim_create_user_command("Execute", function()
     commands[cwd] = input
     save_commands(commands)
 
+		-- TODO: if compile (kinda like this)
+		-- :let &makeprg="g++ -std=c++20 -O0 -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion -Werror main.cpp -o main" | make | cwindow | !./main)
+		-- failed - don't open terminal, else execute compiled command (only for compiled languages)
+
     open_terminal_run(input)
   end)
 end, { nargs = 0, desc = "Execute (per cwd) using a stored shell command in a terminal" })
