@@ -13,7 +13,7 @@ set undofile undodir=~/.vim/undo " undo settings
 set shortmess-=S " show count of search results
 
 set showtabline=0 signcolumn=yes smartindent mouse=a " qol
-set tabstop=8 softtabstop=4 shiftwidth=4 noexpandtab " normalize tabs
+set tabstop=2 shiftwidth=2 scrolloff=10 " tabs management
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
 
