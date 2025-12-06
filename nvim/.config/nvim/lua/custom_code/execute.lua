@@ -24,21 +24,22 @@ local function save_commands(cmds)
 end
 
 local function open_terminal_run(cmd)
-  -- open a split for terminal
-  vim.cmd("botright split")
-  vim.cmd("resize 12")
-  local win = vim.api.nvim_get_current_win()
+  -- Open a terminal split running your configured shell (stays open)
+  vim.cmd("botright split | resize 12 | terminal")
+  local buf = vim.api.nvim_get_current_buf()
 
-  -- create terminal buffer
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_win_set_buf(win, buf)
+  -- Manual close: press q in terminal-mode
+  vim.keymap.set("t", "<C-c>", [[<C-\><C-n>:bd!<CR>]], { buffer = buf, silent = true })
 
-  -- run under user's shell for "&& |" etc
-  local shell = vim.o.shell
-  local shellcmdflag = vim.o.shellcmdflag
-  vim.fn.termopen({ shell, shellcmdflag, cmd }, {
-    on_exit = function() end, -- TermClose handles UI cleanup
-  })
+  -- Send the command to the terminal job
+  local job = vim.b.terminal_job_id
+  if not job then
+    vim.notify("No terminal job id", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Run it (supports && | redirects etc because the shell interprets it)
+  vim.fn.chansend(job, cmd .. "\n")
 
   vim.cmd("startinsert")
 end
