@@ -1,5 +1,3 @@
-require("helper_functions")
-
 vim.cmd [[
 	set hlsearch incsearch ignorecase smartcase " search
 	set number relativenumber " line numbers

@@ -97,7 +97,7 @@ end, { desc = "Split inline args to multiline" })
 
 -- Reindent whole file
 vim.keymap.set("n", "<leader>=",
-	"gg=G``zz",
+	"gg=G``",
 	{ desc = "Reindent whole file" }
 )
 

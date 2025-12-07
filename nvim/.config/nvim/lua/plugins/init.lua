@@ -2,7 +2,7 @@
 require("plugins.snacks")
 
 require("plugins.autopairs")
-require("plugins.blink_cmp")
+-- require("plugins.blink_cmp")
 require("plugins.gitsigns")
 -- require("plugins.grapple")
 require("plugins.local-highlight")

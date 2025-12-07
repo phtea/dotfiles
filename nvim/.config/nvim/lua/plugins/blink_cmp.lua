@@ -1,3 +1,5 @@
+if true then return {} end -- deprecated plugin, changed with native completion
+
 vim.pack.add({ {
 	src = 'https://github.com/saghen/blink.cmp',
 	version = vim.version.range('^1')
