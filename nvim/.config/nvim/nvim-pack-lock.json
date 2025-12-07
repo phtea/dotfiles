@@ -1,7 +1,7 @@
 {
   "plugins": {
     "gitsigns.nvim": {
-      "rev": "cdafc32",
+      "rev": "5813e4878748805f1518cee7abb50fd7205a3a48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mason.nvim": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "30a2b19",
+      "rev": "a2bd1cf7b0446a7414aaf373cea5e4ca804c9c69",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -25,23 +25,19 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "oil.nvim": {
-      "rev": "01cb3a8",
+      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "quicker.nvim": {
-      "rev": "12a2291",
+      "rev": "9983d4b28881e1df626e3682167b45c284d4da8c",
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "snacks.nvim": {
       "rev": "fe7cfe9",
       "src": "https://github.com/folke/snacks.nvim"
     },
-    "vague.nvim": {
-      "rev": "dba2805",
-      "src": "https://github.com/vague-theme/vague.nvim"
-    },
     "vscode.nvim": {
-      "rev": "cb9df0873c10a21d05362455ae3bb355eadcef6b",
+      "rev": "aa1102a7e15195c9cca22730b09224a7f7745ba8",
       "src": "https://github.com/Mofiqul/vscode.nvim"
     }
   }
