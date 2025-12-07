@@ -23,3 +23,13 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
+
+-- Folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.cmd [[
+	set foldcolumn=5
+]]

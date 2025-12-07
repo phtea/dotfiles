@@ -49,7 +49,13 @@ require("snacks").setup({
 		}
 	},
 	bigfile = { enabled = true, notify = false, },
-	statuscolumn = { enabled = false, },
+	statuscolumn = {
+		enabled = true,
+		folds = {
+			open = true, -- show open fold icons
+			git_hl = true, -- use Git Signs hl for fold icons
+		},
+	},
 	words = { enabled = true, },
 	indent = {
 		enabled = true,
