@@ -10,10 +10,6 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("gopls")
 vim.lsp.enable("rust_analyzer")
 
-vim.diagnostic.config({
-	float = {
-		border = "single",
-	}
-})
+vim.diagnostic.config({})
 
 require('mason').setup()

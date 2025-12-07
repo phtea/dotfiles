@@ -9,9 +9,6 @@ require("oil").setup({
 		["<CR>"] = "actions.select",
 		["-"] = { "actions.parent", mode = "n" },
 	},
-	confirmation = {
-		border = "single",
-	}
 })
 
 vim.keymap.set('n', '-', "<CMD>Oil<CR>", { desc = "Oil: Open parent directory" })

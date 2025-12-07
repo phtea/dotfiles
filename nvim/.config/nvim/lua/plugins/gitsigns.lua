@@ -42,9 +42,6 @@ require('gitsigns').setup({
 		-- Text object
 		map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
 	end,
-	preview_config          = {
-		border = 'single',
-	},
 	signs_staged_enable     = false,
 	numhl                   = false,
 })
