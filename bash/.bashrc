@@ -8,7 +8,6 @@ shopt -s histappend
 
 # ---------------------------------------------------
 # Bash completion (Arch + Ubuntu universal)
-# ---------------------------------------------------
 bind "set completion-ignore-case on"
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -19,7 +18,6 @@ fi
 
 # ---------------------------------------------------
 # FZF completion + keybindings (universal)
-# ---------------------------------------------------
 # Completion
 if [ -f /usr/share/fzf/completion.bash ]; then
   source /usr/share/fzf/completion.bash

@@ -1,63 +1,8 @@
+local icon = require("core.ui")
+
 -- Native fuzzy popup filtering
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
-
--- LSP CompletionItemKind (1..25) -> icon
-local icon = {
-  [1]  = "󰉿", -- Text
-  [2]  = "󰆧", -- Method
-  [3]  = "󰊕", -- Function
-  [4]  = "",  -- Constructor
-  [5]  = "󰜢", -- Field
-  [6]  = "󰀫", -- Variable
-  [7]  = "󰠱", -- Class
-  [8]  = "",  -- Interface
-  [9]  = "󰏗", -- Module
-  [10] = "󰜢", -- Property
-  [11] = "󰑭", -- Unit
-  [12] = "󰎠", -- Value
-  [13] = "",  -- Enum
-  [14] = "󰌋", -- Keyword
-  [15] = "",  -- Snippet
-  [16] = "󰏘", -- Color
-  [17] = "󰈙", -- File
-  [18] = "󰈇", -- Reference
-  [19] = "󰉋", -- Folder
-  [20] = "",  -- EnumMember
-  [21] = "󰏿", -- Constant
-  [22] = "󰙅", -- Struct
-  [23] = "",  -- Event
-  [24] = "󰆕", -- Operator
-  [25] = "󰊄", -- TypeParameter
-}
-
-local kind_hl = {
-  [1]  = "PmenuKindText",
-  [2]  = "PmenuKindMethod",
-  [3]  = "PmenuKindFunction",
-  [4]  = "PmenuKindConstructor",
-  [5]  = "PmenuKindField",
-  [6]  = "PmenuKindVariable",
-  [7]  = "PmenuKindClass",
-  [8]  = "PmenuKindInterface",
-  [9]  = "PmenuKindModule",
-  [10] = "PmenuKindProperty",
-  [11] = "PmenuKindUnit",
-  [12] = "PmenuKindValue",
-  [13] = "PmenuKindEnum",
-  [14] = "PmenuKindKeyword",
-  [15] = "PmenuKindSnippet",
-  [16] = "PmenuKindColor",
-  [17] = "PmenuKindFile",
-  [18] = "PmenuKindReference",
-  [19] = "PmenuKindFolder",
-  [20] = "PmenuKindEnumMember",
-  [21] = "PmenuKindConstant",
-  [22] = "PmenuKindStruct",
-  [23] = "PmenuKindEvent",
-  [24] = "PmenuKindOperator",
-  [25] = "PmenuKindTypeParam",
-}
 
 -- Show signature help automatically
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -78,7 +23,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- Enable native LSP completion + autotrigger when an LSP attaches
+-- Enable native LSP completion when an LSP attaches
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
@@ -91,14 +36,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			autotrigger = true,
 			convert = function(item)
 				local k = item.kind
-				local ic = icon[k] or "·"
+				local ic = icon.kind_icon(k) or "·"
 				return {
 					-- Put icon abbr so it's on the left
 					abbr = ic,
-					abbr_hlgroup = kind_hl[k] or "",
+					abbr_hlgroup = icon.kind_hl(k) or "",
 
 					-- Menu is label and detail now
-					menu = string.format("%s %s", item.label, item.detail),
+					menu = string.format("%s %s", item.label, item.detail or ""),
 
 					-- Kind is empty since it's part of abbr
 					kind = "",
@@ -110,7 +55,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- -----------------------------
 -- Autoformat: native LSP, toggle with <leader>tf (default OFF)
--- -----------------------------
 vim.g.autoformat_enabled = false
 
 local function format_buf(bufnr)
@@ -146,7 +90,6 @@ end, { desc = "Toggle format-on-save (LSP)" })
 
 -- -----------------------------
 -- Super-Tab
--- -----------------------------
 -- Helper: feed keys like mappings (handles <C-y>, <Tab>, etc.)
 local function feed(keys)
 	vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
