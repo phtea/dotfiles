@@ -20,3 +20,6 @@ require("plugins.oil")
 
 -- Should go last (so nothing else overrides user-defined highlights)
 require("plugins.colorscheme")
+
+-- Langmapper
+require("plugins.langmapper")

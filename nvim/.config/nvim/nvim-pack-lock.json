@@ -4,6 +4,10 @@
       "rev": "5813e4878748805f1518cee7abb50fd7205a3a48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "langmapper.nvim": {
+      "rev": "57a2fe4",
+      "src": "https://github.com/Wansmer/langmapper.nvim"
+    },
     "mason.nvim": {
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
