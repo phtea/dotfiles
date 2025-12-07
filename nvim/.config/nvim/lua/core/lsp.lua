@@ -4,25 +4,6 @@ local icon = require("core.ui")
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
 
--- Show signature help automatically
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if not client or not client:supports_method("textDocument/signatureHelp") then return end
-
-    vim.api.nvim_create_autocmd("InsertCharPre", {
-      buffer = ev.buf,
-      callback = function()
-				if vim.fn.pumvisible() == 1 then return end
-        local ch = vim.v.char
-        if ch == "(" or ch == "," then
-          vim.schedule(vim.lsp.buf.signature_help)
-        end
-      end,
-    })
-  end,
-})
-
 -- Enable native LSP completion when an LSP attaches
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
@@ -32,7 +13,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
 		client.server_capabilities.completionProvider.triggerCharacters = chars
 
-		vim.lsp.completion.enable(true, client.id, _, {
+		vim.lsp.completion.enable(true, client.id, ev.buf, {
 			autotrigger = true,
 			convert = function(item)
 				local k = item.kind
@@ -62,7 +43,7 @@ local function format_buf(bufnr)
 	-- only if some attached client supports formatting
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
 	for _, c in ipairs(clients) do
-		if c.supports_method("textDocument/formatting") or c.supports_method("textDocument/rangeFormatting") then
+		if c.supports_method('textDocument/formatting', bufnr) or c.supports_method('textDocument/rangeFormatting', bufnr) then
 			vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
 			return
 		end

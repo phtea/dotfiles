@@ -72,25 +72,3 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		end
 	end,
 })
-
--- Colorscheme overrides
-local colors = require("plugins.colorscheme") -- get table with overrides and default
-
-local group = vim.api.nvim_create_augroup("MyColors", { clear = true })
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = group,
-	pattern = "*",
-	callback = function(args)
-		local cs = args.match
-		local fn = colors.overrides[cs]
-		if fn then
-			fn()
-		end
-	end,
-})
-
--- Call default colorscheme
-if colors.default then
-	vim.cmd("colorscheme " .. colors.default)
-end

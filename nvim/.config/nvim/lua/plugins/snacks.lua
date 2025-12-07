@@ -56,7 +56,10 @@ require("snacks").setup({
 			git_hl = true, -- use Git Signs hl for fold icons
 		},
 	},
-	words = { enabled = true, },
+	words = {
+		enabled = true,
+		modes = { "n", }, -- modes to show references
+	},
 	indent = {
 		enabled = true,
 		animate = {
