@@ -18,7 +18,6 @@ M.overrides = {}
 M.overrides.vague = function()
 	set_hl(0, "StatusLine", { bg = "none" })
 	set_hl(0, "StatusLineNC", { bg = "none" })
-	set_hl(0, "LocalHighlight", { bg = "#444444" })
 	set_hl(0, "Search", { bg = "#405065", ctermbg = 11, ctermfg = 0, fg = "#CDCDCD" })
 	set_hl(0, "CurSearch", { bg = "#BFAFA9", fg = "#323232" })
 	set_hl(0, "IncSearch", { link = "CurSearch" })
@@ -27,7 +26,6 @@ end
 M.overrides.vscode = function()
 	set_hl(0, "StatusLine", { link = "StatusLineNC" })
 	set_hl(0, "Pmenu", { bg = "#252525" })
-	set_hl(0, "LocalHighlight", { underline = true })
 end
 
 return M

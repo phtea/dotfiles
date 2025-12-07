@@ -8,10 +8,6 @@ vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true })
 vim.keymap.set("n", "<A-j>", ":cnext<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 
--- F alternatives
-vim.keymap.set("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
-
 -- Comment
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
 vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })

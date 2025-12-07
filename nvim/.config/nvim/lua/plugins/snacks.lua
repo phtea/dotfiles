@@ -27,7 +27,6 @@ require("snacks").setup({
 					["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 					["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
 					["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
-					["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
 				}
 			}
 		},
@@ -51,6 +50,7 @@ require("snacks").setup({
 	},
 	bigfile = { enabled = true, notify = false, },
 	statuscolumn = { enabled = false, },
+	words = { enabled = true, },
 	indent = {
 		enabled = true,
 		animate = {

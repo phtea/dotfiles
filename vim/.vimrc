@@ -60,8 +60,6 @@ function! MakeAndRun() abort
 endfunction
 
 " Quickfix navigation
-nnoremap <silent> <F1> :cprev<CR>
-nnoremap <silent> <F2> :cnext<CR>
 nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [Q :cfirst<CR>
@@ -101,28 +99,6 @@ vnoremap <silent> K :<C-u>call MyUtilsReferencesRgVisual()<CR>
 " Toggle comment on <space>c
 nnoremap <silent> <leader>c :call MyUtilsToggleCommentLine()<CR>
 xnoremap <silent> <leader>c :<C-u>call MyUtilsToggleCommentVisual()<CR>
-
-"
-" Git gutter signs
-"
-set signcolumn=yes
-set updatetime=100
-let g:gitgutter_enabled = 1
-nnoremap ]g <Plug>(GitGutterNextHunk)
-nnoremap [g <Plug>(GitGutterPrevHunk)
-nnoremap <leader>gh <Plug>(GitGutterPreviewHunk)
-nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
-nnoremap <leader>gs <Plug>(GitGutterStageHunk)
-onoremap ih <Plug>(GitGutterTextObjectInnerPending)
-onoremap ah <Plug>(GitGutterTextObjectOuterPending)
-xnoremap ih <Plug>(GitGutterTextObjectInnerVisual)
-xnoremap ah <Plug>(GitGutterTextObjectOuterVisual)
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-let g:gitgutter_sign_added = '┃'
-let g:gitgutter_sign_modified = '┃'
-let g:gitgutter_sign_removed = '▁'
 
 " Load custom code here
 source ~/.vim/vimrc.d/utils.vim

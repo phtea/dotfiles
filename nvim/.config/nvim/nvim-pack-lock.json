@@ -4,10 +4,6 @@
       "rev": "cdafc32",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "local-highlight.nvim": {
-      "rev": "272f36f",
-      "src": "https://github.com/tzachar/local-highlight.nvim"
-    },
     "mason.nvim": {
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
