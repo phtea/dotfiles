@@ -1,6 +1,6 @@
 vim.cmd [[
 	set hlsearch incsearch ignorecase smartcase " search
-	set number relativenumber " line numbers
+	set number " line numbers
 	"set guicursor= " keep block style cursor
 	set tabstop=2 shiftwidth=2 scrolloff=10 signcolumn=yes
 	set path+=** lazyredraw

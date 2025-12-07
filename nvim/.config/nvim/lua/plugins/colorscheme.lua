@@ -34,6 +34,37 @@ M.overrides.vscode = function()
 	set_hl(0, "PmenuKindUnit", { fg = "#CE9178" })
 	set_hl(0, "PmenuKindColor", { fg = "#D4D4D4" })
 	set_hl(0, "PmenuKindEvent", { fg = "#D7BA7D" })
+
+	-- Make keywords/functions/types pop more (VS-like)
+	set_hl(0, "Keyword", { fg = "#C586C0" })
+	set_hl(0, "Function", { fg = "#DCDCAA" })
+	set_hl(0, "Identifier", { fg = "#9CDCFE" })
+	set_hl(0, "Type", { fg = "#4EC9B0" })
+	set_hl(0, "String", { fg = "#CE9178" })
+	set_hl(0, "Number", { fg = "#B5CEA8" })
+
+	-- Tree-sitter groups (C++ heavily uses these)
+	set_hl(0, "@keyword", { link = "Keyword" })
+	set_hl(0, "@keyword.function", { link = "Keyword" })
+	set_hl(0, "@function", { link = "Function" })
+	set_hl(0, "@function.call", { link = "Function" })
+	set_hl(0, "@function.builtin", { link = "Function" })
+	set_hl(0, "@type", { link = "Type" })
+	set_hl(0, "@type.builtin", { fg = "#569CD6" }) -- keep your tweak
+	set_hl(0, "@variable", { link = "Identifier" })
+	set_hl(0, "@variable.builtin", { fg = "#9CDCFE" })
+	set_hl(0, "@constant", { fg = "#4FC1FF" })
+	set_hl(0, "@number", { link = "Number" })
+	set_hl(0, "@string", { link = "String" })
+	set_hl(0, "@string.escape", { fg = "#D7BA7D" })
+
+	-- Comments (your VS green)
+	set_hl(0, "Comment", { fg = "#57a548" })
+	set_hl(0, "@comment", { link = "Comment" })
+
+	-- Optional: subtle current line / cursorline like in your screenshot
+	set_hl(0, "CursorLine", { bg = "#2A2A2A" })
+	set_hl(0, "CursorLineNr", { fg = "#D4D4D4" })
 end
 
 return M
