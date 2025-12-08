@@ -14,6 +14,9 @@ vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
 vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
+-- <F1> for file info if in insert mode cuz I definitely would prefer that over vim's help 
+vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { noremap = true, silent = true, })
+
 -- Substitute current word in this file
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
 	{ desc = "Replace word under cursor" })

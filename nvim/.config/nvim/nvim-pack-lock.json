@@ -1,6 +1,8 @@
 {
   "plugins": {
     "blink.cmp": {
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
+      "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
     "gitsigns.nvim": {
@@ -24,7 +26,7 @@
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
-      "rev": "a0f5ab4",
+      "rev": "a0f5ab44268d22c8b0b19cb89fd9cabbd21e361c",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
