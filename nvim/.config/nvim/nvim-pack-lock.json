@@ -1,7 +1,10 @@
 {
   "plugins": {
+    "blink.cmp": {
+      "version": "1.0.0 - 2.0.0"
+    },
     "gitsigns.nvim": {
-      "rev": "5813e4878748805f1518cee7abb50fd7205a3a48",
+      "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "langmapper.nvim": {
@@ -17,11 +20,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "a2bd1cf7b0446a7414aaf373cea5e4ca804c9c69",
+      "rev": "a2bd1cf",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
-      "rev": "fcfa7e0",
+      "rev": "a0f5ab4",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
@@ -29,11 +32,11 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "oil.nvim": {
-      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
+      "rev": "cbcb3f9",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "quicker.nvim": {
-      "rev": "9983d4b28881e1df626e3682167b45c284d4da8c",
+      "rev": "9983d4b",
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "snacks.nvim": {
@@ -41,7 +44,7 @@
       "src": "https://github.com/folke/snacks.nvim"
     },
     "vscode.nvim": {
-      "rev": "aa1102a7e15195c9cca22730b09224a7f7745ba8",
+      "rev": "aa1102a",
       "src": "https://github.com/Mofiqul/vscode.nvim"
     }
   }

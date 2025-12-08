@@ -3,9 +3,6 @@ require("plugins.snacks")
 
 -- Brackets
 require("plugins.autopairs")
-require("plugins.surround")
-
--- Git gutter
 require("plugins.gitsigns")
 
 -- Syntax highlighting
@@ -17,6 +14,9 @@ require("plugins.quicker")
 
 -- File management
 require("plugins.oil")
+
+-- Autocomplete
+require("plugins.blink_cmp")
 
 -- Should go last (so nothing else overrides user-defined highlights)
 require("plugins.colorscheme")

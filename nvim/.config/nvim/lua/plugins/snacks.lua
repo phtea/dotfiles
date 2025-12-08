@@ -27,6 +27,7 @@ require("snacks").setup({
 					["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 					["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
 					["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+					["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
 				}
 			}
 		},
