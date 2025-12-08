@@ -60,6 +60,8 @@ function! MakeAndRun() abort
 endfunction
 
 " Quickfix navigation
+nnoremap <silent> <F1> :cprev<CR>
+nnoremap <silent> <F2> :cnext<CR>
 nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [Q :cfirst<CR>
