@@ -1,9 +1,11 @@
 -- Should go first, some plugins depend on it
 require("plugins.snacks")
 
--- Brackets
+-- Quality of life plugins
 require("plugins.autopairs")
+require("plugins.surround")
 require("plugins.gitsigns")
+require("plugins.vim-dispatch")
 
 -- Syntax highlighting
 require("plugins.treesitter")

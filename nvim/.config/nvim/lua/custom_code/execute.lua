@@ -1,3 +1,5 @@
+if true then return end -- deprecated i think (in favour of vim-dispatch)
+
 -- Execute commands
 -- TODO: parse the parts where it compiles and actually run it through :make
 -- and run the result in a separate special terminal if successfully compiled
