@@ -3,8 +3,6 @@ vim.pack.add({ {
 	version = vim.version.range('^1')
 } })
 
--- My personal setup
-
 require("blink.cmp").setup({
 	keymap = {
 		preset = 'default',

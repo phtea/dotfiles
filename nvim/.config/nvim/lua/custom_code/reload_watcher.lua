@@ -1,3 +1,4 @@
+-- Tell all nvim instances they need to update
 local uv = vim.loop
 
 local flag = vim.fn.stdpath("state") .. "/nvim-reload.flag"

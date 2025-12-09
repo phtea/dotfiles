@@ -1,4 +1,4 @@
--- Plugin for working with special layouts
+-- Working with special keyboard layouts
 vim.pack.add({ 'https://github.com/Wansmer/langmapper.nvim' })
 
 local langmapper = require('langmapper')

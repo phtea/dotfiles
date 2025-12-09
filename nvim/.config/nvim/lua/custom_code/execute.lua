@@ -1,3 +1,7 @@
+-- Execute commands
+-- TODO: parse the parts where it compiles and actually run it through :make
+-- and run the result in a separate special terminal if successfully compiled
+
 local state_dir = vim.fn.stdpath("state")
 local execute_file = state_dir .. "/execute_commands.json"
 

@@ -1,3 +1,5 @@
+-- Helper functions (they help)
+
 function _G.statusline_filename()
 	-- full path to current buffer
 	local fname = vim.api.nvim_buf_get_name(0)

@@ -1,4 +1,4 @@
-require("core.helper_functions") -- some of helper functions are used in modules below
+require("core.helper_functions")
 
 require("core.options")
 require("core.remap")
