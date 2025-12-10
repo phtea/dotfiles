@@ -6,6 +6,7 @@ require("plugins.autopairs")
 require("plugins.surround")
 require("plugins.gitsigns")
 require("plugins.vim-dispatch")
+require("plugins.visimatch")
 
 -- Syntax highlighting
 require("plugins.treesitter")
@@ -20,8 +21,6 @@ require("plugins.oil")
 -- Autocomplete
 require("plugins.blink_cmp")
 
--- Should go last (so nothing else overrides user-defined highlights)
-require("plugins.colorscheme")
-
--- Langmapper
+-- Should go last
 require("plugins.langmapper")
+require("plugins.colorscheme")
