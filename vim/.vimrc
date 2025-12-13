@@ -2,7 +2,7 @@ let mapleader = " "
 syntax enable
 colorscheme habamax
 language en_US.UTF-8
-set path+=.** number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=10 lazyredraw
+set path+=.** number relativenumber showcmd incsearch hlsearch hidden noswapfile ignorecase smartcase ttimeoutlen=50 scrolloff=5 lazyredraw
 
 " Wildmenu settings
 set wildmenu wildignorecase wildmode=longest:full,full wildoptions=fuzzy,pum
@@ -14,7 +14,7 @@ set undofile undodir=~/.vim/undo " undo settings
 set shortmess-=S " show count of search results
 
 set showtabline=0 signcolumn=yes smartindent mouse=a " qol
-set tabstop=2 shiftwidth=2 scrolloff=10 " tabs management
+set tabstop=2 shiftwidth=2 " tabs management
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
 set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
 

@@ -1,7 +1,7 @@
 vim.cmd [[
 	set hlsearch incsearch ignorecase smartcase " search
 	set number relativenumber " line numbers
-	set tabstop=2 shiftwidth=2 scrolloff=10 signcolumn=yes
+	set tabstop=2 shiftwidth=2 scrolloff=5 signcolumn=yes
 	set path+=** lazyredraw
 	set termguicolors showcmd noshowmode winborder=single " ui
 	set cursorline " enable cursorline
