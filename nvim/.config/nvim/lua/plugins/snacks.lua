@@ -55,6 +55,10 @@ require("snacks").setup({
 	bigfile = { enabled = true, notify = false, },
 	statuscolumn = {
 		enabled = true,
+		left = {
+			-- "mark", -- I don't want marks
+			"sign",
+		}, -- priority of signs on the left (high to low)
 		folds = {
 			open = true, -- show open fold icons
 			git_hl = true, -- use Git Signs hl for fold icons

@@ -9,6 +9,7 @@ vim.cmd [[
 	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
 	"set guicursor= " if i don't want different cursors for insert and other modes
+	set timeoutlen=5000 " wait for combination for 5 seconds (if sometimes I'm slow - skill issue)
 ]]
 
 -- Grep
