@@ -3,7 +3,7 @@ vim.cmd [[
 	set number relativenumber " line numbers
 	set tabstop=2 shiftwidth=2 scrolloff=5 signcolumn=yes
 	set path+=** lazyredraw
-	set termguicolors showcmd noshowmode winborder=single " ui
+	set termguicolors showcmd winborder=single " ui
 	set cursorline " enable cursorline
 	set showtabline=0  " don't show tabs
 	set shortmess+=I " no intro message

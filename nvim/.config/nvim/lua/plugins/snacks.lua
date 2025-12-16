@@ -33,21 +33,23 @@ require("snacks").setup({
 			}
 		},
 		layout = {
-			layout = {
-				backdrop = false,
-				box = "horizontal",
-				width = 0.9,
-				min_width = 120,
-				height = 0.85,
-				{
-					box = "vertical",
-					border = "single",
-					title = "{title} {live} {flags}",
-					{ win = "input", height = 1,     border = "bottom" },
-					{ win = "list",  border = "none" },
-				},
-				{ win = "preview", title = "{preview}", border = "single", width = 0.5 },
-			},
+			preset = "ivy_split",
+			-- I want to use emacs' consult-like finder :D
+			-- layout = {
+			-- 	backdrop = false,
+			-- 	box = "horizontal",
+			-- 	width = 0.9,
+			-- 	min_width = 120,
+			-- 	height = 0.85,
+			-- 	{
+			-- 		box = "vertical",
+			-- 		border = "single",
+			-- 		title = "{title} {live} {flags}",
+			-- 		{ win = "input", height = 1,     border = "bottom" },
+			-- 		{ win = "list",  border = "none" },
+			-- 	},
+			-- 	{ win = "preview", title = "{preview}", border = "single", width = 0.5 },
+			-- },
 		}
 	},
 	bigfile = { enabled = true, notify = false, },
