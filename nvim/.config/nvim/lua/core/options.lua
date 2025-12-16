@@ -8,6 +8,7 @@ vim.cmd [[
 	set showtabline=0  " don't show tabs
 	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
+	set guicursor= " if i don't want different cursors for insert and other modes
 ]]
 
 -- Grep
