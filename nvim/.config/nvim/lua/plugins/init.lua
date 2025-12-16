@@ -31,3 +31,5 @@ require("plugins.blink_cmp")
 -- Should go last
 require("plugins.langmapper")
 require("plugins.colorscheme")
+
+require("plugins.match-highlights")
