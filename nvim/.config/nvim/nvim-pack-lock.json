@@ -13,6 +13,10 @@
       "rev": "57a2fe4",
       "src": "https://github.com/Wansmer/langmapper.nvim"
     },
+    "local-highlight.nvim": {
+      "rev": "272f36f412c0a82c785c01256abf4eda4c1cb11d",
+      "src": "https://github.com/tzachar/local-highlight.nvim"
+    },
     "mason.nvim": {
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
@@ -22,11 +26,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "a2bd1cf",
+      "rev": "ad95655ec5d13ff7c728d731eb9fd39f34395a03",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
-      "rev": "a0f5ab44268d22c8b0b19cb89fd9cabbd21e361c",
+      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {

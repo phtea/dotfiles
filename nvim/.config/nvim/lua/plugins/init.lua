@@ -1,12 +1,19 @@
 -- Should go first, some plugins depend on it
 require("plugins.snacks")
 
--- Quality of life plugins
+-- Brackets
 require("plugins.autopairs")
 require("plugins.surround")
+
+-- Git signs on the left
 require("plugins.gitsigns")
+
+-- M-x compile but nvim
 require("plugins.vim-dispatch")
-require("plugins.visimatch")
+
+-- Highlight plugins
+require("plugins.visimatch") -- Highlight selection
+require("plugins.local-highlight") -- Highlight current word
 
 -- Syntax highlighting
 require("plugins.treesitter")
