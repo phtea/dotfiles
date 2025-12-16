@@ -1,4 +1,6 @@
-vim.pack.add({ "https://github.com/Mofiqul/vscode.nvim", })
+vim.pack.add({
+	"https://github.com/Mofiqul/vscode.nvim",
+})
 
 local function override_vscode()
 	vim.api.nvim_set_hl(0, "LspReferenceText", { bg = "#113d6f" })

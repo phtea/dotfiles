@@ -10,6 +10,17 @@ require("oil").setup({
 		["<CR>"] = "actions.select",
 		["-"] = { "actions.parent", mode = "n" },
 	},
+	buf_options = {
+		bufhidden = "", -- don't hide this buffer
+		buflisted = false, -- and yet don't list it (I want to see Oil in the jumplist but not in buflist)
+	},
+	columns = {
+		-- explicitly don't use it
+		-- "icon",
+		-- "permissions",
+		-- "size",
+		-- "mtime",
+	},
 })
 
 vim.keymap.set('n', '-', "<CMD>Oil<CR>", { desc = "Oil: Open parent directory" })
