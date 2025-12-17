@@ -16,6 +16,7 @@ vim.keymap.set('n', '<leader>mm', function()
 end)
 
 vim.keymap.set("n", "<leader>mw", highlight.highlight_word)
+vim.keymap.set("n", "<leader>md", highlight.delete_current_match)
 
 vim.keymap.set('v', '<leader>m', highlight.highlight_selection)
 

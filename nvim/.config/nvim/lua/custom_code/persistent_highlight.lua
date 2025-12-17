@@ -3,7 +3,6 @@ local M = {}
 -- TODO:
 -- API
 -- delete_current_match (when cursor is on match -> delete this match highlight)
--- highlight_selection (from visual selection)
 
 -- Predefined highlight groups with distinct colors (defaults)
 local default_color_groups = {
@@ -100,18 +99,21 @@ function M.clear_match(pattern)
 	print("No highlight found for: " .. pattern)
 end
 
--- List all current matches
 function M.list_matches()
-	if #matches == 0 then
-		print("No active highlights")
-		return
-	end
+  if #matches == 0 then
+    print("No active highlights")
+    return
+  end
 
-	print("Active highlights:")
-	for i, match in ipairs(matches) do
-		print(string.format("  %d. Pattern: '%s' | Color: %s",
-			i, match.pattern, match.group))
-	end
+  local lines = { "Active highlights:" }
+  for i, match in ipairs(matches) do
+    lines[#lines + 1] = string.format(
+      "  %d. Pattern: '%s' | Color: %s",
+      i, match.pattern, match.group
+    )
+  end
+
+  print(table.concat(lines, "\n"))
 end
 
 -- Setup commands
@@ -126,9 +128,9 @@ function M.setup(opts)
 	setup_highlights()
 
 	-- Create user commands
-	vim.api.nvim_create_user_command("Match", function(opts)
-		if opts.args and opts.args ~= "" then
-			M.match(opts.args)
+	vim.api.nvim_create_user_command("Match", function(params)
+		if params.args and params.args ~= "" then
+			M.match(params.args)
 		else
 			print("Usage: :Match /pattern/")
 		end
@@ -143,9 +145,9 @@ function M.setup(opts)
 		M.clear_matches()
 	end, {})
 
-	vim.api.nvim_create_user_command("ClearMatch", function(opts)
-		if opts.args and opts.args ~= "" then
-			M.clear_match(opts.args)
+	vim.api.nvim_create_user_command("ClearMatch", function(params)
+		if params.args and params.args ~= "" then
+			M.clear_match(params.args)
 		else
 			print("Usage: :ClearMatch /pattern/")
 		end
@@ -164,6 +166,10 @@ function M.setup(opts)
 	vim.api.nvim_create_user_command("MatchSelection", function()
 		M.highlight_selection()
 	end, { range = true })
+
+	vim.api.nvim_create_user_command("DeleteCurrentMatch", function()
+		M.delete_current_match()
+	end, {})
 end
 
 local function get_selection_single_line()
@@ -218,6 +224,46 @@ function M.highlight_selection()
 		"n",
 		false
 	)
+end
+
+local function cursor_on_match(vim_pattern)
+	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local line = vim.api.nvim_get_current_line()
+	local start = 0
+	local col1 = col + 1 -- convert to 1-based
+
+	while true do
+		local res = vim.fn.matchstrpos(line, vim_pattern, start)
+		local s, e = res[2], res[3]
+
+		if s == -1 then
+			return false
+		end
+
+		if col1 >= s and col1 <= e then
+			return true
+		end
+
+		start = e
+	end
+end
+
+function M.delete_current_match()
+	if #matches == 0 then
+		print("No active highlights")
+		return
+	end
+
+	for i, m in ipairs(matches) do
+		if cursor_on_match(m.pattern) then
+			vim.fn.matchdelete(m.id)
+			table.remove(matches, i)
+			print("Deleted highlight: " .. m.pattern)
+			return
+		end
+	end
+
+	print("Cursor is not on a highlighted match")
 end
 
 -- Auto-setup when loaded
