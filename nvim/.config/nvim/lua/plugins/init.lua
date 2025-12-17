@@ -12,11 +12,9 @@ require("plugins.gitsigns")
 require("plugins.vim-dispatch")
 
 -- Highlight plugins
+require("plugins.treesitter") -- Syntax highlighting
 require("plugins.visimatch") -- Highlight selection
-require("plugins.local-highlight") -- Highlight current word
-
--- Syntax highlighting
-require("plugins.treesitter")
+require("plugins.vim-highligher") -- Permanently highlight selections
 
 -- Navigation
 require("plugins.lsp")
@@ -31,5 +29,3 @@ require("plugins.blink_cmp")
 -- Should go last
 require("plugins.langmapper")
 require("plugins.colorscheme")
-
-require("plugins.vim-highligher")

@@ -13,10 +13,6 @@
       "rev": "57a2fe4",
       "src": "https://github.com/Wansmer/langmapper.nvim"
     },
-    "local-highlight.nvim": {
-      "rev": "272f36f412c0a82c785c01256abf4eda4c1cb11d",
-      "src": "https://github.com/tzachar/local-highlight.nvim"
-    },
     "mason.nvim": {
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
