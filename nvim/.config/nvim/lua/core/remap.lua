@@ -7,8 +7,6 @@ vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true })
 -- Quickfix list navigation
 vim.keymap.set("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<A-j>", ":cnext<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<A-k>", ":cprev<CR>", { noremap = true, silent = true, })
 
 -- Comment
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
