@@ -1,3 +1,5 @@
+if true then return {} end -- disabled
+
 -- Highlight current word
 vim.pack.add({
 	"https://github.com/tzachar/local-highlight.nvim",

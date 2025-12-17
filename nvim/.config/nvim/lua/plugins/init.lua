@@ -32,4 +32,4 @@ require("plugins.blink_cmp")
 require("plugins.langmapper")
 require("plugins.colorscheme")
 
-require("plugins.match-highlights")
+require("plugins.persistent_highlights")
