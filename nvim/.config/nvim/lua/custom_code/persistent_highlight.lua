@@ -167,50 +167,57 @@ function M.setup(opts)
 end
 
 local function get_selection_single_line()
-  local mode = vim.fn.mode()
-  local start_pos, end_pos
+	local mode = vim.fn.mode()
+	local start_pos, end_pos
 
-  if mode == "v" or mode == "V" or mode == "\22" then
-    -- Visual mode: use visual start + cursor
-    start_pos = vim.fn.getpos("v")
-    end_pos   = vim.fn.getpos(".")
-  else
-    -- Not in visual: use '< and '>
-    start_pos = vim.fn.getpos("'<")
-    end_pos   = vim.fn.getpos("'>")
-  end
+	if mode == "v" or mode == "V" or mode == "\22" then
+		-- Visual mode: use visual start + cursor
+		start_pos = vim.fn.getpos("v")
+		end_pos   = vim.fn.getpos(".")
+	else
+		-- Not in visual: use '< and '>
+		start_pos = vim.fn.getpos("'<")
+		end_pos   = vim.fn.getpos("'>")
+	end
 
-  local srow, scol = start_pos[2], start_pos[3]
-  local erow, ecol = end_pos[2], end_pos[3]
+	local srow, scol = start_pos[2], start_pos[3]
+	local erow, ecol = end_pos[2], end_pos[3]
 
-  if srow == 0 or erow == 0 then return nil, "no selection" end
+	if srow == 0 or erow == 0 then return nil, "no selection" end
 
-  -- normalize
-  if srow > erow or (srow == erow and scol > ecol) then
-    srow, erow = erow, srow
-    scol, ecol = ecol, scol
-  end
+	-- normalize
+	if srow > erow or (srow == erow and scol > ecol) then
+		srow, erow = erow, srow
+		scol, ecol = ecol, scol
+	end
 
-  if srow ~= erow then
-    return nil, "multiline selection not supported yet"
-  end
+	if srow ~= erow then
+		return nil, "multiline selection not supported yet"
+	end
 
-  local line = vim.api.nvim_buf_get_lines(0, srow - 1, srow, false)[1] or ""
-  -- getpos() columns are 1-based, Lua string indices are 1-based
-  local text = line:sub(scol, ecol)
-  if text == "" then return nil, "empty selection" end
-  return text, nil
+	local line = vim.api.nvim_buf_get_lines(0, srow - 1, srow, false)[1] or ""
+	-- getpos() columns are 1-based, Lua string indices are 1-based
+	local text = line:sub(scol, ecol)
+	if text == "" then return nil, "empty selection" end
+	return text, nil
 end
 
 function M.highlight_selection()
-  local text, err = get_selection_single_line()
-  if not text then
-    print(err)
-    return
-  end
+	local text, err = get_selection_single_line()
+	if not text then
+		print(err)
+		return
+	end
 
-  local pattern = escape_vim_literal(text)
-  M.match(pattern)
+	local pattern = escape_vim_literal(text)
+	M.match(pattern)
+
+	-- exit visual mode
+	vim.api.nvim_feedkeys(
+		vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+		"n",
+		false
+	)
 end
 
 -- Auto-setup when loaded
