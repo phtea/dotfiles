@@ -1,8 +1,7 @@
 local M = {}
 
 -- TODO:
--- API
--- delete_current_match (when cursor is on match -> delete this match highlight)
+-- refactor and make it a separate plugin
 
 -- Predefined highlight groups with distinct colors (defaults)
 local default_color_groups = {
@@ -15,8 +14,6 @@ local default_color_groups = {
 }
 
 local matches = {}
-local next_color_index = 1
-
 local color_groups = default_color_groups
 
 -- Initialize highlight groups (supports any hl fields)
@@ -51,27 +48,40 @@ end
 
 -- Add a match with automatic color cycling
 function M.match(pattern)
-	if #matches >= #color_groups then
-		print("All highlight colors in use. Clear some with :ClearMatches")
-		return
-	end
+  if #matches >= #color_groups then
+    print("All highlight colors in use. Clear some with :ClearMatches")
+    return
+  end
 
-	local group = color_groups[next_color_index]
+  -- build a set of groups currently in use
+  local used = {}
+  for _, m in ipairs(matches) do
+    used[m.group] = true
+  end
 
-	-- Create the match
-	local match_id = vim.fn.matchadd(group.name, pattern)
+  -- pick the first available group
+  local group = nil
+  for _, g in ipairs(color_groups) do
+    if not used[g.name] then
+      group = g
+      break
+    end
+  end
 
-	-- Store it
-	table.insert(matches, {
-		id = match_id,
-		pattern = pattern,
-		group = group.name
-	})
+  if not group then
+    print("All highlight colors in use. Clear some with :ClearMatches")
+    return
+  end
 
-	-- Update color index (cycle)
-	next_color_index = next_color_index % #color_groups + 1
+  local match_id = vim.fn.matchadd(group.name, pattern)
 
-	print(string.format("Highlighted '%s' with %s", pattern, group.name))
+  table.insert(matches, {
+    id = match_id,
+    pattern = pattern,
+    group = group.name,
+  })
+
+  print(string.format("Highlighted '%s' with %s", pattern, group.name))
 end
 
 -- Clear all matches
