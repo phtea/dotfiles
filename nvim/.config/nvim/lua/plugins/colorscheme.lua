@@ -3,15 +3,18 @@ vim.pack.add({
 })
 
 local function override_vscode()
+	-- Native highlights
 	vim.api.nvim_set_hl(0, "LspReferenceText", { bg = "#113d6f" })
 	vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "LspReferenceText" })
 	vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "LspReferenceText" })
 	vim.api.nvim_set_hl(0, "LspReferenceTarget", { link = "LspReferenceText" })
-	vim.api.nvim_set_hl(0, "Visimatch", { bg = "#373737" })
-
+	vim.api.nvim_set_hl(0, "CurSearch", { bg = "#515C6A" })
 	vim.api.nvim_set_hl(0, "StatusLine", { link = "Normal" })
 	vim.api.nvim_set_hl(0, "StatusLineNC", { link = "Normal" })
 	vim.api.nvim_set_hl(0, "ModeMsg", { link = "Normal" })
+
+	-- For plugin
+	vim.api.nvim_set_hl(0, "Visimatch", { bg = "#373737" })
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
