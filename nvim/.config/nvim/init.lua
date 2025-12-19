@@ -1,5 +1,4 @@
--- nvim config for nvim 0.12+ (hyped for release 😃)
-package.path = vim.fn.stdpath("config") .. "/?.lua;" .. package.path -- Enable local Lua modules
+-- nvim 0.12+ config (hyped for release 😃)
 
 require("core")
 require("plugins")
