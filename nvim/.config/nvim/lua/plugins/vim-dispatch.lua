@@ -1,7 +1,4 @@
 -- :Dispatch - magically easy running code with populating quickfix list 🎉
-vim.pack.add({
-	"https://github.com/tpope/vim-dispatch"
-})
+-- Works so good OTB I don't even need to configure it
 
--- E[x]ecute (d is taken by diagnostics)
-vim.keymap.set("n", "<leader>x", ":Dispatch ", { desc = "Command for compiling and quickfix-ing" })
+vim.pack.add({ "https://github.com/tpope/vim-dispatch" })

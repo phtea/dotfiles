@@ -4,6 +4,10 @@ vim.g.mapleader = " "
 -- Windows
 vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true })
 
+-- Yank
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
+
 -- Quickfix list navigation
 vim.keymap.set("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
@@ -16,24 +20,13 @@ vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected 
 vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { noremap = true, silent = true, })
 
 -- Substitute current word in this file
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
-	{ desc = "Replace word under cursor" })
-vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],
-	{ desc = "Replace visual selection" })
-
--- Replace word under cursor (project)
-vim.keymap.set("n", "<leader>S", [[:Grep -w <C-R><C-W><CR><C-W>k:cdo s/\<<C-R><C-W>\>/<C-R><C-W>/gc<Left><Left><Left>]],
-	{ desc = "Replace word under cursor (project)" })
-vim.keymap.set("v", "<leader>S", [["sy:Grep "<C-R>s"<CR><C-W>k:cdo s/<C-R>s/<C-R>s/gc<Left><Left><Left>]],
-	{ desc = "Replace visual selection (project)" })
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]], { desc = "Replace word under cursor" })
+vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]], { desc = "Replace visual selection" })
 
 -- Grep
 vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
 vim.api.nvim_create_user_command("Ggrep", "silent grep! <args> `git ls-files` | redraw! | cwindow", { nargs = "+" })
-
--- Yank
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
 
 -- Copy [p]ath: [r]elative/[a]bsolute/[f]ilename/[d]irectory
 -- Relative path
@@ -64,13 +57,6 @@ vim.keymap.set('n', '<leader>pd', function()
 	vim.notify('Copied: ' .. path)
 end, { desc = 'copy directory path' })
 
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>td", function()
-	local enabled = not vim.diagnostic.is_enabled()
-	vim.diagnostic.enable(enabled)
-	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
-end, { desc = "Toggle diagnostics" })
-
 -- Session handling
 local session_file = vim.fn.stdpath("state") .. "/Session.vim"
 vim.keymap.set("n", "<leader>R", function()
@@ -94,6 +80,11 @@ vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
+vim.keymap.set("n", "<leader>td", function()
+	local enabled = not vim.diagnostic.is_enabled()
+	vim.diagnostic.enable(enabled)
+	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
+end, { desc = "Toggle diagnostics" })
 
 -- Ctags generation
 vim.keymap.set("n", "<leader>C", function()
@@ -114,10 +105,10 @@ local notes_path = vim.fn.expand("~/notes.md")
 
 -- View notes
 vim.keymap.set("n", "<leader>n", function()
-  vim.cmd("keepjumps edit +$ " .. notes_path)
+	vim.cmd("keepjumps edit +$ " .. notes_path)
 
-  vim.bo.buflisted = false
-  vim.bo.bufhidden = "hide"
+	vim.bo.buflisted = false
+	vim.bo.bufhidden = "hide"
 end, { desc = "Open global notes (no jumplist)" })
 
 -- Append to notes
@@ -149,6 +140,7 @@ vim.keymap.set("x", "<leader>an", function()
 	print("Appended selection to " .. notes_path)
 end, { desc = "Append selection to global notes" })
 
+-- Open explorer
 local function is_wsl()
 	local uname = vim.loop.os_uname()
 	return uname.release:match("Microsoft") or uname.release:match("WSL")

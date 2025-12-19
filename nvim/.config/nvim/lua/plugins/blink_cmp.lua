@@ -31,16 +31,5 @@ require("blink.cmp").setup({
 		menu = { border = 'none' },
 		documentation = { window = { border = 'single' } },
 	},
-	cmdline = {
-		enabled = false,
-		keymap = { preset = 'inherit' },
-		completion = {
-			menu = {
-				auto_show = function(ctx)
-					-- if ':command' has more than n symbols (with :) => auto show completions
-					return vim.fn.getcmdtype() == ':' -- and #ctx.line >= 3
-				end,
-			}
-		},
-	},
+	cmdline = { enabled = false },
 })

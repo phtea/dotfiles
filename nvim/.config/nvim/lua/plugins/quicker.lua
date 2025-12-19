@@ -1,6 +1,8 @@
 vim.pack.add({ "https://github.com/stevearc/quicker.nvim" })
 
-require("quicker").setup({
+local quicker = require("quicker")
+
+quicker.setup({
 	keys = {
 		{
 			"<leader>k",
@@ -15,4 +17,4 @@ require("quicker").setup({
 	}
 })
 
-vim.keymap.set("n", "Q", function() require("quicker").toggle() end, { desc = "Toggle quickfix", })
+vim.keymap.set("n", "Q", function() quicker.toggle() end, { desc = "Toggle quickfix", })

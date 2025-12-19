@@ -32,25 +32,7 @@ require("snacks").setup({
 				}
 			}
 		},
-		layout = {
-			preset = "ivy_split",
-			-- I want to use emacs' consult-like finder :D
-			-- layout = {
-			-- 	backdrop = false,
-			-- 	box = "horizontal",
-			-- 	width = 0.9,
-			-- 	min_width = 120,
-			-- 	height = 0.85,
-			-- 	{
-			-- 		box = "vertical",
-			-- 		border = "single",
-			-- 		title = "{title} {live} {flags}",
-			-- 		{ win = "input", height = 1,     border = "bottom" },
-			-- 		{ win = "list",  border = "none" },
-			-- 	},
-			-- 	{ win = "preview", title = "{preview}", border = "single", width = 0.5 },
-			-- },
-		}
+		layout = { preset = "ivy_split", }
 	},
 	bigfile = { enabled = true, notify = false, },
 	statuscolumn = {
@@ -64,10 +46,6 @@ require("snacks").setup({
 			git_hl = true, -- use Git Signs hl for fold icons
 		},
 	},
-	-- words = {
-	-- 	enabled = true,
-	-- 	modes = { "n", }, -- modes to show references
-	-- },
 	indent = {
 		enabled = true,
 		animate = {
@@ -76,6 +54,7 @@ require("snacks").setup({
 	},
 })
 
+-- Basic pickers
 vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Smart Find Files" })
 vim.keymap.set("n", "<leader>f",
 	function()
@@ -99,10 +78,7 @@ vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc 
 vim.keymap.set("n", "<leader>h", function() Snacks.picker.help() end, { desc = "Help Pages" })
 vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end,
 	{ desc = "Visual selection or word" })
-vim.keymap.set({ "n", "x" }, "<leader>8", function() Snacks.picker.grep_word({ ignored = false }) end,
-	{ desc = "Visual selection or word" })
 vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
-
 
 -- Git
 local git_function = function()
@@ -117,7 +93,6 @@ local git_function = function()
 		},
 	})
 end
-vim.keymap.set("n", "<leader>gg", git_function, { desc = "Git status" })
 vim.keymap.set("n", "<leader>v", git_function, { desc = "Git status" })
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })

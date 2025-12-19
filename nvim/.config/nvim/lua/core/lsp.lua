@@ -1,5 +1,4 @@
--- -----------------------------
--- Autoformat: native LSP, toggle with <leader>tf (default OFF)
+-- Autoformat with LSP, toggle with <leader>tf (default: OFF)
 
 vim.g.autoformat_enabled = false
 
