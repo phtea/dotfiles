@@ -3,4 +3,3 @@ package.path = vim.fn.stdpath("config") .. "/?.lua;" .. package.path -- Enable l
 
 require("core")
 require("plugins")
-require("custom_code")

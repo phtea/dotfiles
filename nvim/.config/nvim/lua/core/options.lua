@@ -9,7 +9,7 @@ vim.cmd [[
 	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
 	"set guicursor= " if i don't want different cursors for insert and other modes
-	set timeoutlen=5000 " wait for combination for 5 seconds (if sometimes I'm slow - skill issue)
+	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
 ]]
 
 -- Grep
@@ -24,10 +24,3 @@ vim.opt.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, "p")
 end
-
-vim.opt.statusline = table.concat({
-	"%{v:lua.get_git_branch()}",
-	"%{v:lua.statusline_filename()} %h%m%r%=",
-	"%{v:lua.get_current_lsp_names()}",
-	"%l:%v",
-})

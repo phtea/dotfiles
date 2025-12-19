@@ -110,10 +110,17 @@ end, { desc = "Generate Ctags" })
 vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
 -- Notes
-vim.keymap.set("n", "<leader>n", function()
-	vim.cmd("edit +$ " .. vim.fn.expand("~/notes.md"))
-end, { desc = "Open global notes" })
+local notes_path = vim.fn.expand("~/notes.md")
 
+-- View notes
+vim.keymap.set("n", "<leader>n", function()
+  vim.cmd("keepjumps edit +$ " .. notes_path)
+
+  vim.bo.buflisted = false
+  vim.bo.bufhidden = "hide"
+end, { desc = "Open global notes (no jumplist)" })
+
+-- Append to notes
 vim.keymap.set("x", "<leader>an", function()
 	-- absolute path of current file
 	local file = vim.fn.expand("%:p")
@@ -123,8 +130,6 @@ vim.keymap.set("x", "<leader>an", function()
 	vim.cmd([[normal! "zy]])
 	local lines = vim.fn.split(vim.fn.getreg("z"), "\n")
 
-	local notes_path = vim.fn.expand("~/notes.md")
-
 	-- choose language for code fence
 	local ft = vim.bo.filetype or ""
 	if ft == "" then
@@ -133,14 +138,15 @@ vim.keymap.set("x", "<leader>an", function()
 		ft = ext ~= "" and ext or "text"
 	end
 
-	local header = string.format("## %s (%s)", stamp, file)
+	local start_line = vim.fn.getpos("'<")[2]
+	local header = string.format("## %s (%s:%d)", stamp, file, start_line)
 
 	local to_append = { "", header, "", "```" .. ft }
 	vim.list_extend(to_append, lines)
 	vim.list_extend(to_append, { "```", "" })
 
 	vim.fn.writefile(to_append, notes_path, "a")
-	print("Appended selection to notes.md")
+	print("Appended selection to " .. notes_path)
 end, { desc = "Append selection to global notes" })
 
 local function is_wsl()

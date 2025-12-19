@@ -26,24 +26,6 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
--- Notes taking
-local notes_path = vim.fn.expand("~/notes.md")
-
-vim.api.nvim_create_autocmd("BufLeave", {
-	group = vim.api.nvim_create_augroup("ephemeral_notes", { clear = true }),
-	callback = function(args)
-		local name = vim.api.nvim_buf_get_name(args.buf)
-		if name == notes_path then
-			-- delete after the leave finishes to avoid weirdness
-			vim.schedule(function()
-				if vim.api.nvim_buf_is_valid(args.buf) then
-					vim.api.nvim_buf_delete(args.buf, { force = true })
-				end
-			end)
-		end
-	end,
-})
-
 -- Hook for when package is changed (installed, updated, deleted)
 -- lazy-style build equivalent
 vim.api.nvim_create_autocmd("PackChanged", {
