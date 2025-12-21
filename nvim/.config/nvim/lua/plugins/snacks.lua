@@ -40,7 +40,7 @@ require("snacks").setup({
 				}
 			}
 		},
-		layout = { preset = "ivy_split", }
+		layout = { preset = "ivy", }
 	},
 	bigfile = { enabled = true, notify = false, },
 	statuscolumn = {
