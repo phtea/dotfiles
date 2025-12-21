@@ -10,9 +10,12 @@ require("snacks").setup({
 		},
 		config = {
 			os = {
-				edit = '[ -z "\"$NVIM\"" ] && (nvim -- {{filename}}) || (nvim --server "\"$NVIM\"" --remote-send "\"q\"" && nvim --server "\"$NVIM\"" --remote {{filename}})',
-				editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
-				openDirInEditor = '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
+				edit =
+				'[ -z "\"$NVIM\"" ] && (nvim -- {{filename}}) || (nvim --server "\"$NVIM\"" --remote-send "\"q\"" && nvim --server "\"$NVIM\"" --remote {{filename}})',
+				editAtLine =
+				'[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
+				openDirInEditor =
+				'[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
 				openInTerminal = '[ -z "$NVIM" ]',
 			}
 		},
@@ -48,7 +51,7 @@ require("snacks").setup({
 		left = {
 			-- "mark", -- I don't want marks
 			"sign",
-		}, -- priority of signs on the left (high to low)
+		},            -- priority of signs on the left (high to low)
 		folds = {
 			open = true, -- show open fold icons
 			git_hl = true, -- use Git Signs hl for fold icons

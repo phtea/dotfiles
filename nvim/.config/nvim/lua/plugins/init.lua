@@ -12,8 +12,8 @@ require("plugins.gitsigns")
 require("plugins.vim-dispatch")
 
 -- Highlight plugins
-require("plugins.treesitter") -- Syntax highlighting
-require("plugins.visimatch") -- Highlight selection
+require("plugins.treesitter")     -- Syntax highlighting
+require("plugins.visimatch")      -- Highlight selection
 require("plugins.vim-highligher") -- Permanently highlight selections
 
 -- Navigation

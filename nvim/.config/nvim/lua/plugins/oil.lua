@@ -11,7 +11,7 @@ require("oil").setup({
 		["-"] = { "actions.parent", mode = "n" },
 	},
 	buf_options = {
-		bufhidden = "", -- don't hide this buffer
+		bufhidden = "",  -- don't hide this buffer
 		buflisted = false, -- and yet don't list it (I want to see Oil in the jumplist but not in buflist)
 	},
 })
