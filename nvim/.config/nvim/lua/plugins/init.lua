@@ -18,7 +18,6 @@ require("plugins.vim-highligher") -- Permanently highlight selections
 
 -- Navigation
 require("plugins.lsp")
-require("plugins.quicker")
 
 -- File management
 require("plugins.oil")

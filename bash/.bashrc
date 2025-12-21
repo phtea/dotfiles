@@ -60,6 +60,8 @@ tmux-here() {
     tmux new-session -s "$session_name"
   fi
 }
+# Open tmux from fzf and come back
+alias open_project_in_tmux='`__fzf_cd__` && t && cd -'
 
 # OP: Do a command on file update
 ondo() {

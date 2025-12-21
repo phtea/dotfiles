@@ -1,169 +1,75 @@
+local H = require("core.helper_functions")
+
 -- Leader key
 vim.g.mapleader = " "
 
+local set_keymap = vim.keymap.set
+local set_command = vim.api.nvim_create_user_command
+
 -- Windows
-vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true })
+set_keymap("n", "<leader>w", "<C-W>", { remap = true })
 
 -- Yank
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
+set_keymap({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+set_keymap("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
 
--- Quickfix list navigation
-vim.keymap.set("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
+-- Quickfix
+set_keymap("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
+set_keymap("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
+set_keymap('n', 'Q', H.toggle_quickfix, { noremap = true, silent = true, desc = "Toggle quickfix window" })
 
 -- Comment
-vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
-vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
+set_keymap("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
+set_keymap("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
--- <F1> for file info if in insert mode cuz I definitely would prefer that over vim's help 
-vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { noremap = true, silent = true, })
+-- <F1> for file info if in insert mode cuz I definitely would prefer that over vim's help
+set_keymap("i", "<F1>", "<Esc>g<C-G>", { noremap = true, silent = true, })
 
 -- Substitute current word in this file
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]], { desc = "Replace word under cursor" })
-vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]], { desc = "Replace visual selection" })
+set_keymap("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+set_keymap("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
+	{ desc = "Replace word under cursor" })
+set_keymap("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],
+	{ desc = "Replace visual selection" })
 
 -- Grep
-vim.api.nvim_create_user_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
-vim.api.nvim_create_user_command("Ggrep", "silent grep! <args> `git ls-files` | redraw! | cwindow", { nargs = "+" })
+set_command("Grep", "silent grep! <args> | redraw! | cwindow", { nargs = "+", complete = "file" })
+set_command("Ggrep", "silent grep! <args> `git ls-files` | redraw! | cwindow", { nargs = "+" })
 
--- Copy [p]ath: [r]elative/[a]bsolute/[f]ilename/[d]irectory
--- Relative path
-vim.keymap.set('n', '<leader>pr', function()
-	local path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.')
-	vim.fn.setreg('+', path)
-	vim.notify('Copied: ' .. path)
-end, { desc = 'Copy relative path' })
+-- Copy paths
+set_keymap("n", "<leader>pr", H.copy_relative_path, { desc = "Copy relative path" })
+set_keymap("n", "<leader>pa", H.copy_absolute_path, { desc = "Copy absolute path" })
+set_keymap("n", "<leader>pf", H.copy_filename, { desc = "Copy filename" })
+set_keymap("n", "<leader>pd", H.copy_directory, { desc = "Copy directory path" })
 
--- Absolute path
-vim.keymap.set('n', '<leader>pa', function()
-	local path = vim.fn.expand('%:p')
-	vim.fn.setreg('+', path)
-	vim.notify('Copied: ' .. path)
-end, { desc = 'copy absolute path' })
+-- Session
+set_keymap("n", "<leader>R", H.save_and_restart_session, { desc = "Save session and restart with it" })
 
--- Filename only
-vim.keymap.set('n', '<leader>pf', function()
-	local path = vim.fn.expand('%:t')
-	vim.fn.setreg('+', path)
-	vim.notify('Copied: ' .. path)
-end, { desc = 'copy filename' })
-
--- Directory path
-vim.keymap.set('n', '<leader>pd', function()
-	local path = vim.fn.expand('%:p:h')
-	vim.fn.setreg('+', path)
-	vim.notify('Copied: ' .. path)
-end, { desc = 'copy directory path' })
-
--- Session handling
-local session_file = vim.fn.stdpath("state") .. "/Session.vim"
-vim.keymap.set("n", "<leader>R", function()
-	vim.cmd("mks! " .. vim.fn.fnameescape(session_file))
-	vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
-end, { desc = "Save session and restart with it" })
-
--- Turn ", " into ",\n" in visual selection
-vim.keymap.set("x", "<leader>,", function()
-	vim.cmd([[silent! s/, /,\r/g|noh]])
-end, { desc = "Split inline args to multiline" })
-
--- Reindent whole file
-vim.keymap.set("n", "<leader>=",
-	"gg=G``",
-	{ desc = "Reindent whole file" }
-)
-
--- Lsp and code
-vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
-vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
-vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
-vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
-vim.keymap.set("n", "<leader>td", function()
-	local enabled = not vim.diagnostic.is_enabled()
-	vim.diagnostic.enable(enabled)
-	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
-end, { desc = "Toggle diagnostics" })
-
--- Ctags generation
-vim.keymap.set("n", "<leader>C", function()
-	local result = vim.fn.system("ctags -R .")
-
-	if vim.v.shell_error ~= 0 then
-		vim.notify("Failed to generate ctags: " .. result, vim.log.levels.ERROR)
-	else
-		vim.notify("Ctags generated successfully", vim.log.levels.INFO)
-	end
-end, { desc = "Generate Ctags" })
-
--- Git
-vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
+-- Visual manipulation
+set_keymap("x", "<leader>,", H.split_inline_args, { desc = "Split inline args to multiline" })
+set_keymap("x", "<leader>an", H.append_selection_to_notes, { desc = "Append selection to global notes" })
 
 -- Notes
-local notes_path = vim.fn.expand("~/notes.md")
+set_keymap("n", "<leader>n", H.open_notes, { desc = "Open global notes (no jumplist)" })
 
--- View notes
-vim.keymap.set("n", "<leader>n", function()
-	vim.cmd("keepjumps edit +$ " .. notes_path)
+-- Reindent whole file
+set_keymap("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 
-	vim.bo.buflisted = false
-	vim.bo.bufhidden = "hide"
-end, { desc = "Open global notes (no jumplist)" })
+-- Lsp and diagnostics
+set_keymap("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show documentation" })
+set_keymap("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+set_keymap("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
+set_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
+set_keymap("n", "<leader>td", H.toggle_diagnostics, { desc = "Toggle diagnostics" })
 
--- Append to notes
-vim.keymap.set("x", "<leader>an", function()
-	-- absolute path of current file
-	local file = vim.fn.expand("%:p")
-	local stamp = os.date("%Y-%m-%d %H:%M")
+-- Ctags
+set_keymap("n", "<leader>C", H.generate_ctags, { desc = "Generate Ctags" })
 
-	-- yank selection into "z
-	vim.cmd([[normal! "zy]])
-	local lines = vim.fn.split(vim.fn.getreg("z"), "\n")
+-- Git
+set_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Lazygit: Log file" })
 
-	-- choose language for code fence
-	local ft = vim.bo.filetype or ""
-	if ft == "" then
-		-- fallback: use extension, or "text" if none
-		local ext = vim.fn.fnamemodify(file, ":e")
-		ft = ext ~= "" and ext or "text"
-	end
-
-	local start_line = vim.fn.getpos("'<")[2]
-	local header = string.format("## %s (%s:%d)", stamp, file, start_line)
-
-	local to_append = { "", header, "", "```" .. ft }
-	vim.list_extend(to_append, lines)
-	vim.list_extend(to_append, { "```", "" })
-
-	vim.fn.writefile(to_append, notes_path, "a")
-	print("Appended selection to " .. notes_path)
-end, { desc = "Append selection to global notes" })
-
--- Open explorer
-local function is_wsl()
-	local uname = vim.loop.os_uname()
-	return uname.release:match("Microsoft") or uname.release:match("WSL")
-end
-
-local function open_explorer()
-	local dir = vim.fn.expand("%:p:h")
-	if dir == "" then dir = vim.fn.getcwd() end
-	local sys = vim.loop.os_uname().sysname
-
-	if is_wsl() then
-		local win_path = dir:gsub("^/mnt/([a-z])", "%1:"):gsub("/", "\\")
-		vim.fn.jobstart({ "explorer.exe", win_path }, { detach = true })
-	elseif sys == "Linux" then
-		vim.fn.jobstart({ "xdg-open", dir }, { detach = true })
-	elseif sys == "Darwin" then
-		vim.fn.jobstart({ "open", dir }, { detach = true })
-	elseif sys:match("Windows") then
-		vim.fn.jobstart({ "explorer.exe", dir }, { detach = true })
-	end
-end
-
-vim.keymap.set("n", "<leader>ex", open_explorer, { desc = "Open folder in system explorer" })
+-- Explorer
+set_keymap("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
 
 -- Remove default LSP keymaps if present
 pcall(vim.keymap.del, "n", "gri")
