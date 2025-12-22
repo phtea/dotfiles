@@ -20,8 +20,8 @@ require('gitsigns').setup({
 		end
 
 		-- Navigation
-		map('n', ']g', gitsigns.next_hunk, { desc = "Gitsigns: Next Hunk" })
-		map('n', '[g', gitsigns.prev_hunk, { desc = "Gitsigns: Previous Hunk" })
+		map('n', ']c', gitsigns.next_hunk, { desc = "Gitsigns: Next Change" })
+		map('n', '[c', gitsigns.prev_hunk, { desc = "Gitsigns: Previous Change" })
 
 		-- Views
 		map('n', '<leader>gh', gitsigns.preview_hunk, { desc = "Gitsigns: Preview Hunk" })

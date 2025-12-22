@@ -13,7 +13,13 @@ vim.cmd [[
 ]]
 
 -- Grep
-vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+local rg_globs = { "!**/.git/*", "!**/node_modules/*", "!**/package-lock.json", "!**/yarn.lock", "!tags", "!*.js", "!*.css", "!*.map", }
+-- Build: --glob "!foo" --glob "!bar" ...
+local glob_args = vim.tbl_map(function(g)
+  return string.format([[--glob "%s"]], g)
+end, rg_globs)
+
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case --hidden " .. table.concat(glob_args, " ")
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- Enable persistent undo
