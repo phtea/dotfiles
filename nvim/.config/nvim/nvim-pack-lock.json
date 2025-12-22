@@ -9,16 +9,12 @@
       "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "mason.nvim": {
-      "rev": "57e5a8a",
-      "src": "https://github.com/mason-org/mason.nvim"
-    },
     "nvim-autopairs": {
       "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "d20d83b3f24f5884da73a9fc92fdc47e778b8d0d",
+      "rev": "361dd9d5f3f8ae3d8c721f4f2c21847050538b1f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
