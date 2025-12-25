@@ -16,8 +16,6 @@ set shortmess-=S " show count of search results
 set showtabline=0 signcolumn=yes smartindent mouse=a " qol
 set tabstop=2 shiftwidth=2 " tabs management
 if !isdirectory(expand(&undodir)) | call mkdir(expand(&undodir), 'p') | endif
-set laststatus=2 statusline=%f%m%r%h%w\ %=%l:%c\ (%L\ lines)
-
 let rg_globs = [
 			\ '!**/.git/*',
 			\ '!**/node_modules/*',
