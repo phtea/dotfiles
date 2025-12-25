@@ -52,16 +52,9 @@ alias ..="cd .." n="nvim"
 
 # t === tmux-here - create a tmux session based on directory name
 alias t="tmux-here"
-tmux-here() {
-  local session_name="${PWD##*/}"
-  if tmux has-session -t "$session_name" 2>/dev/null; then
-    tmux attach -t "$session_name"
-  else
-    tmux new-session -s "$session_name"
-  fi
-}
+
 # Open tmux from fzf and come back
-alias open_project_in_tmux='`__fzf_cd__` && t && cd -'
+bind -x '"\ef": tmux-project'
 
 # OP: Do a command on file update
 ondo() {
@@ -98,6 +91,7 @@ export PATH="$PATH:/opt/nvim/bin"
 export PATH="$PATH:/opt/helix"
 export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/scripts"
+export PATH="$PATH:$HOME/.tmux"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Git branch prompt

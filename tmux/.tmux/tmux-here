@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+dir="$(cd "$PWD" && pwd -P)"
+
+base="$(basename "$dir")"
+session_name="${base}"
+
+if tmux has-session -t "$session_name" 2>/dev/null; then
+  if [[ -n "${TMUX:-}" ]]; then
+    tmux switch-client -t "$session_name"
+  else
+    tmux attach -t "$session_name"
+  fi
+else
+  if [[ -n "${TMUX:-}" ]]; then
+    tmux new-session -d -s "$session_name" -c "$dir"
+    tmux switch-client -t "$session_name"
+  else
+    tmux new-session -s "$session_name" -c "$dir"
+  fi
+fi
