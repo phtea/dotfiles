@@ -9,7 +9,7 @@ require("plugins.surround")
 require("plugins.gitsigns")
 
 -- M-x compile but nvim
-require("plugins.vim-dispatch")
+require("plugins.asyncrun")
 
 -- Highlight plugins
 require("plugins.treesitter")     -- Syntax highlighting
