@@ -11,9 +11,9 @@ vim.cmd [[
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
 
 	" UI stuff
-	set guicursor= " if i don't want different cursors for insert and other modes
+	"set guicursor= " if i don't want different cursors for insert and other modes
 	"set list
-	" set listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+	"set listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
 ]]
 
 -- Grep
