@@ -47,10 +47,10 @@ set_keymap("n", "<leader>R", H.save_and_restart_session, { desc = "Save session 
 
 -- Visual manipulation
 set_keymap("x", "<leader>,", H.split_inline_args, { desc = "Split inline args to multiline" })
-set_keymap("x", "<leader>an", H.append_selection_to_notes, { desc = "Append selection to global notes" })
 
 -- Notes
-set_keymap("n", "<leader>n", H.open_notes, { desc = "Open global notes (no jumplist)" })
+set_keymap("n", "<leader>nn", H.open_notes, { desc = "Open global notes (no jumplist)" })
+set_keymap("x", "<leader>na", H.append_selection_to_notes, { desc = "Append selection to global notes" })
 
 -- Reindent whole file
 set_keymap("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
