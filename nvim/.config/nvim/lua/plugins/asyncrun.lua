@@ -2,7 +2,7 @@
 vim.pack.add({ "https://github.com/skywind3000/asyncrun.vim" })
 
 vim.cmd [[
-	let g:asyncrun_open = 10
+	let g:asyncrun_open = 12
 ]]
 
 -- Some porcelain above it
