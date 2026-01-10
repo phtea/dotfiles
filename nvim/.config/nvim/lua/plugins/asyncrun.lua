@@ -1,4 +1,4 @@
--- load asyncrun plugin (packer-style)
+-- Plugin for async running tasks (with feeding results to quickfix list or opening in nvim terminal)
 vim.pack.add({ "https://github.com/skywind3000/asyncrun.vim" })
 
 vim.cmd [[
@@ -8,10 +8,10 @@ vim.cmd [[
 -- Some porcelain above it
 local M = {}
 
--- path to save JSON
+-- Path to save JSON
 local save_file = vim.fn.stdpath("data") .. "/asyncrun_commands.json"
 
--- load saved commands from disk
+-- Load saved commands from disk
 local function load_commands()
   local f = io.open(save_file, "r")
   if not f then return {} end
@@ -25,7 +25,7 @@ local function load_commands()
   end
 end
 
--- save commands table to disk
+-- Save commands table to disk
 local function save_commands(tbl)
   local f = io.open(save_file, "w")
   if not f then return end
@@ -33,12 +33,12 @@ local function save_commands(tbl)
   f:close()
 end
 
--- get cwd key
+-- Get cwd key
 local function cwd()
   return vim.fn.getcwd()
 end
 
--- prompt user for command, save, and run
+-- Prompt user for command, save, and run
 function M.prompt()
   local commands = load_commands()
   local default = commands[cwd()] or ""
@@ -55,7 +55,7 @@ function M.prompt()
   end)
 end
 
--- run saved command for current cwd
+-- Run saved command for current cwd
 function M.run_saved()
   local commands = load_commands()
   local cmd = commands[cwd()]
@@ -66,6 +66,6 @@ function M.run_saved()
   vim.cmd("AsyncRun " .. cmd)
 end
 
--- keymaps (local to this file)
+-- Keymaps (local to this file)
 vim.keymap.set("n", "`<Space>", M.prompt, { noremap = true, silent = true })
 vim.keymap.set("n", "`<CR>", M.run_saved, { noremap = true, silent = true })

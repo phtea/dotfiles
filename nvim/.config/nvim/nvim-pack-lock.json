@@ -41,10 +41,6 @@
       "rev": "fe7cfe9",
       "src": "https://github.com/folke/snacks.nvim"
     },
-    "vim-dispatch": {
-      "rev": "a2ff28abdb2d89725192db5b8562977d392a4d3f",
-      "src": "https://github.com/tpope/vim-dispatch"
-    },
     "vim-highlighter": {
       "rev": "48a18eea513f651359457845e20b4c6202f6a84a",
       "src": "https://github.com/azabiong/vim-highlighter"

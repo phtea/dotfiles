@@ -1,3 +1,5 @@
+if true then return {} end -- disable for now
+
 vim.pack.add({ "https://github.com/jake-stewart/multicursor.nvim" })
 
 local mc = require("multicursor-nvim")
