@@ -1,5 +1,5 @@
 vim.pack.add {
-	{ src = "https://github.com/phtea/simple_tasks.nvim", version='dev' }, -- remote plugin
+	{ src = "https://github.com/phtea/simple_tasks.nvim", version = 'dev' }, -- remote plugin
 	-- { src = vim.fn.expand("~/code/lua/simple_tasks.nvim") }, -- local testing
 }
 
