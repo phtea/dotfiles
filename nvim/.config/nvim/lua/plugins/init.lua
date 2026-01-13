@@ -11,11 +11,14 @@ require("plugins.gitsigns")
 -- M-x compile but nvim
 require("plugins.asyncrun")
 
+-- Pick and run project-specific tasks
+require("plugins.simple_tasks")
+
 -- Highlight plugins
 require("plugins.treesitter")     -- Syntax highlighting
 require("plugins.visimatch")      -- Highlight selection
 require("plugins.vim-highligher") -- Permanently highlight selections
-require("plugins.multicursor") -- Multicursor plugin (I hope nvim soon has native one so I can get rid of current one but for now I'll stick to it cuz it's more intuitive than :s or :g or cgn the list goes on)
+-- require("plugins.multicursor") -- Multicursor plugin (I hope nvim soon has native one so I can get rid of current one but for now I'll stick to it cuz it's more intuitive than :s or :g or cgn the list goes on)
 
 -- Navigation
 require("plugins.lsp")

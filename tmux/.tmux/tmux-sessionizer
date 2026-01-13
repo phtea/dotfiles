@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# Получаем список активных сессий
+# Get current sessions
 selected=$(tmux list-sessions -F "#{session_name}" | \
 	fzf --height=50% --info=hidden --margin=10% --no-color)
 
-# Если ничего не выбрано — выходим
+# If nothing is chosen - quit
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-# Если внутри tmux — переключаемся
+# If inside tmux - switch client
 if [[ -n $TMUX ]]; then
     tmux switch-client -t "$selected"
 else
