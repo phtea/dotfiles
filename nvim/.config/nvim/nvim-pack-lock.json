@@ -38,8 +38,9 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "simple_tasks.nvim": {
-      "rev": "ef10f8c2f8b650c29b5f495f625fce6c07a43d7f",
-      "src": "https://github.com/phtea/simple_tasks.nvim"
+      "rev": "0566b53454895d41e5488e8e8c26c9cef0de8e4a",
+      "src": "https://github.com/phtea/simple_tasks.nvim",
+      "version": "'dev'"
     },
     "snacks.nvim": {
       "rev": "fe7cfe9",
