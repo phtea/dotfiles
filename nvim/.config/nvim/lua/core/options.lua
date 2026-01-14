@@ -1,3 +1,6 @@
+-- Global variables
+vim.g.use_native_complete = true
+
 vim.cmd [[
 	set hlsearch incsearch ignorecase smartcase " search
 	set number relativenumber " line numbers
