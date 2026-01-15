@@ -1,11 +1,11 @@
--- Should go first, some plugins depend on it
+-- Picker + Lazygit Interface. Should go first
 require("plugins.snacks")
 
 -- Brackets
 require("plugins.autopairs")
 require("plugins.surround")
 
--- Git signs on the left
+-- Git Signs
 require("plugins.gitsigns")
 
 -- M-x compile but nvim
@@ -20,7 +20,7 @@ require("plugins.visimatch")      -- Highlight selection
 require("plugins.vim-highligher") -- Permanently highlight selections
 
 -- Lsp
-require("plugins.lsp")
+require("plugins.lspconfig")
 
 -- File management
 require("plugins.oil")
