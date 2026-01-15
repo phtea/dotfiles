@@ -1,6 +1,3 @@
--- Global variables
-vim.g.use_native_complete = true
-
 vim.cmd [[
 	set hlsearch incsearch ignorecase smartcase " search
 	set number relativenumber " line numbers
@@ -12,6 +9,7 @@ vim.cmd [[
 	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
+	set exrc secure " for .nvim.lua (project-specific files)
 
 	" UI stuff
 	set guicursor= " if i don't want different cursors for insert and other modes

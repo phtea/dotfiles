@@ -21,11 +21,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- If use_native_complete
-if not vim.g.use_native_complete then
-	return {}
-end
-
 vim.g.autocmp_disable_servers = {
 	solargraph = true,
 	lua_ls = true,

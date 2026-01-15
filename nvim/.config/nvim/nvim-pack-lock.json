@@ -4,18 +4,9 @@
       "rev": "98d3c0fdeb983f0ef62fe3a49da440f6d2c045ce",
       "src": "https://github.com/skywind3000/asyncrun.vim"
     },
-    "blink.cmp": {
-      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
-      "src": "https://github.com/saghen/blink.cmp",
-      "version": "1.0.0 - 2.0.0"
-    },
     "gitsigns.nvim": {
       "rev": "42d6aed4e94e0f0bbced16bbdcc42f57673bd75e",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
-    "multicursor.nvim": {
-      "rev": "c982cc8375f062e9f98e96a408e0f7ad0c80d4db",
-      "src": "https://github.com/jake-stewart/multicursor.nvim"
     },
     "nvim-autopairs": {
       "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",

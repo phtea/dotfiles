@@ -25,8 +25,5 @@ require("plugins.lspconfig")
 -- File management
 require("plugins.oil")
 
--- Autocomplete
-require("plugins.blink_cmp")
-
 -- Should go last
 require("plugins.colorscheme")
