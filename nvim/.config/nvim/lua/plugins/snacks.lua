@@ -62,27 +62,27 @@ require("snacks").setup({
 		}
 	},
 	bigfile = { enabled = true, notify = false, },
-	statuscolumn = {
-		enabled = true,
-		left = {
-			-- "mark", -- I don't want marks
-			"sign",
-		},            -- priority of signs on the left (high to low)
-		folds = {
-			open = true, -- show open fold icons
-			git_hl = true, -- use Git Signs hl for fold icons
-		},
-	},
-	indent = {
-		enabled = true,
-		animate = {
-			enabled = false,
-		},
-	},
+	-- statuscolumn = {
+	-- 	enabled = true,
+	-- 	left = {
+	-- 		-- "mark", -- I don't want marks
+	-- 		"sign",
+	-- 	},            -- priority of signs on the left (high to low)
+	-- 	folds = {
+	-- 		open = true, -- show open fold icons
+	-- 		git_hl = true, -- use Git Signs hl for fold icons
+	-- 	},
+	-- },
+	-- indent = {
+	-- 	enabled = true,
+	-- 	animate = {
+	-- 		enabled = false,
+	-- 	},
+	-- },
 })
 
 -- Basic pickers
-vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Smart Find Files" })
+vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Picker of all pickers" })
 vim.keymap.set("n", "<leader>f",
 	function()
 		Snacks.picker.files({
