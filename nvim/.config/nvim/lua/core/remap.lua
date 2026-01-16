@@ -9,24 +9,27 @@ local set_command = vim.api.nvim_create_user_command
 -- Windows
 set_keymap("n", "<leader>w", "<C-W>", { remap = true })
 
+-- Open parent dir
+set_keymap("n", "-", H.netrw_parent_dir, { desc = "" })
+
 -- Yank
 set_keymap({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
 set_keymap("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL" })
 
 -- Quickfix
-set_keymap("n", "<F1>", ":cprev<CR>", { noremap = true, silent = true, })
-set_keymap("n", "<F2>", ":cnext<CR>", { noremap = true, silent = true, })
-set_keymap('n', 'Q', H.toggle_quickfix, { noremap = true, silent = true, desc = "Toggle quickfix window" })
+set_keymap("n", "<F1>", ":cprev<CR>", { silent = true, })
+set_keymap("n", "<F2>", ":cnext<CR>", { silent = true, })
+set_keymap('n', 'Q', H.toggle_quickfix, { silent = true, desc = "Toggle quickfix window" })
 
 -- Comment
 set_keymap("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
 set_keymap("v", "<leader>c", "gc", { remap = true, desc = "Comment selected lines" })
 
 -- <F1> for file info if in insert mode cuz I definitely would prefer that over vim's help
-set_keymap("i", "<F1>", "<Esc>g<C-G>", { noremap = true, silent = true, })
+set_keymap("i", "<F1>", "<Esc>g<C-G>", { silent = true, })
 
 -- Substitute current word in this file
-set_keymap("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true, })
+set_keymap("n", "<Esc>", ":nohlsearch<CR>", { silent = true, })
 set_keymap("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
 	{ desc = "Replace word under cursor" })
 set_keymap("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],

@@ -15,8 +15,5 @@ require("plugins.vim-highligher") -- Permanently highlight selections
 -- Lsp
 require("plugins.lspconfig")
 
--- File management
-require("plugins.oil")
-
 -- Colorscheme
 require("plugins.colorscheme")

@@ -115,4 +115,37 @@ M.open_explorer = function()
 	end
 end
 
+function M.netrw_parent_dir()
+	local file = vim.api.nvim_buf_get_name(0)
+	if file == "" then
+		vim.cmd("Explore")
+		return
+	end
+
+	local name = vim.fn.fnamemodify(file, ":t")
+
+	-- Open netrw in the file's directory
+	vim.cmd("Explore")
+
+	-- netrw populates asynchronously → defer cursor move
+	vim.defer_fn(function()
+		local buf = vim.api.nvim_get_current_buf()
+
+		-- safety: ensure this is a netrw buffer
+		if vim.bo[buf].filetype ~= "netrw" then
+			return
+		end
+
+		local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+
+		for i, line in ipairs(lines) do
+			-- netrw adds trailing symbols, so match loosely
+			if line:find(name, 1, true) then
+				vim.api.nvim_win_set_cursor(0, { i, 0 })
+				return
+			end
+		end
+	end, 0)
+end
+
 return M

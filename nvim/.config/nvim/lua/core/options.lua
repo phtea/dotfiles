@@ -9,7 +9,7 @@ vim.cmd [[
 	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
-	set exrc secure " for .nvim.lua (project-specific files)
+	set exrc " for .nvim.lua (project-specific files)
 
 	" UI stuff
 	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
