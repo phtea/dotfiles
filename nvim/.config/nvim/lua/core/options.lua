@@ -3,7 +3,6 @@ vim.cmd [[
 	set number relativenumber " line numbers
 	set tabstop=2 shiftwidth=2 scrolloff=5 signcolumn=yes
 	set path+=** lazyredraw
-	set termguicolors showcmd winborder=single " ui
 	set cursorline " enable cursorline
 	set showtabline=0  " don't show tabs
 	set shortmess+=I " no intro message
@@ -11,10 +10,12 @@ vim.cmd [[
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
 	set exrc " for .nvim.lua (project-specific files)
 
-	" UI stuff
-	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
-	"set list
-	"set listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+	" UI
+	set termguicolors
+	set noshowmode " since cursor is default again I don't really need to see the mode - cursor says it all
+	"set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
+	"set list listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+	"set winborder=single
 ]]
 
 -- Grep
