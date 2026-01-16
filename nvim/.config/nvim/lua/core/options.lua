@@ -12,7 +12,7 @@ vim.cmd [[
 	set exrc secure " for .nvim.lua (project-specific files)
 
 	" UI stuff
-	set guicursor= " if i don't want different cursors for insert and other modes
+	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
 	"set list
 	"set listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
 ]]

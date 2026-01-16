@@ -62,23 +62,6 @@ require("snacks").setup({
 		}
 	},
 	bigfile = { enabled = true, notify = false, },
-	-- statuscolumn = {
-	-- 	enabled = true,
-	-- 	left = {
-	-- 		-- "mark", -- I don't want marks
-	-- 		"sign",
-	-- 	},            -- priority of signs on the left (high to low)
-	-- 	folds = {
-	-- 		open = true, -- show open fold icons
-	-- 		git_hl = true, -- use Git Signs hl for fold icons
-	-- 	},
-	-- },
-	-- indent = {
-	-- 	enabled = true,
-	-- 	animate = {
-	-- 		enabled = false,
-	-- 	},
-	-- },
 })
 
 -- Basic pickers
@@ -108,19 +91,7 @@ vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ i
 vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
 
 -- Git
-local git_function = function()
-	Snacks.picker.git_status({
-		ignored = false,
-		win = {
-			input = {
-				keys = {
-					["<Tab>"] = { "list_down", mode = { "n", "i" } },
-				},
-			},
-		},
-	})
-end
-vim.keymap.set("n", "<leader>v", git_function, { desc = "Git status" })
+vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git status" })
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
 

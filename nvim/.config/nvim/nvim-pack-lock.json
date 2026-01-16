@@ -8,17 +8,9 @@
       "rev": "42d6aed4e94e0f0bbced16bbdcc42f57673bd75e",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "nvim-autopairs": {
-      "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
-      "src": "https://github.com/windwp/nvim-autopairs"
-    },
     "nvim-lspconfig": {
       "rev": "92ee7d42320edfbb81f3cad851314ab197fa324a",
       "src": "https://github.com/neovim/nvim-lspconfig"
-    },
-    "nvim-surround": {
-      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
-      "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
       "rev": "42fc28ba",
@@ -27,11 +19,6 @@
     "oil.nvim": {
       "rev": "fbbb2a98721da86f46b06994fd3b4833b04c6e9b",
       "src": "https://github.com/stevearc/oil.nvim"
-    },
-    "simple_tasks.nvim": {
-      "rev": "0566b53454895d41e5488e8e8c26c9cef0de8e4a",
-      "src": "https://github.com/phtea/simple_tasks.nvim",
-      "version": "'dev'"
     },
     "snacks.nvim": {
       "rev": "fe7cfe9",
