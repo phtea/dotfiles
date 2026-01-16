@@ -4,4 +4,4 @@ vim.pack.add({
 
 vim.cmd.colorscheme "vscode"
 vim.api.nvim_set_hl(0, "Pmenu", { link = "ModeMsg" })
-vim.api.nvim_set_hl(0, "netrwMarkFile", { link="MatchParen" })
+vim.api.nvim_set_hl(0, "netrwMarkFile", { link = "MatchParen" })

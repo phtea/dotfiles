@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "asyncrun.vim": {
-      "rev": "98d3c0fdeb983f0ef62fe3a49da440f6d2c045ce",
-      "src": "https://github.com/skywind3000/asyncrun.vim"
-    },
     "gitsigns.nvim": {
       "rev": "42d6aed4e94e0f0bbced16bbdcc42f57673bd75e",
       "src": "https://github.com/lewis6991/gitsigns.nvim"

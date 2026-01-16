@@ -1,4 +1,8 @@
 local H = require("core.helper_functions")
+local run = require("core.run_cmd")
+
+vim.keymap.set("n", "`<Space>", run.prompt, { silent = true })
+vim.keymap.set("n", "`<CR>", run.run_saved, { silent = true })
 
 -- Leader key
 vim.g.mapleader = " "

@@ -4,9 +4,6 @@ require("plugins.snacks")
 -- Git Signs
 require("plugins.gitsigns")
 
--- M-x compile but nvim
-require("plugins.asyncrun")
-
 -- Highlight plugins
 require("plugins.treesitter")     -- Syntax highlighting
 require("plugins.visimatch")      -- Highlight selection
