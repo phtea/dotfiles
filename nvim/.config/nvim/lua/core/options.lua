@@ -5,7 +5,6 @@ vim.cmd [[
 	set path+=** lazyredraw
 	set cursorline " enable cursorline
 	set showtabline=0  " don't show tabs
-	set shortmess+=I " no intro message
 	set undofile noswapfile " file handling
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
 	set exrc " for .nvim.lua (project-specific files)
@@ -16,6 +15,7 @@ vim.cmd [[
 	"set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
 	"set list listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
 	"set winborder=single
+	"set shortmess+=I " no intro message
 ]]
 
 -- Grep
