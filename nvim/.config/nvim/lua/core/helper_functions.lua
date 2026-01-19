@@ -84,7 +84,7 @@ M.append_selection_to_notes = function()
 		ft = ext ~= "" and ext or "text"
 	end
 	local start_line = vim.fn.getpos("'<")[2]
-	local header = string.format("## %s (%s:%d)", stamp, file, start_line)
+	local header = string.format("## %s: %s:%d", stamp, file, start_line)
 	local to_append = { "", header, "", "```" .. ft }
 	vim.list_extend(to_append, lines)
 	vim.list_extend(to_append, { "```", "" })
