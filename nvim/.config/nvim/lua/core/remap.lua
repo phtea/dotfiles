@@ -23,7 +23,7 @@ set_keymap("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to EOL
 -- Quickfix
 set_keymap("n", "<F1>", ":cprev<CR>", { silent = true, })
 set_keymap("n", "<F2>", ":cnext<CR>", { silent = true, })
-set_keymap('n', 'Q', H.toggle_quickfix, { silent = true, desc = "Toggle quickfix window" })
+set_keymap('n', '<leader>q', H.toggle_quickfix, { silent = true, desc = "Toggle quickfix window" })
 
 -- Comment
 set_keymap("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
