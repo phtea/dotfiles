@@ -1,11 +1,11 @@
 {
   "plugins": {
     "gitsigns.nvim": {
-      "rev": "42d6aed",
+      "rev": "abf82a65f185bd54adc0679f74b7d6e1ada690c9",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "92ee7d4",
+      "rev": "419b082102fa813739588dd82e19a8b6b2442855",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {

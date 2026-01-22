@@ -14,7 +14,7 @@ vim.cmd [[
 	set noshowmode " since cursor is default again I don't really need to see the mode - cursor says it all
 	"set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
 	"set list listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
-	"set winborder=single
+	set winborder=single
 	"set shortmess+=I " no intro message
 ]]
 
