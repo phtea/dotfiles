@@ -77,12 +77,3 @@ set_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Laz
 
 -- Explorer
 set_keymap("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
-
--- Remove default LSP keymaps if present
-pcall(vim.keymap.del, "n", "gri")
-pcall(vim.keymap.del, "n", "grr")
-pcall(vim.keymap.del, "x", "gra")
-pcall(vim.keymap.del, "n", "gra")
-pcall(vim.keymap.del, "n", "grn")
-pcall(vim.keymap.del, "n", "grc")
-pcall(vim.keymap.del, "n", "grt")

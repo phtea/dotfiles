@@ -10,6 +10,7 @@ require("oil").setup({
 	keymaps = {
 		["<CR>"] = "actions.select",
 		["-"] = { "actions.parent", mode = "n" },
+		["`"] = { "actions.cd", mode = "n", nowait = true },
 	},
 	buf_options = {
 		bufhidden = "",  -- don't hide this buffer
