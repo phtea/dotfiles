@@ -12,10 +12,6 @@
       "rev": "42fc28ba",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
-    "oil.nvim": {
-      "rev": "f55b25e493a7df76371cfadd0ded5004cb9cd48a",
-      "src": "https://github.com/stevearc/oil.nvim"
-    },
     "snacks.nvim": {
       "rev": "fe7cfe9",
       "src": "https://github.com/folke/snacks.nvim"

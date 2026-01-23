@@ -16,7 +16,7 @@ end, { desc = "Toggle format-on-save (LSP)" })
 vim.api.nvim_create_autocmd("BufWritePre", {
 	callback = function()
 		if vim.g.autoformat_enabled then
-			vim.cmd("Fmt")
+			vim.lsp.buf.format()
 		end
 	end,
 })

@@ -25,7 +25,7 @@ require('gitsigns').setup({
 
 		-- Views
 		map('n', '<leader>gh', gitsigns.preview_hunk, { desc = "Gitsigns: Preview Hunk" })
-		map('n', '<leader>tg', gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle Current Blame Line" })
+		map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle Current Blame Line" })
 		map('n', '<leader>ts', gitsigns.toggle_signs, { desc = "Gitsigns: Toggle signs" })
 		map('n', '<leader>gb', gitsigns.blame_line, { desc = "Gitsigns: Blame Line" })
 		map('n', '<leader>gB', gitsigns.blame, { desc = "Gitsigns: Full Blame" })
