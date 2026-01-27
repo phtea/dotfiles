@@ -42,26 +42,11 @@ M.save_and_restart_session = function()
 	vim.cmd("restart source " .. vim.fn.fnameescape(session_file))
 end
 
--- Turn ", " into ",\n" in visual selection
-M.split_inline_args = function()
-	vim.cmd([[silent! s/, /,\r/g|noh]])
-end
-
 -- Toggle diagnostics
 M.toggle_diagnostics = function()
 	local enabled = not vim.diagnostic.is_enabled()
 	vim.diagnostic.enable(enabled)
 	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
-end
-
--- Generate ctags
-M.generate_ctags = function()
-	local result = vim.fn.system("ctags -R .")
-	if vim.v.shell_error ~= 0 then
-		vim.notify("Failed to generate ctags: " .. result, vim.log.levels.ERROR)
-	else
-		vim.notify("Ctags generated successfully", vim.log.levels.INFO)
-	end
 end
 
 -- Notes: open
