@@ -17,7 +17,10 @@ require("snacks").setup({
 				openDirInEditor =
 				'[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
 				openInTerminal = '[ -z "$NVIM" ]',
-			}
+			},
+		},
+		theme = {
+			selectedLineBgColor = { bg = "LspReferenceText" }, -- set to `default` to have no background colour
 		},
 	},
 	picker = {

@@ -1,4 +1,4 @@
--- Picker + Lazygit Interface. Should go first
+-- Picker + Lazygit
 require("plugins.snacks")
 
 -- Git Signs
@@ -11,6 +11,3 @@ require("plugins.vim-highligher") -- Permanently highlight selections
 
 -- Lsp
 require("plugins.lspconfig")
-
--- Colorscheme
-require("plugins.colorscheme")
