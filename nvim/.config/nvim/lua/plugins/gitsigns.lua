@@ -28,7 +28,11 @@ require('gitsigns').setup({
 		map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle Current Blame Line" })
 		map('n', '<leader>ts', gitsigns.toggle_signs, { desc = "Gitsigns: Toggle signs" })
 		map('n', '<leader>gb', gitsigns.blame_line, { desc = "Gitsigns: Blame Line" })
-		map('n', '<leader>gB', gitsigns.blame, { desc = "Gitsigns: Full Blame" })
+		map('n', '<leader>gB', function()
+			local filename = vim.fn.expand('%:t')
+			print(string.format("Git Blame: %s", filename))
+			gitsigns.blame()
+		end, { desc = "Gitsigns: Full Blame" })
 
 		-- Changes
 		map('n', '<leader>gs', gitsigns.stage_hunk, { desc = "Gitsigns: Stage Hunk" })
