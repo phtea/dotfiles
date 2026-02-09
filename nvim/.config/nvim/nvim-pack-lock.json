@@ -23,6 +23,10 @@
     "visimatch.nvim": {
       "rev": "4334be61a9d3a6b268179144c6354349e445eb89",
       "src": "https://github.com/wurli/visimatch.nvim"
+    },
+    "vscode.nvim": {
+      "rev": "aa1102a7e15195c9cca22730b09224a7f7745ba8",
+      "src": "https://github.com/Mofiqul/vscode.nvim"
     }
   }
 }
