@@ -1,12 +1,5 @@
--- Autoformat with LSP, toggle with <leader>tf (default: OFF)
-
+-- Autoformat with LSP, togglable (default: OFF)
 vim.g.autoformat_enabled = false
-
--- Toggle autoformat
-vim.keymap.set("n", "<leader>tf", function()
-	vim.g.autoformat_enabled = not vim.g.autoformat_enabled
-	print("Autoformat: " .. (vim.g.autoformat_enabled and "ON" or "OFF"))
-end, { desc = "Toggle format-on-save (LSP)" })
 
 -- format-on-save when enabled
 vim.api.nvim_create_autocmd("BufWritePre", {

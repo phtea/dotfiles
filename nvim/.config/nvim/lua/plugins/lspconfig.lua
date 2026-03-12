@@ -12,3 +12,4 @@ vim.lsp.enable({
 })
 
 vim.diagnostic.config({})
+vim.diagnostic.enable(false) -- disabled by default

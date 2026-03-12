@@ -49,6 +49,12 @@ M.toggle_diagnostics = function()
 	print("Diagnostics: " .. (enabled and "ON" or "OFF"))
 end
 
+-- Toggle autoformat
+M.toggle_autoformat = function()
+	vim.g.autoformat_enabled = not vim.g.autoformat_enabled
+	print("Autoformat: " .. (vim.g.autoformat_enabled and "ON" or "OFF"))
+end
+
 -- Notes: open
 local notes_path = vim.fn.expand("~/notes.md")
 M.open_notes = function()

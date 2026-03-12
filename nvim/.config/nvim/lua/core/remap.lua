@@ -51,6 +51,7 @@ vim.keymap.set("x", "<leader>na", H.append_selection_to_notes, { desc = "Append 
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "Toggle diagnostics" })
+vim.keymap.set("n", "<leader>tf", H.toggle_autoformat, { desc = "Toggle autoformat" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
 -- Explorer
