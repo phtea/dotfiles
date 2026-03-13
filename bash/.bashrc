@@ -3,7 +3,7 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTCONTROL=ignoredups:erasedups
 export HISTFILESIZE=10000
 export HISTSIZE=1000
-export LESS='-R' LESSHISTFILE=-
+export LESS='-R -C -M -I -S -n -j5 -J' LESSHISTFILE=-
 shopt -s histappend
 
 # ---------------------------------------------------
