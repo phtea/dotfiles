@@ -63,5 +63,5 @@ vim.keymap.set("n", "`<CR>", RUN.run_saved, { silent = true, desc = "Run code (s
 -- Automatically show empty buffer command
 vim.keymap.set("n", "<leader>x",
   ":enew|setl buftype=nofile bufhidden=wipe|0r !",
-  { desc = "Create empty buffer with content of command's output" }
+  { desc = "Scratch buffer + shell output" }
 )
