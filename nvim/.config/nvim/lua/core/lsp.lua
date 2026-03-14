@@ -1,20 +1,6 @@
 -- Autoformat with LSP, togglable (default: OFF)
 vim.g.autoformat_enabled = false
 
--- format-on-save when enabled
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function()
-		if vim.g.autoformat_enabled then
-			vim.lsp.buf.format()
-		end
-	end,
-})
-
-vim.g.autocmp_disable_servers = {
-	solargraph = true,
-	lua_ls = true,
-}
-
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
 
@@ -26,32 +12,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
 		if client:supports_method('textDocument/completion') then
-			if not vim.g.autocmp_disable_servers[client.name] then -- Only enable for not disabled servers
-				local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-				client.server_capabilities.completionProvider.triggerCharacters = chars
-			end
-
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
-	end,
-})
 
--- Show signature help automatically
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if not client or not client:supports_method("textDocument/signatureHelp") then return end
+		-- Auto-format ("lint") on save.
+		if not client:supports_method('textDocument/willSaveWaitUntil') and client:supports_method('textDocument/formatting') then
+			vim.api.nvim_create_autocmd('BufWritePre', {
+				group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
+				buffer = args.buf,
+				callback = function()
+					if not vim.g.autoformat_enabled then return end
 
-		vim.api.nvim_create_autocmd("InsertCharPre", {
-			buffer = ev.buf,
-			callback = function()
-				if vim.fn.pumvisible() == 1 then return end
-				local ch = vim.v.char
-				if ch == "(" or ch == "," then
-					vim.schedule(vim.lsp.buf.signature_help)
-				end
-			end,
-		})
+					vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+				end,
+			})
+		end
 	end,
 })
 

@@ -105,5 +105,7 @@ vim.keymap.set("n", "<leader>D", function() Snacks.picker.diagnostics() end, { d
 vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition", nowait = true })
 vim.keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration", nowait = true })
 vim.keymap.set("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
-vim.keymap.set("n", "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation", nowait = true })
-vim.keymap.set("n", "gy", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition", nowait = true })
+vim.keymap.set("n", "gI", function() Snacks.picker.lsp_implementations() end,
+	{ desc = "Goto Implementation", nowait = true })
+vim.keymap.set("n", "gy", function() Snacks.picker.lsp_type_definitions() end,
+	{ desc = "Goto T[y]pe Definition", nowait = true })

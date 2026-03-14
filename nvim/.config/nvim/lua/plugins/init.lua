@@ -5,8 +5,8 @@ require("plugins.snacks")
 require("plugins.gitsigns")
 
 -- Highlight plugins
-require("plugins.treesitter")     -- Syntax highlighting
-require("plugins.visimatch")      -- Highlight selection
+require("plugins.treesitter")      -- Syntax highlighting
+require("plugins.visimatch")       -- Highlight selection
 require("plugins.vim-highlighter") -- Permanently highlight selections
 
 -- Lsp

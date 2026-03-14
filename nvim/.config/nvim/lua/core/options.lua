@@ -14,6 +14,11 @@ vim.cmd [[
 	set winborder=single
 	"set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
 	"set list listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+
+	set grepprg=rg\ --vimgrep\ --smart-case
+	set grepformat=%f:%l:%c:%m
+
+	set switchbuf=useopen " existing buffer should be reused
 ]]
 
 -- Enable persistent undo
