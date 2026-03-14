@@ -3,7 +3,7 @@ vim.cmd [[
 	set number relativenumber " line numbers
 	set tabstop=2 shiftwidth=2 scrolloff=5 signcolumn=yes
 	set path+=** lazyredraw
-	set cursorline " enable cursorline
+	set cursorlineopt=number cursorline " enable cursorline
 	set showtabline=0  " don't show tabs
 	set undofile noswapfile " file handling
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
