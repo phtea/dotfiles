@@ -17,7 +17,6 @@ vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank to system clipboard to
 -- Quickfix
 vim.keymap.set("n", "<F1>", ":cprev<CR>", { silent = true, })
 vim.keymap.set("n", "<F2>", ":cnext<CR>", { silent = true, })
-vim.keymap.set('n', '<leader>q', H.toggle_quickfix, { silent = true, desc = "Toggle quickfix window" })
 
 -- Comment
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment current line" })
@@ -58,5 +57,11 @@ vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { n
 vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
 
 -- Run code
-vim.keymap.set("n", "`<Space>", RUN.prompt, { silent = true })
-vim.keymap.set("n", "`<CR>", RUN.run_saved, { silent = true })
+vim.keymap.set("n", "`<Space>", RUN.prompt, { silent = true, desc = "Run code" })
+vim.keymap.set("n", "`<CR>", RUN.run_saved, { silent = true, desc = "Run code (saved)" })
+
+-- Automatically show empty buffer command
+vim.keymap.set("n", "<leader>x",
+  ":enew|setl buftype=nofile bufhidden=wipe|0r !",
+  { desc = "Create empty buffer with content of command's output" }
+)

@@ -1,17 +1,5 @@
 local M = {}
 
--- Toggle Quickfix window
-M.toggle_quickfix = function()
-	local win_ids = vim.fn.getwininfo()
-	for _, win in ipairs(win_ids) do
-		if win.quickfix == 1 then
-			vim.cmd("cclose")
-			return
-		end
-	end
-	vim.cmd("copen")
-end
-
 -- Copy paths
 local function copy_to_clipboard(path)
 	vim.fn.setreg("+", path)
@@ -106,6 +94,7 @@ M.open_explorer = function()
 	end
 end
 
+-- Open netrw pointing at file I was already at
 function M.netrw_parent_dir()
 	local file = vim.api.nvim_buf_get_name(0)
 	if file == "" then
