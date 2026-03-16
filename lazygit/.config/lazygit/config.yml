@@ -3,8 +3,8 @@ gui:
   language: 'en'
 
 os:
-  editAtLine: "[ -z \"$NVIM\" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server \"$NVIM\" --remote-send \"q\" &&  nvim --server \"$NVIM\" --remote {{filename}} && nvim --server \"$NVIM\" --remote-send \"{{line}}G\")"
-  openDirInEditor: "[ -z \"$NVIM\" ] && (nvim -- {{dir}}) || (nvim --server \"$NVIM\" --remote-send \"q\" && nvim --server \"$NVIM\" --remote {{dir}})"
-  edit: "[ -z \"$NVIM\" ] && (nvim -- {{filename}}) || (nvim --server \"$NVIM\" --remote-send \"q\" && nvim --server \"$NVIM\" --remote {{filename}})"
-  openInTerminal: "[ -z \"$NVIM\" ]"
-  editPreset: "nvim-remote"
+  editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send "{{line}}gg")'
+  openDirInEditor: '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})'
+  edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})'
+  openInTerminal: '[ -z "$NVIM" ]'
+  editPreset: 'nvim-remote'
