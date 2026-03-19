@@ -6,3 +6,4 @@
 node_modules/
 package*.json
 list-*.tgz
+*vimrc.un*
