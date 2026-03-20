@@ -4,7 +4,7 @@ vim.g.autoformat_enabled = false
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
 
-vim.keymap.set('i', '<c-space>', function() vim.lsp.completion.get() end)
+vim.keymap.set('i', '<c-space>', function() vim.lsp.completion.get() end, { desc = 'Show autocomplete (LSP)' })
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),
 	callback = function(args)
