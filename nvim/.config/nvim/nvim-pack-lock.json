@@ -8,10 +8,6 @@
       "rev": "dd261ad5266ab5bbec249d21efeceda98ff3e1a6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
-    "nvim-treesitter": {
-      "rev": "42fc28ba",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
-    },
     "snacks.nvim": {
       "rev": "a049339328e2599ad6e85a69fa034ac501e921b2",
       "src": "https://github.com/folke/snacks.nvim"

@@ -39,10 +39,5 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		local kind = data.kind -- "install" | "update" | "delete"
 		local spec = data.spec or {}
 		local name = spec.name or ""
-
-		-- Only for nvim-treesitter, and only on install or update
-		if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
-			vim.cmd("TSUpdate")
-		end
 	end,
 })

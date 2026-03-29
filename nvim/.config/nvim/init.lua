@@ -1,4 +1,4 @@
--- nvim 0.12+ config (hyped for release 😃)
+-- nvim 0.12+ config 🔥
 
 require("core")
 require("plugins")
