@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Get windows of current session
+selected=$(tmux list-windows -F "#{window_index}: #{window_name} [#{pane_current_command}]" | fzf --info=hidden --no-color)
+
+# If nothing is chosen - quit
+[[ -z $selected ]] && exit 0
+
+# target of type "1"
+target=$(echo "$selected" | cut -d: -f1)
+
+# Switch to window
+tmux select-window -t "$target"
