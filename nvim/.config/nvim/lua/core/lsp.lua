@@ -3,7 +3,7 @@ vim.g.autoformat_enabled = false
 
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.complete = "o,.,w,b"
-vim.o.autocomplete = true
+vim.o.autocomplete = false
 vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
 
 -- Less than optimal, just for show, only needed if your colorscheme
