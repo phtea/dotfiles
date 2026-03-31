@@ -63,8 +63,8 @@ vim.keymap.set("n", "<leader>f",
 		Snacks.picker.files({
 			hidden = true,
 			exclude = {
-				"**/*.gz", "**/*.zip", "**/*.tar", "**/*.tgz", "**/*.xz",
-				"**/*.bz2", "**/*.7z", "**/*.rar", "**/*.zst", "**/*.jar", "**/*.war",
+				"*.gz", "*.zip", "*.tar", "*.tgz", "*.xz", "*.so",
+				"*.bz2", "*.7z", "*.rar", "*.zst", "*.jar", "*.war",
 			},
 		})
 	end,
