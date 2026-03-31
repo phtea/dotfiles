@@ -51,3 +51,7 @@ vim.keymap.set("n", "<leader>x",
 	":enew|setl buftype=nofile bufhidden=wipe|0r !",
 	{ desc = "Scratch buffer + shell output" }
 )
+
+vim.keymap.set("n", "<M-o>", "van", { remap = true, desc = "Treesitter: Init selection" })
+vim.keymap.set("x", "<M-o>", "an", { remap = true, desc = "Treesitter: Expand selection" })
+vim.keymap.set("x", "<M-i>", "in", { remap = true, desc = "Treesitter: Shrink selection" })

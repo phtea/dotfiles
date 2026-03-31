@@ -21,10 +21,14 @@ vim.cmd [[
 	set switchbuf=useopen " existing buffer should be reused
 ]]
 
--- Enable persistent undo
-local undodir = vim.fn.stdpath("data") .. "/undo"
-vim.opt.undodir = undodir
--- Auto-create the undo directory if it doesn't exist
-if vim.fn.isdirectory(undodir) == 0 then
-	vim.fn.mkdir(undodir, "p")
+local paths = {
+  undo  = vim.fn.stdpath("data") .. "/undo",
+  cache = vim.fn.stdpath("cache"),
+}
+
+for _, path in pairs(paths) do
+  vim.fn.mkdir(path, "p")
 end
+
+-- Persistent undo
+vim.opt.undodir = paths.undo
