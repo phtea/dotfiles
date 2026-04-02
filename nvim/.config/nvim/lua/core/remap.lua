@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true, desc = "Window prefix remap" })
 
-vim.keymap.set("n", "-", H.netrw_parent_dir, { desc = "netrw: open parent directory (while pointing at your last file)" })
+vim.keymap.set("n", "-", H.netrw_parent_dir, { desc = "netrw: open parent directory" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank: to system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard to EOL" })
@@ -47,7 +47,4 @@ vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in syst
 vim.keymap.set("n", "`<Space>", RUN.prompt, { silent = true, desc = "Run code: Type prompt" })
 vim.keymap.set("n", "`<CR>", RUN.run_saved, { silent = true, desc = "Run code: Last used prompt" })
 
-vim.keymap.set("n", "<leader>x",
-	":enew|setl buftype=nofile bufhidden=wipe|0r !",
-	{ desc = "Scratch buffer + shell output" }
-)
+vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })

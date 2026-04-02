@@ -4,37 +4,7 @@ vim.g.autoformat_enabled = false
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.complete = "o,.,w,b"
 vim.o.autocomplete = false
-vim.o.pumheight = 10 -- show only first 10 entries (less intrusive)
-
--- Less than optimal, just for show, only needed if your colorscheme
--- doesn't have completion kind hlgroups already built in
-local _kind_hl = {
-  Text          = "@string",
-  Method        = "@function",
-  Function      = "@function",
-  Constructor   = "@constructor",
-  Field         = "@variable.member",
-  Variable      = "@variable",
-  Class         = "@type",
-  Interface     = "@type",
-  Module        = "@module",
-  Property      = "@property",
-  Unit          = "@operator",
-  Value         = "@constant",
-  Enum          = "@type",
-  Keyword       = "@keyword",
-  Snippet       = "@string",
-  Color         = "@string",
-  File          = "@constant",
-  Reference     = "@constant",
-  Folder        = "@constant",
-  EnumMember    = "@constant",
-  Constant      = "@constant",
-  Struct        = "@type",
-  Event         = "@keyword",
-  Operator      = "@operator",
-  TypeParameter = "@variable.parameter",
-}
+vim.o.pumheight = 5 -- show only first 10 entries (less intrusive)
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),
@@ -42,16 +12,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 		-- Completion
     if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, args.buf, {
-        autotrigger = false,
-        convert = function(item)
-          if vim.lsp.protocol.CompletionItemKind[item.kind] ~= nil then
-            return { kind_hlgroup = _kind_hl[vim.lsp.protocol.CompletionItemKind[item.kind]] }
-          end
-
-          return {}
-        end,
-      })
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false, })
     end
 
 		-- Auto-format ("lint") on save.
