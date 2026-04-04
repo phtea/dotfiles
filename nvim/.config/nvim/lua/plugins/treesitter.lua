@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	callback = function(ev)
 		vim.treesitter.start()
 		if vim.list_contains(regex_languages, ev.match) then vim.bo[ev.buf].syntax = 'ON' end
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
 
