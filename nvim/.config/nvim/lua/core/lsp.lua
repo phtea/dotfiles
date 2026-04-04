@@ -4,7 +4,7 @@ vim.g.autoformat_enabled = false
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.complete = "o,.,w,b"
 vim.o.autocomplete = false
-vim.o.pumheight = 5 -- show only first 10 entries (less intrusive)
+-- vim.o.pumheight = 10 -- show only N entries (less intrusive)
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),

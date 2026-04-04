@@ -1,14 +1,12 @@
 vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main' } })
 
 local languages = { "lua", "python", "bash", "vim", "javascript", "typescript", "json", "yaml", "markdown", "ruby" }
-local regex_languages = { "ruby" }
 
 require('nvim-treesitter').install(languages)
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = languages,
 	callback = function(ev)
 		vim.treesitter.start()
-		if vim.list_contains(regex_languages, ev.match) then vim.bo[ev.buf].syntax = 'ON' end
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
