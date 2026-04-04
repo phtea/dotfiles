@@ -11,16 +11,16 @@ vim.cmd [[
 	" UI
 	set termguicolors
 	set winborder=single
-	"set list listchars=tab:»\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+	set list listchars=tab:\ \ ,trail:·,extends:❯,precedes:❮,nbsp:␣
 
-	set grepprg=rg\ --vimgrep\ --smart-case
+	set grepprg=rg\ --vimgrep\ --smart-case\ --no-messages
 	set grepformat=%f:%l:%c:%m
 
 	set switchbuf=useopen " existing buffer should be reused
 
 	" Cursor stuff
-	"set noshowmode " since cursor is default again I don't really need to see the mode - cursor says it all
-	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " operator-pending mode should be horizontal bar; else default
+	set noshowmode " show current mode like -- INSERT --
+	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " => operator-pending mode should be horizontal bar; else default
 ]]
 
 local paths = {

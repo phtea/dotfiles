@@ -6,8 +6,6 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true, desc = "Window prefix remap" })
 
-vim.keymap.set("n", "-", H.netrw_parent_dir, { desc = "netrw: open parent directory" })
-
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank: to system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard to EOL" })
 
