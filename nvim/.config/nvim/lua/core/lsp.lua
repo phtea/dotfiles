@@ -4,10 +4,8 @@ vim.g.autoformat_enabled = false
 vim.o.completeopt = "menuone,noinsert,fuzzy,popup"
 vim.o.complete = "o,.,w,b"
 vim.o.autocomplete = false
--- vim.o.pumheight = 10 -- show only N entries (less intrusive)
 
 vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
 	callback = function(args)
 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 		-- Completion
@@ -18,7 +16,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Auto-format ("lint") on save.
 		if not client:supports_method('textDocument/willSaveWaitUntil') and client:supports_method('textDocument/formatting') then
 			vim.api.nvim_create_autocmd('BufWritePre', {
-				group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
 				buffer = args.buf,
 				callback = function()
 					if not vim.g.autoformat_enabled then return end
