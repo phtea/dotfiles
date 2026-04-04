@@ -19,7 +19,7 @@ vim.cmd [[
 	set switchbuf=useopen " existing buffer should be reused
 
 	" Cursor stuff
-	set noshowmode " show current mode like -- INSERT --
+	"set noshowmode " show current mode like -- INSERT --
 	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " => operator-pending mode should be horizontal bar; else default
 ]]
 
