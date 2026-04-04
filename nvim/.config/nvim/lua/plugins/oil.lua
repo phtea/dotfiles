@@ -2,26 +2,39 @@ vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 
 local function oil_copy_to_clipboard()
 	local oil = require("oil")
-	-- Get the visual range or current line
-	local start_line = vim.fn.getpos("v")[2]
-	local end_line = vim.fn.getpos(".")[2]
-
-	if start_line > end_line then start_line, end_line = end_line, start_line end
-
 	local uris = {}
-	for i = start_line, end_line do
-		local entry = oil.get_cursor_entry()
-		-- If in visual mode, we need to get entry by line index
-		if i ~= vim.fn.line(".") then
-			-- Note: oil.get_entry_on_line is available in newer versions
-			entry = oil.get_entry_on_line(0, i)
-		end
 
-		if entry then
-			local dir = oil.get_current_dir()
-			local full_path = dir .. entry.name
+	local dir = oil.get_current_dir()
+	if not dir then return end
+
+	local function process_entry(entry)
+		if not entry then return end
+		local full_path = dir .. entry.name
+
+		if entry.type == "directory" then
+			local files = vim.fn.glob(full_path .. "/**/*", true, true)
+			for _, file in ipairs(files) do
+				if vim.fn.isdirectory(file) == 0 then
+					table.insert(uris, "file://" .. file)
+				end
+			end
+		else
 			table.insert(uris, "file://" .. full_path)
 		end
+	end
+
+	local mode = vim.fn.mode()
+	if mode == "v" or mode == "V" then
+		local start_line = vim.fn.line("v")
+		local end_line = vim.fn.line(".")
+		if start_line > end_line then start_line, end_line = end_line, start_line end
+
+		for i = start_line, end_line do
+			process_entry(oil.get_entry_on_line(0, i))
+		end
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true) -- back to normal mode
+	else
+		process_entry(oil.get_cursor_entry())
 	end
 
 	if #uris > 0 then
@@ -31,19 +44,16 @@ local function oil_copy_to_clipboard()
 	else
 		print("No files selected")
 	end
-	-- Exit visual mode after copying
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
 end
 
 require("oil").setup({
-	view_options = {
-		show_hidden = true,
-	},
+	view_options = { show_hidden = true, },
 	watch_for_changes = true,
 	skip_confirm_for_simple_edits = true,
 	use_default_keymaps = false,
 	keymaps = {
 		["<CR>"] = "actions.select",
+		["`"] = "actions.tcd",
 		["-"] = { "actions.parent", mode = "n" },
 		["C"] = { callback = oil_copy_to_clipboard, mode = { "n", "v" }, desc = "Copy files to clipboard" },
 	},
