@@ -1,5 +1,4 @@
 local H = require("core.helper_functions")
-local RUN = require("core.run_cmd")
 
 -- Leader key
 vim.g.mapleader = " "
@@ -41,8 +40,5 @@ vim.keymap.set("n", "<leader>tf", H.toggle_autoformat, { desc = "LSP: Toggle aut
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
 vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
-
-vim.keymap.set("n", "`<Space>", RUN.prompt, { silent = true, desc = "Run code: Type prompt" })
-vim.keymap.set("n", "`<CR>", RUN.run_saved, { silent = true, desc = "Run code: Last used prompt" })
 
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })
