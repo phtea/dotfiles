@@ -70,22 +70,19 @@ vim.keymap.set("n", "<leader>f",
 	end,
 	{ desc = "Find files" }
 )
-vim.keymap.set("n", "<leader>F", function() Snacks.picker.files({ hidden = true, ignored = true, }) end,
-	{ desc = "Find files (no ignores)" })
+vim.keymap.set("n", "<leader>F", function() Snacks.picker.files({ hidden = true, ignored = true, }) end, { desc = "Find files (no ignores)" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
 vim.keymap.set("n", "<leader>j", function() Snacks.picker.jumps() end, { desc = "Jumps picker" })
 vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>h", function() Snacks.picker.help() end, { desc = "Help Pages" })
-vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end,
-	{ desc = "Visual selection or word" })
+vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
 vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
 
 -- Git
 vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git status" })
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
-vim.api.nvim_create_user_command("LogFile", "lua Snacks.lazygit.log_file()", { nargs = 0, desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
 
 -- Lsp
@@ -94,7 +91,5 @@ vim.keymap.set("n", "<leader>D", function() Snacks.picker.diagnostics() end, { d
 vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition", nowait = true })
 vim.keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration", nowait = true })
 vim.keymap.set("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
-vim.keymap.set("n", "gI", function() Snacks.picker.lsp_implementations() end,
-	{ desc = "Goto Implementation", nowait = true })
-vim.keymap.set("n", "gy", function() Snacks.picker.lsp_type_definitions() end,
-	{ desc = "Goto T[y]pe Definition", nowait = true })
+vim.keymap.set("n", "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation", nowait = true })
+vim.keymap.set("n", "gy", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition", nowait = true })

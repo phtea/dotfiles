@@ -1,23 +1,27 @@
+local augroup = vim.api.nvim_create_augroup("phtea", { clear = true })
+
+local function autocmd(event, opts)
+	opts.group = augroup
+	vim.api.nvim_create_autocmd(event, opts)
+end
+
 -- Highlight yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function() vim.highlight.on_yank() end,
-})
+autocmd("TextYankPost", { callback = function() vim.highlight.on_yank() end })
 
 -- Syntax highlighting for dotenv files
-vim.api.nvim_create_autocmd("BufRead", {
+autocmd("BufRead", {
 	pattern = { ".env", ".env.*" },
 	callback = function() vim.bo.filetype = "dosini" end,
 })
 
 -- Syntax highlighting for yml files
-vim.api.nvim_create_autocmd("BufRead", {
+autocmd("BufRead", {
 	pattern = { "*.yml", "*.yml.*" },
 	callback = function() vim.bo.filetype = "yaml" end,
 })
 
--- Hook for when package is changed (installed, updated, deleted)
--- lazy-style build equivalent
-vim.api.nvim_create_autocmd("PackChanged", {
+-- When package is changed (installed, updated, deleted)
+autocmd("PackChanged", {
 	callback = function(ev)
 		local data = ev.data or vim.v.event -- depending on Neovim version
 
