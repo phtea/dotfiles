@@ -94,6 +94,9 @@ export PATH="$PATH:$HOME/scripts"
 export PATH="$PATH:$HOME/.tmux"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
+# rigprep config file
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 # Git branch prompt
 parse_git_branch() { git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ /'; }
 
