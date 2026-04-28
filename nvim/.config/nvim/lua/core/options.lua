@@ -18,10 +18,17 @@ vim.cmd [[
 
 	set switchbuf=useopen " existing buffer should be reused
 
+	" Lsp completion
+	set completeopt=menuone,noinsert,fuzzy,popup
+	set complete=o,.,w,b
+	set noautocomplete
+
 	" Cursor stuff
-	set noshowmode " show current mode like -- INSERT --
-	"set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " => operator-pending mode should be horizontal bar; else default
+	"set noshowmode " show current mode like -- INSERT --
+	set guicursor=n-v-c-i-r-sm-t:block,o:hor20 " => operator-pending mode should be horizontal bar; else default
 ]]
+
+vim.g.autoformat_enabled = false
 
 local paths = {
   undo  = vim.fn.stdpath("data") .. "/undo",
