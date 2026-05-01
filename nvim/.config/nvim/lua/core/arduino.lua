@@ -4,6 +4,10 @@ local arduino = {
 	port = nil,
 }
 
+vim.lsp.config('arduino_language_server', {
+  cmd = { "arduino-language-server", "-fqbn", arduino.fqbn }
+})
+
 local serial_job = nil
 
 local function open_qf_list(opts)
