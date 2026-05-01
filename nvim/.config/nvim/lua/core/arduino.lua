@@ -1,11 +1,34 @@
-local arduino = {
-	fqbn = "arduino:avr:nano:cpu=atmega328old",
-	baud = "9600",
-	port = nil,
-}
+local function read_json(path)
+	local expanded = vim.fn.expand(path)
+
+	if vim.fn.filereadable(expanded) == 0 then
+		return nil
+	end
+
+	local content = table.concat(vim.fn.readfile(expanded), "\n")
+	local ok, decoded = pcall(vim.json.decode, content)
+
+	if not ok then
+		vim.notify("Invalid Arduino config: " .. expanded, vim.log.levels.ERROR)
+		return nil
+	end
+
+	return decoded
+end
+
+local function load_config()
+	local defaults = { fqbn = "arduino:avr:nano:cpu=atmega328old", baud = "9600", port = nil, }
+
+	local global = read_json("~/.arduino.json") or {}
+	local local_config = read_json(".arduino.json") or {}
+
+	return vim.tbl_deep_extend("force", defaults, global, local_config)
+end
+
+local arduino = load_config()
 
 vim.lsp.config('arduino_language_server', {
-  cmd = { "arduino-language-server", "-fqbn", arduino.fqbn }
+	cmd = { "arduino-language-server", "-fqbn", arduino.fqbn }
 })
 
 local serial_job = nil
@@ -111,6 +134,11 @@ vim.api.nvim_create_user_command("ArduinoSerial", function()
 		term = true,
 		on_exit = function() serial_job = nil end,
 	})
+end, {})
+
+vim.api.nvim_create_user_command("ArduinoReloadConfig", function()
+	arduino = load_config()
+	vim.notify("Arduino config reloaded: " .. arduino.fqbn)
 end, {})
 
 vim.keymap.set("n", "<leader>ab", "<cmd>ArduinoBuild<CR>", { desc = "Arduino Build" })
