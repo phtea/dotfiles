@@ -1,113 +1,72 @@
--- =========================
--- Arduino CLI Neovim Setup
--- =========================
-
 local arduino = {
   fqbn = "arduino:avr:nano:cpu=atmega328old",
   baud = "9600",
+	port = nil,
 }
 
--- -------------------------
--- Port detection
--- -------------------------
-local function get_port()
-  local output = vim.fn.system("arduino-cli board list --format json")
+local function load_port_async()
+  vim.fn.jobstart({ "arduino-cli", "board", "list", "--format", "json" }, {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+      local output = table.concat(data, "\n")
+      local ok, decoded = pcall(vim.json.decode, output)
 
-  local ok, data = pcall(vim.fn.json_decode, output)
-  if ok and data and data.detected_ports then
-    for _, entry in ipairs(data.detected_ports) do
-      if entry.port and entry.port.address then
-        return entry.port.address
+      if ok and decoded and decoded.detected_ports then
+        for _, entry in ipairs(decoded.detected_ports) do
+          if entry.port and entry.port.address then
+            arduino.port = entry.port.address
+            vim.notify("Arduino port detected: " .. arduino.port)
+            return
+          end
+        end
       end
-    end
-  end
-
-  return "/dev/ttyACM0"
+    end,
+  })
 end
 
--- -------------------------
--- Build
--- -------------------------
+vim.api.nvim_create_autocmd("FileType", { pattern = "arduino", callback = load_port_async, })
+
+local function open_qf_list(opts)
+	vim.fn.setqflist({}, ' ', opts)
+	vim.cmd("cwindow")
+end
+
+local function tell_status(title)
+	if vim.v.shell_error ~= 0 then
+		vim.notify(title .. " failed", vim.log.levels.ERROR)
+	else
+		vim.notify(title .. " successful on " .. arduino.port, vim.log.levels.INFO)
+	end
+end
+
 vim.api.nvim_create_user_command("ArduinoBuild", function()
-  vim.cmd("write")
+	local cmd = string.format("arduino-cli compile --fqbn %s .", arduino.fqbn)
+	local output = vim.fn.systemlist(cmd)
 
-  local cmd = string.format(
-    "arduino-cli compile --fqbn %s .",
-    arduino.fqbn
-  )
-
-  local output = vim.fn.system(cmd)
-
-  if vim.v.shell_error ~= 0 then
-    vim.notify("Arduino build failed:\n" .. output, vim.log.levels.ERROR)
-    return
-  end
-
-  vim.notify("Build successful", vim.log.levels.INFO)
+	open_qf_list({ title = "Arduino Upload", lines = output })
+	tell_status("Build")
 end, {})
 
--- -------------------------
--- Upload
--- -------------------------
 vim.api.nvim_create_user_command("ArduinoUpload", function()
-  vim.cmd("write")
+	local cmd = string.format("arduino-cli compile --fqbn %s . && arduino-cli upload -p %s --fqbn %s .", arduino.fqbn, arduino.port, arduino.fqbn)
 
-  local port = get_port()
-  local build_dir = "/tmp/arduino-build"
-
-  local cmd = string.format(
-    "arduino-cli compile --fqbn %s . --build-path %s && arduino-cli upload -p %s --fqbn %s --input-dir %s",
-    arduino.fqbn,
-    build_dir,
-    port,
-    arduino.fqbn,
-    build_dir
-  )
-
-  local output = vim.fn.system(cmd)
-
-  if vim.v.shell_error ~= 0 then
-    vim.notify("Upload failed:\n" .. output, vim.log.levels.ERROR)
-    return
-  end
-
-  vim.notify("Upload successful on " .. port, vim.log.levels.INFO)
+	local output = vim.fn.systemlist(cmd)
+	open_qf_list({ title = "Arduino Build", lines = output })
+	tell_status("Upload")
 end, {})
 
--- -------------------------
--- Serial monitor toggle
--- -------------------------
 local serial_job = nil
-
 vim.api.nvim_create_user_command("ArduinoSerial", function()
-  local port = get_port()
+	vim.cmd("enew")
+	if serial_job then
+		vim.fn.jobstop(serial_job)
+		serial_job = nil
+	end
 
-  if serial_job then
-    vim.fn.jobstop(serial_job)
-    serial_job = nil
-    vim.notify("Serial stopped")
-    return
-  end
-
-  serial_job = vim.fn.termopen(
-    string.format(
-      "arduino-cli monitor -p %s -c baudrate=%s",
-      port,
-      arduino.baud
-    )
-  )
-
-  vim.notify("Serial started on " .. port)
+	local command = string.format("arduino-cli monitor -p %s -c baudrate=%s", arduino.port, arduino.baud)
+	serial_job = vim.fn.jobstart(command, { term = true })
 end, {})
 
--- -------------------------
--- Keymaps
--- -------------------------
-local map = vim.keymap.set
-
-map("n", "<leader>ab", "<cmd>ArduinoBuild<CR>", { desc = "Arduino Build" })
-map("n", "<leader>au", "<cmd>ArduinoUpload<CR>", { desc = "Arduino Upload" })
-map("n", "<leader>am", "<cmd>ArduinoSerial<CR>", { desc = "Arduino Serial Toggle" })
-map("n", "<leader>ap", function()
-  vim.notify(get_port())
-end, { desc = "Arduino Show Port" })
+vim.keymap.set("n", "<leader>ab", "<cmd>ArduinoBuild<CR>", { desc = "Arduino Build" })
+vim.keymap.set("n", "<leader>au", "<cmd>ArduinoUpload<CR>", { desc = "Arduino Upload" })
+vim.keymap.set("n", "<leader>am", "<cmd>ArduinoSerial<CR>", { desc = "Arduino Serial Monitor" })
