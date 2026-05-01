@@ -38,7 +38,7 @@ oil.setup({
 	use_default_keymaps = false,
 	keymaps = {
 		["<CR>"] = "actions.select",
-		["cd"] = "actions.tcd",
+		["cd"] = { "actions.tcd", mode = { "n" } },
 		["-"] = "actions.parent",
 		["C"] = { callback = oil_copy, mode = { "n", "v" } },
 	},

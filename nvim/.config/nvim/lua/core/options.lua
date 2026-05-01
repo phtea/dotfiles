@@ -31,12 +31,12 @@ vim.cmd [[
 vim.g.autoformat_enabled = false
 
 local paths = {
-  undo  = vim.fn.stdpath("data") .. "/undo",
-  cache = vim.fn.stdpath("cache"),
+	undo  = vim.fn.stdpath("data") .. "/undo",
+	cache = vim.fn.stdpath("cache"),
 }
 
 for _, path in pairs(paths) do
-  vim.fn.mkdir(path, "p")
+	vim.fn.mkdir(path, "p")
 end
 
 -- Persistent undo
