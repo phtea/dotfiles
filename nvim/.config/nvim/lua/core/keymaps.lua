@@ -11,29 +11,19 @@ vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard t
 vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
 vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
-vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment: current line" })
-vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment: selected lines" })
-
 vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { silent = true, desc = "Prefer that over vim's help" })
 vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 
+-- Copy paths
 vim.keymap.set("n", "<leader>pr", H.copy_relative_path, { desc = "Copy: relative path" })
 vim.keymap.set("n", "<leader>pa", H.copy_absolute_path, { desc = "Copy: absolute path" })
 vim.keymap.set("n", "<leader>pf", H.copy_filename, { desc = "Copy: filename" })
 vim.keymap.set("n", "<leader>pd", H.copy_directory, { desc = "Copy: directory path" })
 
-vim.keymap.set("n", "<leader>R", H.save_and_restart_session, { desc = "Restart current session" })
-
-vim.keymap.set("n", "<leader>nn", H.open_notes, { desc = "Notes: Open global notes (no jumplist)" })
-vim.keymap.set("x", "<leader>na", H.append_selection_to_notes, { desc = "Notes: Append selection to global notes" })
-
-vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
-
 -- Lsp
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition", })
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
-vim.keymap.set("n", "<leader>tf", H.toggle_autoformat, { desc = "LSP: Toggle autoformat" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
 -- Perfect command that does everything

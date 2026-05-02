@@ -4,9 +4,6 @@ local function autocmd(event, opts)
 	vim.api.nvim_create_autocmd(event, opts)
 end
 
--- Highlight yank
-autocmd('TextYankPost', { callback = function() vim.highlight.on_yank() end })
-
 -- Syntax highlighting for dotenv files
 autocmd('BufRead', {
 	pattern = { '.env', '.env.*' },
@@ -42,18 +39,6 @@ autocmd('LspAttach', {
 		-- Completion
 		if client:supports_method('textDocument/completion') then
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false, })
-		end
-
-		-- Auto-format on save.
-		if not client:supports_method('textDocument/willSaveWaitUntil') and client:supports_method('textDocument/formatting') then
-			vim.api.nvim_create_autocmd('BufWritePre', {
-				buffer = args.buf,
-				callback = function()
-					if not vim.g.autoformat_enabled then return end
-
-					vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
-				end,
-			})
 		end
 	end,
 })

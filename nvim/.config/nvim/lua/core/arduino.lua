@@ -105,10 +105,9 @@ local function require_port()
 	return false
 end
 
-vim.api.nvim_create_user_command("ArduinoDetectPort", load_port_async, {})
-
 vim.api.nvim_create_autocmd("FileType", { pattern = "arduino", callback = load_port_async, })
 
+vim.api.nvim_create_user_command("ArduinoDetectPort", load_port_async, {})
 vim.api.nvim_create_user_command("ArduinoBuild", function()
 	run_async("Build", { "arduino-cli", "compile", "--fqbn", arduino.fqbn, ".", })
 end, {})

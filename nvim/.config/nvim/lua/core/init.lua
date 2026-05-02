@@ -1,4 +1,4 @@
 require("core.options")
-require("core.remap")
+require("core.keymaps")
 require("core.autocmds")
 require("core.arduino")

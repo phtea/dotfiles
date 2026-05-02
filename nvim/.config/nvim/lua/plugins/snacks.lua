@@ -84,7 +84,3 @@ vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = 
 vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git status" })
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
 vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
-
--- Lsp
-vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics_buffer() end, { desc = "Buffer Diagnostics" })
-vim.keymap.set("n", "<leader>D", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
