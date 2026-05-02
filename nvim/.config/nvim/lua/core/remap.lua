@@ -33,12 +33,12 @@ vim.keymap.set("n", "<leader>R", H.save_and_restart_session, { desc = "Restart c
 vim.keymap.set("n", "<leader>nn", H.open_notes, { desc = "Notes: Open global notes (no jumplist)" })
 vim.keymap.set("x", "<leader>na", H.append_selection_to_notes, { desc = "Notes: Append selection to global notes" })
 
-vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
-vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition", })
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
 vim.keymap.set("n", "<leader>tf", H.toggle_autoformat, { desc = "LSP: Toggle autoformat" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
 vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
 
+-- Perfect command that does everything
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })
