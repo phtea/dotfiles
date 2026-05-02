@@ -7,7 +7,7 @@ vim.cmd [[
 	set showtabline=0  " don't show tabs
 	set undofile noswapfile " file handling
 	set timeoutlen=5000 " wait for combination for 5 seconds (when I'm thinking slow)
-	set exrc " for .nvim.lua (project-specific files)
+	set exrc secure " for .nvim.lua (project-specific files)
 	" UI
 	set termguicolors
 	set winborder=single

@@ -1,5 +1,5 @@
 vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
-oil = require("oil")
+local oil = require("oil")
 
 local function oil_copy()
 	local dir = oil.get_current_dir()

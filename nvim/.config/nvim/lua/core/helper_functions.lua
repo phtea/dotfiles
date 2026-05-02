@@ -73,14 +73,14 @@ end
 
 -- Explorer
 local function is_wsl()
-	local uname = vim.loop.os_uname()
+	local uname = vim.uv.os_uname()
 	return uname.release:match("Microsoft") or uname.release:match("WSL")
 end
 
 M.open_explorer = function()
 	local dir = vim.fn.expand("%:p:h")
 	if dir == "" then dir = vim.fn.getcwd() end
-	local sys = vim.loop.os_uname().sysname
+	local sys = vim.uv.os_uname().sysname
 
 	if is_wsl() then
 		local win_path = dir:gsub("^/mnt/([a-z])", "%1:"):gsub("/", "\\")
