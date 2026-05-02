@@ -8,20 +8,15 @@ vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true, desc = "Window prefix 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank: to system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard to EOL" })
 
-vim.keymap.set("n", "<F1>", ":cprev<CR>", { silent = true, desc = "Quickfix: prev" })
-vim.keymap.set("n", "<F2>", ":cnext<CR>", { silent = true, desc = "Quickfix: next" })
+vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
+vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment: current line" })
 vim.keymap.set("v", "<leader>c", "gc", { remap = true, desc = "Comment: selected lines" })
 
 vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { silent = true, desc = "Prefer that over vim's help" })
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
+vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
-
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/gIc<Left><Left><Left><Left>]],
-	{ desc = "Replace word under cursor in file" })
-vim.keymap.set("v", "<leader>s", [["sy:%s/<C-R>s/<C-R>s/gIc<Left><Left><Left><Left>]],
-	{ desc = "Replace visual selection in file" })
 
 vim.keymap.set("n", "<leader>pr", H.copy_relative_path, { desc = "Copy: relative path" })
 vim.keymap.set("n", "<leader>pa", H.copy_absolute_path, { desc = "Copy: absolute path" })
@@ -33,12 +28,13 @@ vim.keymap.set("n", "<leader>R", H.save_and_restart_session, { desc = "Restart c
 vim.keymap.set("n", "<leader>nn", H.open_notes, { desc = "Notes: Open global notes (no jumplist)" })
 vim.keymap.set("x", "<leader>na", H.append_selection_to_notes, { desc = "Notes: Append selection to global notes" })
 
+vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
+
+-- Lsp
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition", })
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
 vim.keymap.set("n", "<leader>tf", H.toggle_autoformat, { desc = "LSP: Toggle autoformat" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
-
-vim.keymap.set("n", "<leader>ex", H.open_explorer, { desc = "Open folder in system explorer" })
 
 -- Perfect command that does everything
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })

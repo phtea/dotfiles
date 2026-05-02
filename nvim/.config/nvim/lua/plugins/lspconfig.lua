@@ -10,5 +10,4 @@ vim.lsp.enable({
 	"arduino_language_server",
 })
 
-vim.diagnostic.config({})
 vim.diagnostic.enable(false) -- disabled by default
