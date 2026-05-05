@@ -26,14 +26,17 @@
     pretty = format:%C(auto)%h%d %s %C(blue)%cr %C(black)%an
 
 [merge]
-    tool = vimdiff
-
-[diff]
-    tool = vimdiff
+	tool = nvimdiff
 
 [mergetool]
-    keepBackup = false
-    prompt = false
+	prompt = false
+	keepBackup = false
+
+[mergetool "nvimdiff"]
+	layout = LOCAL,BASE,REMOTE / MERGED
+
+[diff]
+    tool = nvimdiff
 
 [user]
     email = phtea@mail.com
