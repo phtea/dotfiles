@@ -3,9 +3,6 @@ theme = "dark_plus"
 [editor]
 line-number = "relative"
 
-[editor.cursor-shape]
-insert = "bar"
-
 [editor.statusline]
 left = [ "mode","version-control", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]

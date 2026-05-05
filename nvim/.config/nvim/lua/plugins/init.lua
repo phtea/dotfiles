@@ -1,18 +1,7 @@
--- Picker + Lazygit
-require("plugins.snacks")
-
--- Git Signs
-require("plugins.gitsigns")
-
--- Highlight plugins
+require("plugins.snacks") -- Picker + Lazygit
+require("plugins.gitsigns") -- Git Signs
 require("plugins.treesitter")      -- Syntax highlighting
 require("plugins.vim-highlighter") -- Permanently highlight selections
-
--- Lsp
-require("plugins.lspconfig")
-
--- File management
-require("plugins.oil")
-
--- Colorscheme
-require("plugins.colorscheme")
+require("plugins.lspconfig") -- Lsp
+require("plugins.oil") -- File management
+require("plugins.colorscheme") -- Colorscheme
