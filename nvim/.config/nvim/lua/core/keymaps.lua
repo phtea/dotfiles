@@ -11,15 +11,10 @@ vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard t
 vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
 vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
-vim.keymap.set("i", "<F1>", "<Esc>g<C-G>", { silent = true, desc = "Prefer that over vim's help" })
 vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 
--- Copy paths
-vim.keymap.set("n", "<leader>pr", H.copy_relative_path, { desc = "Copy: relative path" })
-vim.keymap.set("n", "<leader>pa", H.copy_absolute_path, { desc = "Copy: absolute path" })
-vim.keymap.set("n", "<leader>pf", H.copy_filename, { desc = "Copy: filename" })
-vim.keymap.set("n", "<leader>pd", H.copy_directory, { desc = "Copy: directory path" })
+vim.keymap.set("n", "<leader>p", H.copy_relative_path, { desc = "Copy: relative path" })
 
 -- Lsp
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition", })
