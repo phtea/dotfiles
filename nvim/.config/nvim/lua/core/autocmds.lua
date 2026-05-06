@@ -16,15 +16,4 @@ autocmd('BufRead', {
 	callback = function() vim.bo.filetype = 'yaml' end,
 })
 
-autocmd('LspAttach', {
-	callback = function(args)
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if not client then return end
-		-- Completion
-		if client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false, })
-		end
-	end,
-})
-
 autocmd("TermOpen", { command = "startinsert", })
