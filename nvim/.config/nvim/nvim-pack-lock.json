@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "arduino.nvim": {
+      "rev": "03fed78121d04923bf14a0ef314ee7646240099f",
+      "src": "https://github.com/phtea/arduino.nvim"
+    },
     "gitsigns.nvim": {
       "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"

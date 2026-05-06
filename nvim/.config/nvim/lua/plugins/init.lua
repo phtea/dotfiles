@@ -5,3 +5,4 @@ require("plugins.vim-highlighter") -- Permanently highlight selections
 require("plugins.lspconfig") -- Lsp
 require("plugins.oil") -- File management
 require("plugins.colorscheme") -- Colorscheme
+require("plugins.arduino") -- My arduino development plugin
