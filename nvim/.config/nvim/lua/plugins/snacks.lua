@@ -1,17 +1,7 @@
 vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 
 require("snacks").setup({
-	lazygit = {
-		win = {
-			backdrop = false,
-			style = "lazygit",
-			height = 0.99,
-			width = 0,
-		},
-		theme = {
-			selectedLineBgColor = { bg = "LspReferenceText" }, -- set to `default` to have no background colour
-		},
-	},
+	lazygit = { win = { backdrop = false, height = 0, width = 0, }, },
 	picker = {
 		prompt = "",
 		hidden = true,
@@ -27,8 +17,6 @@ require("snacks").setup({
 			input = {
 				keys = {
 					["<Esc>"] = { "close", mode = { "i", "n" } },
-					["<Tab>"] = { "list_down", mode = { "i", "n" } },
-					["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 					["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
 					["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
 					["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
