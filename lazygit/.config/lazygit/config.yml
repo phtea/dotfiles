@@ -1,6 +1,24 @@
 gui:
   skipDiscardChangeWarning: false
   language: 'en'
+  theme:
+    cherryPickedCommitBgColor:
+      - "#205247"
+    cherryPickedCommitFgColor:
+      - "#4EC9B0"
+    defaultFgColor:
+      - "#d4d4d4"
+    inactiveBorderColor:
+    optionsTextColor:
+      - "#dcdcaa"
+    searchingActiveBorderColor:
+      - "bold"
+    selectedLineBgColor:
+      - "#264f78"
+    unstagedChangesColor:
+      - "#f44747"
+    activeBorderColor:
+      - "bold"
 
 os:
   editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send "{{line}}gg")'

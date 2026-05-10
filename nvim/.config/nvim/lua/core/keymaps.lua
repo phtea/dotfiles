@@ -21,5 +21,12 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
--- Perfect command that does everything
+-- Lazygit
+vim.keymap.set("n", "<leader>gl", function()
+  local file = vim.fn.expand("%:.")
+  vim.cmd("enew|setl bh=wipe|terminal lazygit --filter=" .. vim.fn.shellescape(file))
+end, { desc = "Lazygit current file history" })
+vim.keymap.set("n", "<leader>l", "<CMD>enew | setlocal bufhidden=wipe | term lazygit<CR>", { desc = "Lazygit" })
+
+-- Perfect.
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })

@@ -1,7 +1,6 @@
 vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 
 require("snacks").setup({
-	lazygit = { win = { backdrop = false, height = 0, width = 0, }, },
 	picker = {
 		prompt = "",
 		hidden = true,
@@ -70,5 +69,3 @@ vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = 
 
 -- Git
 vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git status" })
-vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit.log_file() end, { desc = "Git log file" })
-vim.keymap.set("n", "<leader>l", function() Snacks.lazygit() end, { desc = "Open lazygit" })
