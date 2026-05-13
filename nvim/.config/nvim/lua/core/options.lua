@@ -1,7 +1,7 @@
 vim.cmd([[
   set hlsearch incsearch ignorecase smartcase number relativenumber tabstop=2 shiftwidth=2 scrolloff=5 signcolumn=yes
   set path+=** lazyredraw cursorline cursorlineopt=number showtabline=0 switchbuf=useopen confirm
-  set undofile noswapfile exrc secure guicursor=n-v-c-i-r-sm-t:block,o:hor20 termguicolors winborder=single
+  set undofile noswapfile exrc secure guicursor= termguicolors winborder=single
   set complete=o,.,w,b completeopt=menuone,noinsert,fuzzy,popup
 ]])
 
