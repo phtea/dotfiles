@@ -54,26 +54,29 @@ alias ..="cd .." n="nvim"
 alias t="tmux-here"
 
 # OP: Do a command on file update
-ondo() {
-  if [ $# -ne 2 ]; then
-    echo "Usage: ondo <file-pattern> <command>"
+dowhen() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: dowhen <command> <patterns...>"
     return 1
   fi
 
-  local file_pattern="$1"
-  local command="$2"
-
-  if ! command -v entr &> /dev/null; then
+  if ! command -v entr >/dev/null; then
     echo "entr is required, but it's not installed."
     return 1
   fi
 
-  # Use entr to watch for file changes and execute the command
-  find . -name "$file_pattern" | entr -r sh -c '
+  local command="$1"
+  shift
+
+  (
+    shopt -s globstar nullglob extglob
+
+    printf '%s\n' "$@"
+  ) | entr -r sh -c "
     clear
-    echo "[$(date +"%Y-%m-%d %H:%M:%S")] $ '"$command"'"
-    '"$command"'
-  '
+    echo \"[\$(date '+%H:%M:%S')] $command\"
+    $command
+  "
 }
 
 # Enable color support for ls and grep
