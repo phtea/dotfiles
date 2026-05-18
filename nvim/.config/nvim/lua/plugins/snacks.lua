@@ -7,9 +7,7 @@ require("snacks").setup({
 		ignored = true,
 		icons = {
 			files = { enabled = false, },
-			ui = {
-				live = "󰐰",
-			},
+			ui = { live = "󰐰", },
 		},
 		win = {
 			border = "single",
@@ -43,21 +41,9 @@ require("snacks").setup({
 	bigfile = { enabled = true, notify = false, },
 })
 
--- Basic pickers
+-- Keymaps
 vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Picker of all pickers" })
-vim.keymap.set("n", "<leader>f",
-	function()
-		Snacks.picker.files({
-			hidden = true,
-			exclude = {
-				"*.gz", "*.zip", "*.tar", "*.tgz", "*.xz", "*.so",
-				"*.bz2", "*.7z", "*.rar", "*.zst", "*.jar", "*.war",
-			},
-		})
-	end,
-	{ desc = "Find files" }
-)
-vim.keymap.set("n", "<leader>F", function() Snacks.picker.files({ hidden = true, ignored = true, }) end, { desc = "Find files (no ignores)" })
+vim.keymap.set("n", "<leader>f", function() Snacks.picker.files({ hidden = true, }) end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
@@ -66,6 +52,4 @@ vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc 
 vim.keymap.set("n", "<leader>h", function() Snacks.picker.help() end, { desc = "Help Pages" })
 vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Visual selection or word" })
 vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
-
--- Git
 vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git status" })
