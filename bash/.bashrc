@@ -102,7 +102,7 @@ parse_git_branch() { git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ /'; }
 
 # PS1 prompt with colors
 GREEN='\[\033[01;32m\]' BLUE='\[\033[01;34m\]' RED='\[\033[31m\]' RESET='\[\033[00m\]'
-export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET} $ "
+export PS1="${GREEN}\u ${BLUE}\w${RESET}${RED}\$(parse_git_branch)${RESET}\n> "
 
 # Add scripts here
 [ -f "$HOME/.bash/custom_functions" ] && source "$HOME/.bash/custom_functions"
