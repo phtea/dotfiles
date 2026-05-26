@@ -18,10 +18,10 @@ autocmd('BufRead', {
 
 -- Terminal options
 autocmd("TermOpen", { callback = function()
-	vim.cmd[[setlocal noshowmode laststatus=0 | startinsert]]
+	vim.cmd[[setlocal cmdheight=0 laststatus=0 | startinsert]]
 end})
 
 autocmd("TermClose", { callback = function(e)
 	vim.schedule(function() pcall(vim.api.nvim_buf_delete, e.buf, { force = true }) end) -- free terminal resources
-	vim.cmd[[setlocal showmode laststatus=2]]
+	vim.cmd[[setlocal cmdheight& laststatus=2]]
 end})
