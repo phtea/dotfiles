@@ -1,14 +1,60 @@
 #!/usr/bin/env bash
 
-# Get current sessions
-selected=$(tmux list-sessions -F "#{session_name}" | fzf --info=hidden --no-color)
+FRECENCY_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/tmux-session-frecency"
+mkdir -p "$(dirname "$FRECENCY_FILE")"
+touch "$FRECENCY_FILE"
 
-# If nothing is chosen - quit
+current=""
+[[ -n $TMUX ]] && current="$(tmux display-message -p '#S')"
+
+# Show sessions except current, sorted by frecency score desc
+selected=$(
+  tmux list-sessions -F "#{session_name}" |
+    awk -v current="$current" '$0 != current' |
+    awk -v file="$FRECENCY_FILE" '
+      BEGIN {
+        while ((getline < file) > 0)
+          score[$1] = $2
+      }
+      {
+        printf "%6d  %s\n", score[$0] + 0, $0
+      }
+    ' |
+    sort -rn |
+    fzf \
+      --info=hidden \
+      --delimiter=' ' \
+			--color='bg+:-1,fg+:#ffffff' \
+			--padding=6,30 \
+			--prompt='Session  ' \
+			--pointer=' ' \
+      --with-nth=2.. |
+    awk '{print $NF}'
+)
+
 [[ -z $selected ]] && exit 0
 
-# If inside tmux - switch client
+# Update frecency: simple weighted count with time decay-ish bump
+now=$(date +%s)
+tmp=$(mktemp)
+
+awk -v selected="$selected" -v now="$now" '
+  $1 == selected {
+    # score = old score + 100, slightly decayed by age in days
+    age_days = (now - $3) / 86400
+    decay = 0.95 ^ age_days
+    $2 = int(($2 * decay) + 100)
+    $3 = now
+    seen = 1
+  }
+  { print }
+  END {
+    if (!seen) print selected, 100, now
+  }
+' "$FRECENCY_FILE" > "$tmp" && mv "$tmp" "$FRECENCY_FILE"
+
 if [[ -n $TMUX ]]; then
-    tmux switch-client -t "$selected"
+  tmux switch-client -t "$selected"
 else
-    tmux attach-session -t "$selected"
+  tmux attach-session -t "$selected"
 fi
