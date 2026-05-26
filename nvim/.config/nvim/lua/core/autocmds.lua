@@ -16,6 +16,12 @@ autocmd('BufRead', {
 	callback = function() vim.bo.filetype = 'yaml' end,
 })
 
--- Terminal goodies
-autocmd("TermOpen", { command = "startinsert", })
-autocmd("TermClose", { callback = function(e) vim.schedule(function() pcall(vim.api.nvim_buf_delete, e.buf, { force = true }) end) end, })
+-- Terminal options
+autocmd("TermOpen", { callback = function()
+	vim.cmd[[setlocal noshowmode laststatus=0 | startinsert]]
+end})
+
+autocmd("TermClose", { callback = function(e)
+	vim.schedule(function() pcall(vim.api.nvim_buf_delete, e.buf, { force = true }) end) -- free terminal resources
+	vim.cmd[[setlocal showmode laststatus=2]]
+end})
