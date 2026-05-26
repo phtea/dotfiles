@@ -5,3 +5,15 @@ window-decoration = none
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
+
+# Keybinds for Alt+Number
+keybind = alt+1=text:\x1b1
+keybind = alt+2=text:\x1b2
+keybind = alt+3=text:\x1b3
+keybind = alt+4=text:\x1b4
+keybind = alt+5=text:\x1b5
+keybind = alt+6=text:\x1b6
+keybind = alt+7=text:\x1b7
+keybind = alt+8=text:\x1b8
+keybind = alt+9=text:\x1b9
+keybind = alt+0=text:\x1b0
