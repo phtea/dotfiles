@@ -21,6 +21,10 @@
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim"
     },
+    "orgmode": {
+      "rev": "4f02f19b3c9a740828befb51c3d33b3be7aa2e2b",
+      "src": "https://github.com/nvim-orgmode/orgmode"
+    },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
