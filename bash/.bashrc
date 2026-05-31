@@ -1,3 +1,6 @@
+# Do nothing in non-interactive shells
+[[ $- != *i* ]] && return
+
 # History settings
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTCONTROL=ignoredups:erasedups

@@ -7,6 +7,7 @@ vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true, desc = "Window prefix 
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank: to system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard to EOL" })
+vim.keymap.set("n", "<leader>c", [[<CMD>%y+<CR>]], { desc = "Copy full file content" })
 
 vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
 vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
