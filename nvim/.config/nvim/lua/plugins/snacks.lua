@@ -2,15 +2,11 @@ vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 
 require("snacks").setup({
 	picker = {
-		prompt = "",
+		layout = { preset = "ivy_split" },
 		hidden = true,
 		ignored = true,
-		icons = {
-			files = { enabled = false, },
-			ui = { live = "󰐰", },
-		},
+		icons = { files = { enabled = false, }, },
 		win = {
-			border = "single",
 			input = {
 				keys = {
 					["<Esc>"] = { "close", mode = { "i", "n" } },
@@ -20,28 +16,10 @@ require("snacks").setup({
 				}
 			}
 		},
-		layout = {
-			layout = {
-				backdrop = false,
-				box = "horizontal",
-				width = 0.9,
-				min_width = 120,
-				height = 0.85,
-				{
-					box = "vertical",
-					border = "single",
-					title = "{title} {live} {flags}",
-					{ win = "input", height = 1,     border = "bottom" },
-					{ win = "list",  border = "none" },
-				},
-				{ win = "preview", title = "{preview}", border = "single", width = 0.5 },
-			},
-		}
 	},
 	bigfile = { enabled = true, notify = false, },
 })
 
--- Keymaps
 vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Picker of all pickers" })
 vim.keymap.set("n", "<leader>f", function() Snacks.picker.files({ hidden = true, }) end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
