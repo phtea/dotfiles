@@ -49,7 +49,7 @@ require("snacks").setup({
 vim.keymap.set("n", "<leader><space>", function() Snacks.picker() end, { desc = "Picker of all pickers" })
 vim.keymap.set("n", "<leader>f", function() Snacks.picker.files({ hidden = true, }) end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep({ ignored = false }) end, { desc = "Live grep" })
-vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers({ current = false, sort_lastused = true }) end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>'", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
 vim.keymap.set("n", "<leader>j", function() Snacks.picker.jumps() end, { desc = "Jumps picker" })
 vim.keymap.set("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
