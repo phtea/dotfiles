@@ -2,7 +2,33 @@ vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 
 require("snacks").setup({
 	picker = {
-		layout = { preset = "ivy_split" },
+		layout = {
+			layout = {
+				box = "vertical",
+				border = "none",
+
+				{ -- preview ABOVE
+					win = "preview",
+					title_pos = "left",
+					height = 0.65,
+				},
+
+				{ -- search/list BELOW
+					box = "vertical",
+					height = 0.35,
+
+					{ -- picker title/status above actual input
+						win = "input",
+						height = 1,
+						border = "top",
+						title = " {title} {live} {flags} ",
+						title_pos = "left",
+					},
+
+					{ win = "list" },
+				},
+			},
+		},
 		hidden = true,
 		ignored = true,
 		icons = { files = { enabled = false, }, },
