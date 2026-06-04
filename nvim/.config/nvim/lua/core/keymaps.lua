@@ -9,10 +9,10 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank: to system cli
 vim.keymap.set("n", "<leader>Y", [["+y$]], { desc = "Yank: to system clipboard to EOL" })
 vim.keymap.set("n", "<leader>c", [[<CMD>%y+<CR>]], { desc = "Copy full file content" })
 
-vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
-vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
-vim.keymap.set("n", "<M-p>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
-vim.keymap.set("n", "<M-n>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
+vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" }) -- Deprecated in favour of M-p
+vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" }) -- Deprecated in favour of M-n
+vim.keymap.set({ "n", "i" }, "<M-p>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
+vim.keymap.set({ "n", "i" }, "<M-n>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
 vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
