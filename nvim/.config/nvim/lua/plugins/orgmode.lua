@@ -11,3 +11,5 @@ require("orgmode").setup({
 })
 
 require('org-bullets').setup()
+
+vim.keymap.set('n', '<leader>ot', "<CMD>Org agenda t<CR>")

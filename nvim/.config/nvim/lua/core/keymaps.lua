@@ -33,3 +33,52 @@ vim.keymap.set("n", "<leader>l", "<CMD>term lazygit<CR>", { desc = "Lazygit" })
 
 -- Perfect.
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })
+
+-- AlignRegexp (straight from Emacs)
+vim.keymap.set("x", "<leader>a", ":AlignRegex<space>", { desc = "Align by regexp", })
+vim.api.nvim_create_user_command("AlignRegex", function(opts)
+  local pattern = opts.args
+  local start_line = opts.line1
+  local end_line = opts.line2
+
+  if pattern == "" then return end
+
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  local max_width = 0
+  local data = {}
+
+  for i, line in ipairs(lines) do
+    local m = vim.fn.matchstrpos(line, pattern)
+
+    -- m = { matched_text, start_index, end_index }
+    if m[2] >= 0 then
+      local before = line:sub(1, m[2])
+      local before_trimmed = before:gsub("%s+$", "")
+      local width = vim.fn.strdisplaywidth(before_trimmed)
+
+      data[i] = {
+        start_col = m[2],
+        before = before_trimmed,
+        after = line:sub(m[2] + 1),
+        width = width,
+      }
+
+      max_width = math.max(max_width, width)
+    end
+  end
+
+  for i, line in ipairs(lines) do
+    local d = data[i]
+
+    if d then
+      local spaces = string.rep(" ", max_width - d.width + 1)
+      lines[i] = d.before .. spaces .. d.after
+    end
+  end
+
+  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, lines)
+end, {
+  range = true,
+  nargs = 1,
+})

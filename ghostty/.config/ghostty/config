@@ -20,3 +20,7 @@ keybind = alt+digit_7=text:\x1b7
 keybind = alt+digit_8=text:\x1b8
 keybind = alt+digit_9=text:\x1b9
 keybind = alt+digit_0=text:\x1b0
+
+# For different layouts
+keybind = ctrl+shift+key_c=copy_to_clipboard
+keybind = ctrl+shift+key_v=paste_from_clipboard
