@@ -9,3 +9,4 @@ list-*.tgz
 *vimrc.un*
 /wallpapers/Pictures/Screenshots
 /vim/.vim/
+.npmrc
