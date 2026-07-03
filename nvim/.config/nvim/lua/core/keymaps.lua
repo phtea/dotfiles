@@ -20,7 +20,7 @@ vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 vim.keymap.set("n", "<leader>p", H.copy_relative_path, { desc = "Copy: relative path" })
 
 -- Lsp
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Goto Definition", })
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { desc = "LSP: Goto Definition", })
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
