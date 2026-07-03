@@ -1,16 +1,5 @@
-vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
-
 require('gitsigns').setup({
-	current_line_blame      = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-	current_line_blame_opts = {
-		virt_text = true,
-		virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-		delay = 500,
-		ignore_whitespace = false,
-		virt_text_priority = 100,
-		use_focus = true,
-	},
-	on_attach               = function(bufnr)
+	on_attach = function(bufnr)
 		local gitsigns = require('gitsigns')
 
 		local function map(mode, l, r, opts)
@@ -46,6 +35,5 @@ require('gitsigns').setup({
 		-- Text object
 		map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
 	end,
-	signs_staged_enable     = false,
-	numhl                   = false,
+	signs_staged_enable = false,
 })

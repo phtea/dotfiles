@@ -1,5 +1,3 @@
-vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main' } })
-
 local languages = { "lua", "python", "bash", "vim", "javascript", "typescript", "json", "yaml", "markdown", "ruby" }
 
 require('nvim-treesitter').install(languages)

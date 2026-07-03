@@ -1,4 +1,3 @@
-vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 local oil = require("oil")
 
 local function oil_copy()
