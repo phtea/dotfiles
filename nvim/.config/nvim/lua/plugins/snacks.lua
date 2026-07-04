@@ -8,12 +8,12 @@ require("snacks").setup({
 				{ -- preview ABOVE
 					win = "preview",
 					title_pos = "left",
-					height = 0.65,
+					height = 0.549, -- very precise numbers ik lol
 				},
 
 				{ -- search/list BELOW
 					box = "vertical",
-					height = 0.35,
+					height = 0.451, -- but it looks good to me and seems to work just fine
 
 					{ -- picker title/status above actual input
 						win = "input",
