@@ -13,9 +13,3 @@ autocmd("TermClose", { callback = function(e)
 	vim.schedule(function() pcall(vim.api.nvim_buf_delete, e.buf, { force = true }) end) -- free terminal resources
 	vim.cmd[[setlocal cmdheight& laststatus=2]]
 end})
-
--- Don't show autocompletion for this type of buffers
-autocmd("FileType", {
-	pattern = "snacks_picker_input",
-	callback = function() vim.cmd[[setlocal noautocomplete]] end,
-})
