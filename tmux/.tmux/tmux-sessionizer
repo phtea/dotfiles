@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '\e[6 q' # Thin cursor
 
 FRECENCY_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/tmux-session-frecency"
 mkdir -p "$(dirname "$FRECENCY_FILE")"
@@ -21,14 +22,14 @@ selected=$(
       }
     ' |
     sort -rn |
-    fzf \
-      --info=hidden \
-      --delimiter=' ' \
-			--color='bg+:-1,fg+:#ffffff' \
-			--padding=6,30 \
-			--prompt='Session  ' \
-			--pointer=' ' \
-      --with-nth=2.. |
+		fzf \
+  --info=hidden \
+  --delimiter=' ' \
+  --color='bg:#1F1F1F,bg+:#1F1F1F,fg:#888888,fg+:#D4D4D4,prompt:#888888,hl:underline:-1,hl+:underline:-1' \
+  --prompt='Session  ' \
+  --layout=reverse \
+  --pointer=' ' \
+  --with-nth=2.. |
     awk '{print $NF}'
 )
 
