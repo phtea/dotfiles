@@ -40,6 +40,7 @@ oil.setup({
 		["cd"] = { "actions.tcd", mode = { "n" } },
 		["-"] = "actions.parent",
 		["C"] = { callback = oil_copy, mode = { "n", "v" } },
+		["gx"] = "actions.open_external",
 	},
 	buf_options = { bufhidden = "", buflisted = false },
 })
