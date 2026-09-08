@@ -56,3 +56,4 @@ vim.keymap.set("n", "<leader>D", function() Snacks.picker.diagnostics() end, { d
 vim.keymap.set({ "n", "x" }, "<leader>*", function() Snacks.picker.grep_word({ ignored = false }) end, { desc = "Live grep visual selection or word" })
 vim.keymap.set("n", "<leader>i", function() Snacks.picker.icons() end, { desc = "Icons", })
 vim.keymap.set("n", "<leader>v", function() Snacks.picker.git_status({ ignored = false, }) end, { desc = "Git Status" })
+vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff Hunks" })
