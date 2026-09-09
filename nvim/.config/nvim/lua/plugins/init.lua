@@ -8,11 +8,13 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/Mofiqul/vscode.nvim",
 	"https://github.com/phtea/arduino.nvim",
+	"https://github.com/martindur/zdiff.nvim",
 })
 
 -- Configure plugins
 require("plugins.snacks")          -- Picker
 require("plugins.gitsigns")        -- Git Signs
+require("plugins.zdiff")           -- For quick code reviews
 require("plugins.treesitter")      -- Syntax highlighting
 require("plugins.vim-highlighter") -- Permanently highlight selections
 require("plugins.lspconfig")       -- Lsp
