@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>c", [[<CMD>%y+<CR>]], { desc = "Copy full file cont
 vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
 vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
-vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" })
+vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" }) -- might as well just use C-l instead
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 
 vim.keymap.set("n", "<leader>p", H.copy_relative_path, { desc = "Copy: relative path" })
