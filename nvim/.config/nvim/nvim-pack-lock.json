@@ -25,6 +25,10 @@
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
+    "vim-easy-align": {
+      "rev": "9815a55dbcd817784458df7a18acacc6f82b1241",
+      "src": "https://github.com/junegunn/vim-easy-align"
+    },
     "vim-highlighter": {
       "rev": "48a18eea513f651359457845e20b4c6202f6a84a",
       "src": "https://github.com/azabiong/vim-highlighter"
