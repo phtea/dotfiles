@@ -7,7 +7,6 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/Mofiqul/vscode.nvim",
-	"https://github.com/phtea/arduino.nvim",
 	"https://github.com/junegunn/vim-easy-align",
 })
 
@@ -19,5 +18,4 @@ require("plugins.vim-highlighter") -- Permanently highlight selections
 require("plugins.lspconfig")       -- Lsp
 require("plugins.oil")             -- File management
 require("plugins.colorscheme")     -- Colorscheme
-require("plugins.arduino")         -- My arduino development plugin
 require("plugins.easy_align")      -- Align by regexp
