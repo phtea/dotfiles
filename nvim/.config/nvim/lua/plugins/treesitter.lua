@@ -9,13 +9,5 @@ vim.api.nvim_create_autocmd('FileType', {
 	end,
 })
 
-local function ts_select(method)
-	return function()
-		if vim.treesitter.get_parser(nil, nil, { error = false }) then
-			require('vim.treesitter._select')[method](vim.v.count1)
-		end
-	end
-end
-
-vim.keymap.set({ 'n', 'x', 'o' }, '<M-o>', ts_select('select_parent'), { desc = 'TS: Select parent' })
-vim.keymap.set({ 'n', 'x', 'o' }, '<M-i>', ts_select('select_child'),  { desc = 'TS: Select child' })
+vim.keymap.set({"n","x","o"}, "<M-o>", function() vim.treesitter.select("parent", vim.v.count1) end, { desc = "TS: Select parent" })
+vim.keymap.set({"n","x","o"}, "<M-i>", function() vim.treesitter.select("child", vim.v.count1) end, { desc = "TS: Select child" })
