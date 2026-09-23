@@ -1,11 +1,6 @@
 theme = vscode-dark
 window-decoration = none
 
-# Shoutout - https://github.com/qFioofa/qFioofa-Ghostty
-custom-shader = shaders/cursor.glsl
-cursor-style = block
-cursor-style-blink = false
-
 # tabs not intrusive
 window-show-tab-bar = never
 
