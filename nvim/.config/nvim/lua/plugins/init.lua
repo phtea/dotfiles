@@ -4,6 +4,7 @@ vim.pack.add({
 	"https://github.com/lewis6991/gitsigns.nvim",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	"https://github.com/azabiong/vim-highlighter",
+	"https://github.com/wurli/visimatch.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/Mofiqul/vscode.nvim",
@@ -14,7 +15,8 @@ vim.pack.add({
 require("plugins.snacks")          -- Picker
 require("plugins.gitsigns")        -- Git Signs
 require("plugins.treesitter")      -- Syntax highlighting
-require("plugins.vim-highlighter") -- Permanently highlight selections
+require("plugins.vim-highlighter") -- Temporarily highlight selections
+require("plugins.visimatch")       -- Permanently highlight selections
 require("plugins.lspconfig")       -- Lsp
 require("plugins.oil")             -- File management
 require("plugins.colorscheme")     -- Colorscheme

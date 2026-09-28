@@ -29,6 +29,10 @@
       "rev": "48a18eea513f651359457845e20b4c6202f6a84a",
       "src": "https://github.com/azabiong/vim-highlighter"
     },
+    "visimatch.nvim": {
+      "rev": "824af03253f803189dcded80a3ebf3107d0a3b32",
+      "src": "https://github.com/wurli/visimatch.nvim"
+    },
     "vscode.nvim": {
       "rev": "aa1102a7e15195c9cca22730b09224a7f7745ba8",
       "src": "https://github.com/Mofiqul/vscode.nvim"
