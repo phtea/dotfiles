@@ -3,6 +3,8 @@ dotfiles, which include:
 - tmux (with tmux-sessionazier helper script)
 - vim
 - nvim
+- lazygit
+- lazydocker
 - ghostty
 - helix
 - i3

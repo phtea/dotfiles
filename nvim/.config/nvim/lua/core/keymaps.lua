@@ -28,6 +28,7 @@ vim.keymap.set("n", "<leader>gl", function()
   vim.cmd("term lazygit --filter=" .. vim.fn.shellescape(file))
 end, { desc = "Lazygit current file history" })
 vim.keymap.set("n", "<leader>l", "<CMD>term lazygit<CR>", { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>L", "<CMD>term lazydocker<CR>", { desc = "Lazydocker" })
 
 -- Perfect.
 vim.keymap.set("n", "<leader>x", ":ene|setl bt=nofile bh=wipe|0r !", { desc = "Scratch buffer + shell output" })
