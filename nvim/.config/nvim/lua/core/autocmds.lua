@@ -4,7 +4,6 @@ local function autocmd(event, opts)
 	vim.api.nvim_create_autocmd(event, opts)
 end
 
--- Terminal options
 autocmd("TermOpen", { callback = function()
 	vim.cmd[[setlocal cmdheight=0 laststatus=0 | startinsert]]
 end})

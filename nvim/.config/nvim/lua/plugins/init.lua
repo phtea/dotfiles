@@ -1,4 +1,3 @@
--- Add plugins
 vim.pack.add({
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",

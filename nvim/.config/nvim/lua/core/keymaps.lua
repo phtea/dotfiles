@@ -1,6 +1,5 @@
 local H = require("core.helper_functions")
 
--- Leader key
 vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>w", "<C-W>", { remap = true, desc = "Window prefix remap" })
@@ -12,7 +11,7 @@ vim.keymap.set("n", "<leader>c", [[<CMD>%y+<CR>]], { desc = "Copy full file cont
 vim.keymap.set("n", "<F1>", "<CMD>cprev<CR>", { silent = true, desc = "Quickfix: prev" })
 vim.keymap.set("n", "<F2>", "<CMD>cnext<CR>", { silent = true, desc = "Quickfix: next" })
 
-vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" }) -- might as well just use C-l instead
+vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true, desc = "Hide highlight" }) -- just use C-l instead
 vim.keymap.set("n", "<leader>=", "gg=G``", { desc = "Reindent whole file" })
 
 vim.keymap.set("n", "<leader>p", H.copy_relative_path, { desc = "Copy: relative path" })
@@ -22,7 +21,7 @@ vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { desc = "LSP
 vim.keymap.set("n", "<leader>td", H.toggle_diagnostics, { desc = "LSP: Toggle diagnostics" })
 vim.api.nvim_create_user_command("Fmt", function() vim.lsp.buf.format() end, { nargs = 0, desc = "LSP: Format buffer" })
 
--- Lazygit
+-- Terminal apps
 vim.keymap.set("n", "<leader>gl", function()
   local file = vim.fn.expand("%:.")
   vim.cmd("term lazygit --filter=" .. vim.fn.shellescape(file))

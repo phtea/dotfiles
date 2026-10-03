@@ -6,7 +6,6 @@ M.copy_relative_path = function()
 	vim.notify("Copied: " .. path)
 end
 
--- Toggle diagnostics
 M.toggle_diagnostics = function()
 	local enabled = not vim.diagnostic.is_enabled()
 	vim.diagnostic.enable(enabled)
