@@ -10,3 +10,8 @@ vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "LspReferenceText" })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "LspReferenceText" })
 vim.api.nvim_set_hl(0, "LspReferenceTarget", { link = "LspReferenceText" })
 vim.api.nvim_set_hl(0, "Visimatch", { bg = "#373737" })
+
+-- Snacks picker colors
+vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#AAAAAA", bg = "NONE", })
+vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#75BEFF", bold = true, })
+vim.api.nvim_set_hl(0, "SnacksPickerListCursorLine", { bg = "NONE", bold = true, })

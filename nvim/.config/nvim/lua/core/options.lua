@@ -1,5 +1,5 @@
 vim.cmd[[
-  set ignorecase smartcase number relativenumber tabstop=2 shiftwidth=2 signcolumn=yes
+  set ignorecase smartcase number relativenumber tabstop=2 shiftwidth=2 signcolumn=yes guicursor=
   set path+=** lazyredraw cursorline cursorlineopt=number showtabline=0 switchbuf=useopen confirm
   set undofile noswapfile winborder=single tm=10000
 ]]
