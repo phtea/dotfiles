@@ -32,6 +32,7 @@ require("snacks").setup({
 		icons = { files = { enabled = false, }, },
 		win = {
 			input = {
+				bo = { autocomplete = false, },
 				keys = {
 					["<Esc>"] = { "close", mode = { "i", "n" } },
 					["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
