@@ -9,7 +9,7 @@ gui:
       - "#d4d4d4"
 
     selectedLineBgColor:
-      - "#264f78"
+      - "#282828"
 
     optionsTextColor:
       - "#dcdcaa"

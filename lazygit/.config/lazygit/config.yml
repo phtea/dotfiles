@@ -3,7 +3,7 @@ gui:
   language: 'en'
   theme:
     cherryPickedCommitBgColor:
-      - "#205247"
+      - "#282828"
     cherryPickedCommitFgColor:
       - "#4EC9B0"
     defaultFgColor:
@@ -15,11 +15,11 @@ gui:
       - "#4EC9B0"
       - "bold"
     selectedLineBgColor:
-      - "#264f78"
+      - "#282828"
     unstagedChangesColor:
       - "#f44747"
     activeBorderColor:
-      - "#4EC9B0"
+      - "#4085C9"
       - "bold"
 
 os:
