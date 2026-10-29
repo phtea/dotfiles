@@ -7,8 +7,8 @@ vim.lsp.enable({
 vim.diagnostic.config({ virtual_text = true, })
 
 -- Completion
-vim.opt.autocomplete = true
-vim.opt.autocompletedelay = 250
+vim.opt.autocomplete = false -- by default
+vim.opt.autocompletedelay = 500
 vim.opt.complete = { "o", ".^5", "w^5", "b^5", "u^5" }
 vim.opt.completeopt = { "menuone", "noinsert", "popup", "fuzzy" }
 

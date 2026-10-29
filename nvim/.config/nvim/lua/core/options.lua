@@ -14,6 +14,7 @@ for _, path in pairs(paths) do
 end
 
 vim.opt.undodir = paths.undo
+vim.opt.statusline:prepend("%{get(b:, 'gitsigns_head', '') == '' ? '' : b:gitsigns_head . ' '}") -- git branch
 
 -- Filetype mappings
 vim.filetype.add({
