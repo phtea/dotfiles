@@ -1,8 +1,12 @@
 vim.cmd[[
   set ignorecase smartcase number relativenumber tabstop=2 shiftwidth=2 signcolumn=yes guicursor= pumheight=10
   set path+=** lazyredraw cursorline cursorlineopt=number showtabline=0 switchbuf=useopen confirm
-  set undofile noswapfile winborder=single pumborder=single tm=10000
+  set undofile noswapfile winborder=single tm=10000
 ]]
+
+-- Remove the mouse help entry and its separator from the context menu.
+pcall(vim.cmd, [[aunmenu PopUp.How-to\ disable\ mouse]])
+pcall(vim.cmd, "aunmenu PopUp.-2-")
 
 local paths = {
 	undo = vim.fn.stdpath("data") .. "/undo",

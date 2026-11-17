@@ -37,3 +37,36 @@ require('gitsigns').setup({
 	end,
 	signs_staged_enable = false,
 })
+-- The default popup_setpos mouse model moves the cursor to the clicked hunk.
+local hunk_menu = {
+	{ label = "Preview hunk", action = "preview_hunk" },
+	{ label = "Stage / unstage hunk", action = "stage_hunk" },
+	{ label = "Reset hunk", action = "reset_hunk" },
+	{ label = "Undo last hunk stage", action = "undo_stage_hunk" },
+}
+
+pcall(vim.cmd, "nunmenu PopUp.-Gitsigns-")
+for index, item in ipairs(hunk_menu) do
+	item.path = "PopUp." .. item.label:gsub(" ", "\\ ")
+	pcall(vim.cmd, "nunmenu " .. item.path)
+	vim.cmd(('nnoremenu 10.%d %s <Cmd>lua require("gitsigns").%s()<CR>'):format(index, item.path, item.action))
+	vim.cmd("nmenu disable " .. item.path)
+end
+
+vim.cmd([[
+	nnoremenu 10.5 PopUp.Show\ all\ changed\ files <Cmd>lua Snacks.picker.git_status({ ignored = false })<CR>
+	nnoremenu 10.6 PopUp.Diff\ to\.\.\. :Gitsigns diffthis<Space>
+	nnoremenu 10.10 PopUp.-Gitsigns- <Nop>
+]])
+
+vim.api.nvim_create_autocmd("MenuPopup", {
+	group = vim.api.nvim_create_augroup("GitsignsPopupMenu", { clear = true }),
+	pattern = "n",
+	callback = function()
+		local actions = require('gitsigns').get_actions() or {}
+		for _, item in ipairs(hunk_menu) do
+			local state = actions[item.action] and "enable" or "disable"
+			vim.cmd("nmenu " .. state .. " " .. item.path)
+		end
+	end,
+})

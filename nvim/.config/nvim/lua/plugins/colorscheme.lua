@@ -4,7 +4,6 @@ local function set_custom_highlights()
 	vim.api.nvim_set_hl(0, "Pmenu", { link = "ModeMsg" })
 	vim.api.nvim_set_hl(0, "netrwMarkFile", { link = "MatchParen" })
 	vim.api.nvim_set_hl(0, "ModeMsg", { link = "Normal" })
-	vim.api.nvim_set_hl(0, "PmenuBorder", { fg = "#808080", bg = "#1e1e1e" })
 
 	-- For visimatch.nvim plugin
 	vim.api.nvim_set_hl(0, "LspReferenceText", { bg = "#113d6f" })
