@@ -24,3 +24,5 @@ keybind = alt+digit_0=text:\x1b0
 # For different layouts
 keybind = ctrl+shift+key_c=copy_to_clipboard
 keybind = ctrl+shift+key_v=paste_from_clipboard
+keybind = ctrl+tab=esc:[27;5;9~
+keybind = ctrl+shift+tab=esc:[27;6;9~
