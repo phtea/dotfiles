@@ -1,0 +1,8 @@
+{
+  "deny": [
+    "git push*",
+    "git reset --hard*",
+    "git clean*",
+    "sudo*"
+  ]
+}
