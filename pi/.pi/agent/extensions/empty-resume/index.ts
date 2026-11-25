@@ -1,12 +1,12 @@
 /**
- * "left" opens the /resume session selector only when the prompt is empty.
+ * On an empty prompt, left opens /resume and down opens /worktree.
  *
  * With a non-empty prompt, "left" moves the cursor as usual: for that single
  * keystroke the user binding of app.session.resume is temporarily cleared so
  * the editor falls through to its normal cursor-left handling.
  */
 import { CustomEditor, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import type { KeybindingsManager } from "@earendil-works/pi-tui";
+import { matchesKey, type KeybindingsManager } from "@earendil-works/pi-tui";
 
 const WRAPPED_FLAG = "__emptyOnlyResumeWrapped";
 
@@ -23,6 +23,11 @@ export default function (pi: ExtensionAPI) {
 
 			const original = base.handleInput.bind(base);
 			base.handleInput = (data: string) => {
+				if (matchesKey(data, "down") && base.getText() === "" && !base.isShowingAutocomplete() && ctx.isIdle() &&
+					pi.getCommands().some((command) => command.name === "worktree" && command.source === "extension")) {
+					pi.sendUserMessage("/worktree", { expandPromptTemplates: true });
+					return;
+				}
 				const kb = keybindings as KeybindingsManager;
 				if (base.getText().length > 0 && kb.matches(data, "tui.editor.cursorLeft")) {
 					const current = kb.getUserBindings();

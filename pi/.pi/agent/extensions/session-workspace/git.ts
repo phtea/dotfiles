@@ -3,7 +3,7 @@ import { join } from "node:path";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { directory } from "./state.ts";
 
-export interface Worktree { path: string; head?: string; branch?: string; bare?: boolean; prunable?: boolean }
+export interface Worktree { path: string; head?: string; branch?: string; bare?: boolean; prunable?: boolean; locked?: boolean }
 
 export async function listWorktrees(exec: ExtensionAPI["exec"], cwd: string, signal?: AbortSignal): Promise<Worktree[]> {
 	const result = await exec("git", ["worktree", "list", "--porcelain", "-z"], { cwd, signal, timeout: 10_000, maxBuffer: 2_000_000 });
@@ -18,6 +18,7 @@ export async function listWorktrees(exec: ExtensionAPI["exec"], cwd: string, sig
 			if (field.startsWith("HEAD ")) current.head = field.slice(5);
 			else if (field.startsWith("branch refs/heads/")) current.branch = field.slice(18);
 			else if (field === "bare") current.bare = true;
+			else if (field === "locked" || field.startsWith("locked ")) current.locked = true;
 			else if (field === "prunable" || field.startsWith("prunable ")) current.prunable = true;
 		}
 	}
@@ -53,6 +54,32 @@ export async function createWorktree(exec: ExtensionAPI["exec"], cwd: string, pa
 	const result = await exec("git", args, { cwd, signal, timeout: 120_000, maxBuffer: 1_000_000 });
 	if (result.code) throw new Error(result.stderr.trim() || `Git worktree add failed; inspect ${target} before retrying.`);
 	return target;
+}
+
+export function removalBlock(tree: Worktree, mainPath: string, current: string, origin: string): string | undefined {
+	if (tree.bare || tree.path === mainPath) return "The main worktree cannot be removed here.";
+	if (tree.prunable) return "This worktree is unavailable.";
+	if (tree.locked) return "This worktree is locked.";
+	const target = directory(current, tree.path);
+	for (const [label, path] of [["current directory", current], ["session origin", origin]]) {
+		const protectedPath = directory(current, path);
+		if (protectedPath === target || protectedPath.startsWith(`${target}/`)) return `Cannot remove the worktree containing this session's ${label}.`;
+	}
+}
+
+export async function removeWorktree(exec: ExtensionAPI["exec"], cwd: string, origin: string, chosen: Worktree, force = false): Promise<void> {
+	const trees = await listWorktrees(exec, cwd);
+	const tree = trees.find((entry) => entry.path === chosen.path);
+	if (!tree || tree.head !== chosen.head || tree.branch !== chosen.branch) throw new Error("The worktree changed. Reopen the menu before removing it.");
+	const blocked = removalBlock(tree, trees[0].path, cwd, origin);
+	if (blocked) throw new Error(blocked);
+	if (!force) {
+		const status = await exec("git", ["status", "--porcelain", "-z", "--untracked-files=all", "--ignored=matching"], { cwd: tree.path, timeout: 15_000, maxBuffer: 1_000_000 });
+		if (status.code) throw new Error(status.stderr.trim() || "Could not check the worktree for local files.");
+		if (status.stdout) throw new Error("Worktree has changes, untracked or ignored files. Nothing removed.");
+	}
+	const result = await exec("git", ["worktree", "remove", ...(force ? ["--force"] : []), "--", tree.path], { cwd, timeout: 30_000, maxBuffer: 1_000_000 });
+	if (result.code) throw new Error(result.stderr.trim() || "Git refused to remove the worktree.");
 }
 
 export async function gitBranch(exec: ExtensionAPI["exec"], cwd: string): Promise<string> {

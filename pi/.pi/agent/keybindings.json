@@ -1,4 +1,5 @@
 {
   "$schema": "https://pi.dev/schemas/keybindings.schema.json",
-  "app.session.resume": ["left"]
+  "app.session.resume": ["left"],
+  "tui.altScreen.search": ["ctrl+f"]
 }

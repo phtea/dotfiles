@@ -10,11 +10,11 @@ Change where built-in tools execute without changing the session's project ident
 | `/cwd <path>` | Select an existing directory (`~`, `~/…`, relative to current execution cwd, or absolute). Tab completes directories. Enter paths as written, without shell quotes; spaces are supported. Use `./-` or `./reset` for directories with those names. |
 | `/cwd -` | Go back to the previous successful selection (can toggle between two directories). |
 | `/cwd reset` | Return to the session's original directory. |
-| `/worktree` | Pick an available worktree of the Git repo at the execution cwd. |
+| `/worktree` | Filter by path or branch. `Enter` switches, `Ctrl+N` opens the creation dialog, and `Ctrl+D` asks whether to remove the selected worktree. |
 | `/worktree list` | Show paths, branches or detached commit IDs. |
 | `/worktree new` | Ask for a ref (blank means `HEAD`) and a new directory name. Create a detached worktree next to the first/main worktree, then select it. |
 
-Agent tools: `change_dir({path})`, `worktree_list({})`, `worktree_create({name, ref, detached?, parent?, switchTo?})`, and `worktree_switch({path})`. `detached` defaults to `true`; `switchTo` defaults to `false`. Set `detached: false` to check out an **existing local branch** (Git will refuse if it is already checked out). `parent` is an existing directory relative to the execution cwd or an absolute path. Nothing is removed, forced, fetched, merged, or automatically cleaned up. Git checkout still honors attributes/filters configured by Git; use it on repositories you trust. The extension disables `post-checkout` hooks for its own worktree creation.
+Agent tools: `change_dir({path})`, `worktree_list({})`, `worktree_create({name, ref, detached?, parent?, switchTo?})`, and `worktree_switch({path})`. `detached` defaults to `true`; `switchTo` defaults to `false`. Set `detached: false` to check out an **existing local branch** (Git will refuse if it is already checked out). `parent` is an existing directory relative to the execution cwd or an absolute path. These agent tools never remove, force, fetch, merge, or automatically clean up. In the interactive `/worktree` menu, `Ctrl+D` offers `Remove worktree` (default), `Remove worktree (--force)`, and `Cancel`. Tracked changes, untracked and ignored files block ordinary removal. Forced removal can discard those files and requires a second confirmation (default: Cancel). Neither option deletes branches or removes the main or locked worktree, or a worktree containing the current execution directory or session origin. Save any detached commits you want to keep on a branch first. Git checkout still honors attributes/filters configured by Git; use it on repositories you trust. The extension disables `post-checkout` hooks for its own worktree creation.
 
 Example prompt:
 
@@ -38,6 +38,6 @@ Pi 1.6.1 has no public setter for the actual session cwd. `ctx.cwd`, `SessionMan
 
 - [fitchmultz/pi-change-working-dir](https://github.com/fitchmultz/pi-change-working-dir): execution overlay and event-bus integration while preserving original project configuration. This extension keeps cwd session-wide rather than branch-local.
 - [narumiruna/pi-extensions](https://github.com/narumiruna/pi-extensions/tree/HEAD/packages/pi-worktree): `src/session.ts` uses a native session replacement for full project switching. That is a better fit when resources must change too, but changes session identity.
-- [harms-haus/pi-worktrees](https://github.com/harms-haus/pi-worktrees): delegates switching to `/cwd`; this implementation shares selection directly and deliberately omits merge/cleanup.
+- [harms-haus/pi-worktrees](https://github.com/harms-haus/pi-worktrees): delegates switching to `/cwd`; this implementation shares selection directly and offers only manual removal with confirmation (no merge or automatic cleanup).
 
 Verified in temporary repositories with Pi 1.6.1: TUI selection, `!pwd`, path completion, `@` absolute completion, worktree dialog/list and footer; native tool execution for Bash and all six file/search tools; two independent sessions, persisted reopen, native runtime resume/new/fork, tree navigation, simulated compaction record and missing paths. Source branch and working tree stayed unchanged in Git tests. No live model request, provider-driven compaction or PowerShell executable was tested.

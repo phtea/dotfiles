@@ -7,7 +7,8 @@ import {
 } from "@earendil-works/pi-coding-agent";
 import { Type, type TSchema } from "typebox";
 import { CombinedAutocompleteProvider } from "@earendil-works/pi-tui";
-import { createWorktree, describe, gitBranch, listWorktrees } from "./git.ts";
+import { createWorktree, describe, gitBranch, listWorktrees, removalBlock, removeWorktree } from "./git.ts";
+import { pickWorktree } from "./menu.ts";
 import { directory, ENTRY, expand, RESOLVE, selected, type Selection, type WorkspaceRequest } from "./state.ts";
 
 const STATUS = "session-workspace";
@@ -217,30 +218,55 @@ export default function (pi: ExtensionAPI) {
 		return createWorktree(pi.exec, base, parent ?? dirname(main.path), name, ref, detached, signal);
 	};
 
+	async function promptNewWorktree(ctx: ExtensionContext) {
+		if (!ctx.hasUI) throw new Error("Worktree creation needs interactive UI.");
+		const ref = await ctx.ui.input("Ref or commit for detached worktree (default: HEAD)");
+		if (ref === undefined) return;
+		const name = await ctx.ui.input("New directory name (next to the main worktree)");
+		if (!name?.trim()) return;
+		const target = await add(ctx, name.trim(), ref.trim() || "HEAD", true);
+		ctx.ui.notify(`Created detached worktree; cwd: ${switchTo(ctx, target)}`, "info");
+	}
+
 	pi.registerCommand("worktree", { description: "Select a Git worktree, or use list / new",
 		getArgumentCompletions: (p) => ["list", "new"].filter((s) => s !== p && s.startsWith(p)).map((s) => ({ value: s, label: s })),
 		async handler(args, ctx) {
 			try {
 				if (!ctx.isIdle()) throw new Error("Wait until the current run settles.");
 				const action = args.trim();
-				if (action === "new") {
-					if (!ctx.hasUI) throw new Error("Worktree creation via /worktree new needs interactive UI.");
-					const ref = await ctx.ui.input("Ref or commit for detached worktree", "HEAD");
-					if (ref === undefined) return;
-					const name = await ctx.ui.input("New directory name (next to the main worktree)");
-					if (!name?.trim()) return;
-					const target = await add(ctx, name.trim(), ref.trim() || "HEAD", true);
-					ctx.ui.notify(`Created detached worktree; cwd: ${switchTo(ctx, target)}`, "info");
-					return;
-				}
+				if (action === "new") { await promptNewWorktree(ctx); return; }
 				if (action && action !== "list") throw new Error(`Unknown worktree action ${JSON.stringify(printable(action))}. Usage: /worktree [list|new]`);
 				const trees = await list(ctx);
 				if (action === "list") { ctx.ui.notify(trees.map(describe).join("\n") || "No worktrees", "info"); return; }
-				const available = trees.filter((tree) => !tree.bare && !tree.prunable);
-				const rows = available.map((tree, i) => `${i + 1}. ${describe(tree)}${tree.path === state?.current ? " (current)" : ""}`);
-				const item = await ctx.ui.select("Switch worktree", rows);
-				const tree = item === undefined ? undefined : available[rows.indexOf(item)];
-				if (tree) ctx.ui.notify(`cwd: ${await selectTree(ctx, tree.path)}`, "info");
+				if (ctx.mode !== "tui") throw new Error("The worktree menu needs interactive UI.");
+				const current = cwd(ctx);
+				const origin = init(ctx).origin;
+				const rows = trees.filter((tree) => !tree.bare && !tree.prunable).map((tree) => {
+					let removeBlocked: string | undefined;
+					try { removeBlocked = removalBlock(tree, trees[0]!.path, current, origin); }
+					catch (error) { removeBlocked = message(error); }
+					return { tree, removeBlocked, current: tree.path === current };
+				});
+				if (!rows.length) { ctx.ui.notify("No available worktrees.", "info"); return; }
+				const pick = await pickWorktree(ctx, rows);
+				if (!pick) return;
+				if (pick.action === "new") { await promptNewWorktree(ctx); return; }
+				if (pick.action === "switch") {
+					ctx.ui.notify(`cwd: ${await selectTree(ctx, pick.tree.path)}`, "info");
+				} else {
+					if (pick.removeBlocked) throw new Error(pick.removeBlocked);
+					const remove = "Remove worktree";
+					const force = "Remove worktree (--force)";
+					const warning = pick.tree.branch ? "The branch will be kept." : "Save any commits you want to keep on a branch first.";
+					const answer = await ctx.ui.select(`Remove ${describe(pick.tree)}?\n${warning}`, [remove, force, "Cancel"], { blockedKind: "permission" });
+					if (answer !== remove && answer !== force) return;
+					if (answer === force) {
+						const confirmed = await ctx.ui.select(`Force-remove ${describe(pick.tree)}?\nUncommitted changes, untracked and ignored files will be lost.`, ["Cancel", force], { blockedKind: "permission" });
+						if (confirmed !== force) return;
+					}
+					await removeWorktree(pi.exec, cwd(ctx), origin, pick.tree, answer === force);
+					ctx.ui.notify(`Removed worktree: ${printable(pick.tree.path)}`, "info");
+				}
 			} catch (error) { ctx.ui.notify(message(error), "error"); }
 		},
 	});
