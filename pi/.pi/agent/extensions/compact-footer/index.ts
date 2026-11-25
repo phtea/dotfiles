@@ -138,7 +138,11 @@ export default function (pi: ExtensionAPI) {
 					const parts: string[] = [dim(path)];
 					const branch = footerData.getGitBranch();
 					if (branch) parts.push(theme.fg("accent", ` ${branch}`));
-					if (ctx.model?.id) parts.push(ctx.model.id);
+					if (ctx.model?.id) {
+						const level = ctx.thinkingLevel || "off";
+						const effort = ctx.model.reasoning ? ` ${ctx.ui.theme.getThinkingBorderColor(level)(`(${level})`)}` : "";
+						parts.push(ctx.model.id + effort);
+					}
 					const usage = ctx.getContextUsage();
 					if (usage?.percent != null) {
 						parts.push(dim(`${Math.round(usage.percent)}% (${fmtTokens(usage.contextWindow)})`));
