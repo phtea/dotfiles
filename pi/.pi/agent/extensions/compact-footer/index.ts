@@ -129,8 +129,8 @@ export default function (pi: ExtensionAPI) {
 					const branch = footerData.getGitBranch();
 					if (branch) parts.push(theme.fg("accent", ` ${branch}`));
 					const usage = ctx.getContextUsage();
-					if (usage?.percent != null) {
-						parts.push(dim(`${Math.round(usage.percent)}% (${fmtTokens(usage.contextWindow)})`));
+					if (usage?.percent != null && usage.tokens != null) {
+						parts.push(dim(`${Math.round(usage.percent)}% (${fmtTokens(usage.tokens)}/${fmtTokens(usage.contextWindow)})`));
 					}
 					// Extension statuses (e.g. ctx-saver), appended after the standard parts
 					const statuses = footerData.getExtensionStatuses();

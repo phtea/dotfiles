@@ -9,8 +9,8 @@
  * 1. `context` hook (before every LLM request):
  *    - tool-result text blocks older than the last `keepRecent` messages are
  *      replaced by a short head + marker when they exceed `truncThreshold`;
- *    - earlier re-reads of the same file path are trimmed (the newest read
- *      survives), which kills the biggest observed duplicate;
+ *    - earlier identical reads (same path, range and text) are replaced with
+ *      a short marker; different ranges and changed text are not duplicates;
  *    - old thinking blocks are dropped (safe by default only for
  *      openai-completions providers; see `dropOldThinking`).
  *
@@ -34,7 +34,7 @@ interface Config {
 	truncThreshold: number;
 	/** Chars of a trimmed block that are kept at the head. */
 	keepHead: number;
-	/** Trim earlier reads of the same path so only the newest read survives. */
+	/** Replace older exact copies of a read with a short marker. */
 	dedupReads: boolean;
 	/** "auto" = drop old thinking blocks for openai-completions providers only. */
 	dropOldThinking: "auto" | boolean;
@@ -137,14 +137,20 @@ export default function (pi: ExtensionAPI) {
 			}
 		}
 
-		// newest read index per path (dedup keeps it intact)
-		let latestRead = new Map<string, number>();
+		// Compare the whole successful text result, not just its file path.
+		const duplicateReads = new Map<number, number>();
 		if (cfg.dedupReads) {
-			for (let i = 0; i < messages.length; i++) {
+			const latestRead = new Map<string, number>();
+			for (let i = messages.length - 1; i >= 0; i--) {
 				const m = messages[i];
-				if (m.role !== "toolResult" || m.toolName !== "read") continue;
-				const p = calls.get(m.toolCallId)?.arguments?.path;
-				if (typeof p === "string") latestRead.set(p, i);
+				if (m.role !== "toolResult" || m.toolName !== "read" || m.isError || !m.content.length) continue;
+				if (!m.content.every((block) => block.type === "text" && !block.textSignature)) continue;
+				const args = calls.get(m.toolCallId)?.arguments;
+				if (typeof args?.path !== "string") continue;
+				const key = JSON.stringify([args.path, args.offset, args.limit, m.content]);
+				const newer = latestRead.get(key);
+				if (newer === undefined) latestRead.set(key, i);
+				else if (i < staleFrom) duplicateReads.set(i, newer);
 			}
 		}
 
@@ -176,13 +182,19 @@ export default function (pi: ExtensionAPI) {
 
 			if (m.role !== "toolResult") continue;
 
-			let staleReread = false;
-			let rereadPath: string | undefined;
-			if (cfg.dedupReads && m.toolName === "read") {
-				const p = calls.get(m.toolCallId)?.arguments?.path;
-				if (typeof p === "string" && latestRead.get(p) !== i) {
-					staleReread = true;
-					rereadPath = p;
+			const newer = duplicateReads.get(i);
+			if (newer !== undefined) {
+				const replacement = messages[newer];
+				// Don't replace the old copy if the newer one will also be truncated.
+				const fullCopyKept = newer >= staleFrom || (replacement.role === "toolResult" &&
+					replacement.content.every((block) => block.type === "text" && block.text.length <= cfg.truncThreshold));
+				const marker = "[context-saver: identical read result appears later]";
+				const length = m.content.reduce((sum, block) => sum + (block.type === "text" ? block.text.length : 0), 0);
+				if (fullCopyKept && length > marker.length) {
+					m.content = [{ type: "text", text: marker }];
+					sessionSaved += length - marker.length;
+					sessionCount++;
+					continue;
 				}
 			}
 
@@ -193,16 +205,13 @@ export default function (pi: ExtensionAPI) {
 					next.push(block);
 					continue;
 				}
-				const over = staleReread ? block.text.length > cfg.keepHead : block.text.length > cfg.truncThreshold;
-				if (!over) {
+				if (block.text.length <= cfg.truncThreshold) {
 					next.push(block);
 					continue;
 				}
 				changed = true;
 				const kept = block.text.slice(0, cfg.keepHead);
-				const note = rereadPath
-					? `stale re-read of ${rereadPath} trimmed (the newest read is kept); re-read the file if needed`
-					: `trimmed ${kb(block.text.length)} of stale ${m.toolName} output (first ${cfg.keepHead} chars kept); rerun the tool call if the full output is needed`;
+				const note = `trimmed ${kb(block.text.length)} of stale ${m.toolName} output (first ${cfg.keepHead} chars kept); rerun the tool call if the full output is needed`;
 				sessionSaved += block.text.length - cfg.keepHead;
 				next.push({ type: "text", text: `${kept}\n\n[context-saver: ${note}]` });
 			}
