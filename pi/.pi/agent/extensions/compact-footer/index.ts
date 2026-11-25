@@ -117,8 +117,14 @@ export default function (pi: ExtensionAPI) {
 				invalidate() {},
 				render(width: number): string[] {
 					const dim = (s: string) => theme.fg("dim", s);
-					let path = ctx.sessionManager.getCwd();
-					if (home && path.startsWith(home)) path = "~" + path.slice(home.length);
+					const origin = ctx.sessionManager.getCwd();
+					const workspace: { sessionId: string; displayOnly: boolean; cwd?: string; branch?: string } = {
+						sessionId: ctx.sessionManager.getSessionId(), displayOnly: true,
+					};
+					pi.events.emit("session-workspace:resolve", workspace);
+					const override = workspace.cwd !== undefined && workspace.cwd !== origin;
+					let path = workspace.cwd ?? origin;
+					if (home && (path === home || path.startsWith(`${home}/`))) path = "~" + path.slice(home.length);
 
 					const parts: string[] = [dim(path)];
 					if (ctx.model?.id) {
@@ -126,7 +132,7 @@ export default function (pi: ExtensionAPI) {
 						const effort = ctx.model.reasoning ? ` ${ctx.ui.theme.getThinkingBorderColor(level)(`(${level})`)}` : "";
 						parts.push(ctx.model.id + effort);
 					}
-					const branch = footerData.getGitBranch();
+					const branch = override ? workspace.branch : footerData.getGitBranch();
 					if (branch) parts.push(theme.fg("accent", ` ${branch}`));
 					const usage = ctx.getContextUsage();
 					if (usage?.percent != null && usage.tokens != null) {
@@ -136,7 +142,7 @@ export default function (pi: ExtensionAPI) {
 					const statuses = footerData.getExtensionStatuses();
 					if (statuses.size > 0) {
 						for (const [key, text] of [...statuses.entries()].sort(([a], [b]) => a.localeCompare(b))) {
-							parts.push(dim(text));
+							if (key !== "session-workspace" || !override) parts.push(dim(text));
 						}
 					}
 

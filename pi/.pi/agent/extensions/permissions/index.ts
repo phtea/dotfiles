@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getAgentDir, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getAgentDir, type ExtensionAPI, type ExtensionContext } from "@earendil-works/pi-coding-agent";
 
 interface Rule {
 	text: string;
@@ -71,16 +71,20 @@ export default function (pi: ExtensionAPI) {
 	const globalPath = join(getAgentDir(), "permissions.json");
 	const agent = process.env.PI_SUBAGENT_PERMISSION_PROFILE || "main";
 
-	async function effectiveRules(cwd: string): Promise<Rule[]> {
-		const projectPath = join(cwd, ".pi", "permissions.json");
-		return (await Promise.all([globalPath, projectPath].map((path) => readRules(path, agent)))).flat();
+	async function effectiveRules(ctx: ExtensionContext): Promise<Rule[]> {
+		const request: { sessionId: string; cwd?: string; error?: string } = { sessionId: ctx.sessionManager.getSessionId() };
+		pi.events.emit("session-workspace:resolve", request);
+		if (request.error) throw new Error(request.error);
+		const paths = new Set([globalPath, join(ctx.cwd, ".pi", "permissions.json")]);
+		if (request.cwd) paths.add(join(request.cwd, ".pi", "permissions.json"));
+		return (await Promise.all([...paths].map((path) => readRules(path, agent)))).flat();
 	}
 
 	pi.registerCommand("permissions", {
 		description: "Show denied shell commands for the current agent",
 		async handler(_args, ctx) {
 			try {
-				const deny = await effectiveRules(ctx.cwd);
+				const deny = await effectiveRules(ctx);
 				ctx.ui.notify(`Shell (${agent}): allowed by default.\n${deny.map((rule) => `${rule.text} — ${rule.source}`).join("\n") || "No denies"}`, "info");
 			} catch (error) {
 				ctx.ui.notify((error as Error).message, "error");
@@ -92,7 +96,7 @@ export default function (pi: ExtensionAPI) {
 		if (event.toolName !== "bash" || typeof event.input.command !== "string") return;
 		try {
 			const command = event.input.command.replace(/\\\r?\n/g, "");
-			const deny = await effectiveRules(ctx.cwd);
+			const deny = await effectiveRules(ctx);
 			const rule = deny.find((item) => item.pattern.test(command));
 			if (rule) return { block: true, reason: `Command denied by ${rule.source}: ${rule.text}` };
 		} catch (error) {
