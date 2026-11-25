@@ -136,16 +136,23 @@ export default function (pi: ExtensionAPI) {
 					if (home && path.startsWith(home)) path = "~" + path.slice(home.length);
 
 					const parts: string[] = [dim(path)];
-					const branch = footerData.getGitBranch();
-					if (branch) parts.push(theme.fg("accent", ` ${branch}`));
 					if (ctx.model?.id) {
 						const level = ctx.thinkingLevel || "off";
 						const effort = ctx.model.reasoning ? ` ${ctx.ui.theme.getThinkingBorderColor(level)(`(${level})`)}` : "";
 						parts.push(ctx.model.id + effort);
 					}
+					const branch = footerData.getGitBranch();
+					if (branch) parts.push(theme.fg("accent", ` ${branch}`));
 					const usage = ctx.getContextUsage();
 					if (usage?.percent != null) {
 						parts.push(dim(`${Math.round(usage.percent)}% (${fmtTokens(usage.contextWindow)})`));
+					}
+					// Extension statuses (e.g. ctx-saver), appended after the standard parts
+					const statuses = footerData.getExtensionStatuses();
+					if (statuses.size > 0) {
+						for (const [key, text] of [...statuses.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+							parts.push(dim(text));
+						}
 					}
 
 					return [truncateToWidth(parts.join(dim(" · ")), width)];

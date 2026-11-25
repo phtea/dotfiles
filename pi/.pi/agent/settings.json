@@ -20,13 +20,18 @@
     "npm:@tintinweb/pi-subagents"
   ],
   "theme": "vscode",
-  "lastChangelogVersion": "1.6.0",
+  "lastChangelogVersion": "1.6.1",
   "editorPaddingX": 1,
   "showHardwareCursor": true,
   "enableInstallTelemetry": false,
   "doubleEscapeAction": "tree",
   "tuiMode": "fullscreen",
   "hideThinkingBlock": false,
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 40000,
+    "keepRecentTokens": 20000
+  },
   "extensionChangelogVersions": {
     "{\"source\":\"npm:@tintinweb/pi-subagents\",\"scope\":\"user\"}": "0.26.3"
   }
