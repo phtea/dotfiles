@@ -116,7 +116,10 @@ export default function (pi: ExtensionAPI) {
 		cappedResults = 0;
 		lastSaved = 0;
 		dbg(`session_start reason=${String(_event.reason)}`);
-		if (ctx.hasUI) ctx.ui.notify(`context-saver: on (stale >${kb(cfg.truncThreshold)}, last ${cfg.keepRecent} kept)`, "info");
+		if (ctx.hasUI) {
+			ctx.ui.setStatus("ctx-saver", status(lastSaved));
+			ctx.ui.notify(`context-saver: on (stale >${kb(cfg.truncThreshold)}, last ${cfg.keepRecent} kept)`, "info");
+		}
 	});
 
 	// ---- layer 1: slim the per-request view (non-destructive) ----

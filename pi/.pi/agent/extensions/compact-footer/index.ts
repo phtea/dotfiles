@@ -2,14 +2,14 @@
  * Compact one-line footer, everything left-aligned:
  *   ~/Projects/foo (master) · qwen3-8 · 38% (128k)
  *
- * Updates the native working indicator with elapsed time and estimated TPS
- * from streamed text, thinking and tool-call deltas (four chars per token).
+ * Updates the native working indicator with elapsed time and average TPS over
+ * the whole working period, from streamed text, thinking and tool-call deltas
+ * (four chars per token).
  */
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { Text, truncateToWidth } from "@earendil-works/pi-tui";
 
 const CHARS_PER_TOKEN = 4;
-const WINDOW_MS = 2000;
 const MIN_SPAN_MS = 250;
 const WORK_UPDATE_MS = 250;
 
@@ -34,18 +34,12 @@ function fmtDuration(ms: number): string {
 export default function (pi: ExtensionAPI) {
 	let runStartAt: number | undefined;
 	let runOutputTokens = 0;
+	let runChars = 0; // chars streamed since run start (for avg TPS)
 	let workTimer: ReturnType<typeof setInterval> | undefined;
-	let streamStart: number | undefined;
-	let lastDelta = 0;
-	let pendingChars = 0;
 	let lastLabel: string | undefined;
-	const samples: { t: number; chars: number }[] = [];
 
 	function resetStream() {
-		streamStart = undefined;
-		lastDelta = 0;
-		pendingChars = 0;
-		samples.length = 0;
+		runChars = 0;
 	}
 
 	function stopWorking() {
@@ -65,23 +59,19 @@ export default function (pi: ExtensionAPI) {
 	function updateWorking(ctx: ExtensionContext) {
 		if (runStartAt === undefined) return;
 		const now = performance.now();
-		if (pendingChars > 0) {
-			samples.push({ t: lastDelta, chars: pendingChars });
-			pendingChars = 0;
-		}
-		while (samples.length && now - samples[0]!.t >= WINDOW_MS) samples.shift();
-		const span = streamStart === undefined ? 0 : Math.min(now - streamStart, WINDOW_MS);
-		const chars = samples.reduce((sum, sample) => sum + sample.chars, 0);
-		const rate = span >= MIN_SPAN_MS ? Math.round(chars * 1000 / CHARS_PER_TOKEN / span) : 0;
-		const elapsed = fmtDuration(now - runStartAt);
-		const label = rate > 0 ? `Working... ${elapsed} · ${rate} tok/s` : `Working... ${elapsed}`;
+		const elapsed = now - runStartAt;
+		const rate = elapsed >= MIN_SPAN_MS ? Math.round((runChars * 1000) / CHARS_PER_TOKEN / elapsed) : 0;
+		const label = rate > 0 ? `Working... ${fmtDuration(elapsed)} · ${rate} tok/s` : `Working... ${fmtDuration(elapsed)}`;
 		if (label === lastLabel) return;
 		lastLabel = label;
 		ctx.ui.setWorkingMessage(label);
 	}
 
 	pi.on("agent_start", (_event, ctx) => {
-		if (runStartAt === undefined) runOutputTokens = 0;
+		if (runStartAt === undefined) {
+			runOutputTokens = 0;
+			runChars = 0;
+		}
 		runStartAt ??= performance.now();
 		if (ctx.mode !== "tui" || workTimer) return;
 		updateWorking(ctx);
@@ -94,17 +84,12 @@ export default function (pi: ExtensionAPI) {
 		const delta = event.assistantMessageEvent;
 		if (delta.type !== "text_delta" && delta.type !== "thinking_delta" && delta.type !== "toolcall_delta") return;
 		if (!delta.delta) return;
-		const now = performance.now();
-		if (now - lastDelta >= WINDOW_MS) resetStream();
-		lastDelta = now;
-		streamStart ??= now;
-		pendingChars += delta.delta.length;
+		runChars += delta.delta.length;
 	});
 
 	pi.on("message_end", (event, ctx) => {
 		if (event.message.role !== "assistant") return;
 		runOutputTokens += event.message.usage?.output ?? 0;
-		resetStream();
 		if (ctx.mode === "tui") updateWorking(ctx);
 	});
 
