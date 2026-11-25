@@ -17,7 +17,7 @@ export default function (pi: ExtensionAPI) {
 		ctx.ui.setEditorComponent((tui, theme, keybindings) => {
 			const base: CustomEditor = previous
 				? (previous(tui, theme, keybindings) as CustomEditor)
-				: new CustomEditor(tui, theme, keybindings);
+				: new CustomEditor(tui, theme, keybindings, { embedWorkingStatus: true });
 			if ((base as unknown as Record<string, boolean>)[WRAPPED_FLAG]) return base;
 			(base as unknown as Record<string, boolean>)[WRAPPED_FLAG] = true;
 
