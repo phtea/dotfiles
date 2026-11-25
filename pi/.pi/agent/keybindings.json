@@ -1,0 +1,5 @@
+{
+  "$schema": "https://pi.dev/schemas/keybindings.schema.json",
+  "app.session.resume": ["left"],
+  "tui.select.confirm": ["enter", "right"]
+}

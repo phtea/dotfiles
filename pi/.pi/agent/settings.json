@@ -1,0 +1,33 @@
+{
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
+  "defaultProvider": "fts_liga",
+  "defaultModel": "qwen3-8-27b-nvfp4",
+  "defaultThinkingLevel": "medium",
+  "defaultTools": [
+    "read",
+    "bash",
+    "edit",
+    "write",
+    "grep",
+    "find",
+    "ls",
+    "+codemode"
+  ],
+  "skills": [
+    "~/.ai/control-objects/skills"
+  ],
+  "packages": [
+    "npm:@tintinweb/pi-subagents"
+  ],
+  "theme": "vscode",
+  "lastChangelogVersion": "1.6.0",
+  "editorPaddingX": 1,
+  "showHardwareCursor": true,
+  "enableInstallTelemetry": false,
+  "doubleEscapeAction": "tree",
+  "tuiMode": "fullscreen",
+  "hideThinkingBlock": false,
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:@tintinweb/pi-subagents\",\"scope\":\"user\"}": "0.26.3"
+  }
+}
