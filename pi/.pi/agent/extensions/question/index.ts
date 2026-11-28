@@ -8,7 +8,14 @@
  * UI: options list navigable with ↑/↓, Enter to select, an inline editor
  * for "Type something...". Escape in the editor goes back to the options,
  * Escape in the options cancels.
+ *
+ * Rings the terminal bell when the dialog opens so tmux marks the window
+ * (monitor-bell + window-status-bell-style), just like notify-sound does
+ * when a run settles — a waiting-for-you window becomes visible from other
+ * windows. Also sends a desktop notification (no sound): a question is a
+ * mid-run interruption, so it is quieter than the agent_settled one.
  */
+import { execFile } from "node:child_process";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import {
 	Editor,
@@ -75,6 +82,16 @@ export default function question(pi: ExtensionAPI) {
 			}
 
 			const allOptions: DisplayOption[] = [...params.options, { label: "Type something.", isOther: true }];
+
+			// Mark the tmux window: bell flag -> window-status-bell-style (bold,underscore).
+			process.stdout.write("\u0007");
+
+			// Desktop notification without sound: the question needs the user's
+			// attention mid-run, but should not interrupt like a finished run.
+			if (process.platform === "linux" && process.env.XDG_SESSION_TYPE) {
+				const body = params.question.replace(/\s+/gu, " ").trim().slice(0, 200);
+				execFile("notify-send", ["-a", "pi", "-u", "normal", "Pi: вопрос", body], { timeout: 3000 }, () => {});
+			}
 
 			const result = await ctx.ui.custom<{ answer: string; wasCustom: boolean; index?: number } | null>(
 				(tui, theme, _kb, done) => {
