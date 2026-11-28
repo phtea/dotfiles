@@ -10,6 +10,15 @@ const colors = {
 
 const ownerOption = "@pi_window_owner";
 const colorOption = "@pi_window_color";
+const labelOption = "@pi_window_label";
+
+function tabLabel(name: string | undefined): string {
+	return (name ?? "")
+		.replace(/\s+/gu, " ")
+		.replace(/[\p{Cc}\p{Bidi_Control}]/gu, "")
+		.replace(/#(?=\[)/g, "＃") // Prevent tmux status style markup in the label.
+		.trim();
+}
 
 export default function (pi: ExtensionAPI) {
 	const pane = process.env.TMUX_PANE;
@@ -27,17 +36,28 @@ export default function (pi: ExtensionAPI) {
 	let waiting = false;
 	let pending = Promise.resolve();
 	let lastColor: string | undefined;
+	let label = "";
+	let lastLabel: string | undefined;
 
 	function render() {
 		const id = windowId;
 		if (!id) return;
 		const color = colors[waiting ? "waiting" : phase];
+		const nextLabel = label;
 		pending = pending.then(async () => {
-			if (lastColor === color) return;
-			const result = color
-				? await tmux("set-option", "-w", "-t", id, colorOption, color)
-				: await tmux("set-option", "-wqu", "-t", id, colorOption);
-			if (result !== undefined) lastColor = color;
+			if (lastColor !== color) {
+				const result = color
+					? await tmux("set-option", "-w", "-t", id, colorOption, color)
+					: await tmux("set-option", "-wqu", "-t", id, colorOption);
+				if (result !== undefined) lastColor = color;
+			}
+			if (lastLabel !== nextLabel) {
+				// The config strips the sentinel. It keeps a trailing semicolon literal.
+				const result = nextLabel
+					? await tmux("set-option", "-w", "-t", id, "--", labelOption, `${nextLabel}!`)
+					: await tmux("set-option", "-wqu", "-t", id, labelOption);
+				if (result !== undefined) lastLabel = nextLabel;
+			}
 		});
 		return pending;
 	}
@@ -47,15 +67,20 @@ export default function (pi: ExtensionAPI) {
 		const id = await tmux("display-message", "-p", "-t", pane, "#{window_id}");
 		if (!id || !/^@\d+$/.test(id)) return;
 
-		// In a split window, only one Pi instance controls the status color.
+		// In a split window, only one Pi instance controls the window tab.
 		const owner = String(process.pid);
 		await tmux("set-option", "-woq", "-t", id, ownerOption, owner);
 		if (await tmux("show-options", "-wqv", "-t", id, ownerOption) !== owner) return;
 
 		windowId = id;
+		label = tabLabel(pi.getSessionName());
 		await render();
 	});
 
+	pi.on("session_info_changed", (event) => {
+		label = tabLabel(event.name);
+		return render();
+	});
 	pi.on("agent_start", () => {
 		phase = "running";
 		return render();
@@ -80,6 +105,7 @@ export default function (pi: ExtensionAPI) {
 		await pending;
 		await tmux(
 			"set-option", "-wqu", "-t", id, colorOption, ";",
+			"set-option", "-wqu", "-t", id, labelOption, ";",
 			"set-option", "-wqu", "-t", id, ownerOption,
 		);
 	});
